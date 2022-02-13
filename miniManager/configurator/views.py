@@ -222,6 +222,13 @@ class VersionsView(View):
         args = {"versions": versions, "testPlan": testPlan}
         return render(request, 'versions.html', args)
 
+class HomeView(View):
+    def get(self, request):
+        args = {"error": False, "errorMessage": ""}
+        return render(request, 'home.html', args)
+
+
+
 class TestPlanView(View):
     def get(self, request):
         args = {"error": False, "errorMessage": ""}
