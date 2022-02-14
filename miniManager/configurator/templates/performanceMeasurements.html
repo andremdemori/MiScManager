@@ -2,7 +2,7 @@
   <h5 class="card-header">Parâmetros de medida de performance</h5>
   <div class="card-body">
     <div class="row">
-      <input class="col-1 form-check-input" type="checkbox" name="performancemeasure" id="performancemeasure">
+      <input class="form-check-input" type="checkbox" name="performancemeasure" id="performancemeasure">
       <select class="col-2" name="performancemeasure_name" id="performancemeasure_name">
           {% for measure in measures %}
           <option value="{{measure.name}}">{{measure.name}}</option>
