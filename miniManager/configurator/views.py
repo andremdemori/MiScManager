@@ -218,7 +218,7 @@ class VersionView(ConfigurationView, View):
 class VersionsView(View):
     def get(self, request, test_plan_id):
         testPlan = TestPlan.objects.get(id=test_plan_id)
-        versions = Version.objects.filter(test_plan_id=testPlan.id).all()
+        versions = Version.objects.filter(test_plan_id=testPlan.id).all().order_by('-created_at')
         args = {"versions": versions, "testPlan": testPlan}
         return render(request, 'versions.html', args)
 
@@ -256,7 +256,7 @@ class TestPlanView(View):
 
 class TestPlansView(View):
     def get(self, request):
-        testPlans = TestPlan.objects.all()
+        testPlans = TestPlan.objects.all().order_by('-created_at')
         args = {"testPlans": testPlans}
         return render(request, 'test-plans.html', args)
 
