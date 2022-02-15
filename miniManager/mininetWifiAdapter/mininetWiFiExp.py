@@ -8,7 +8,7 @@ from .constants import MininetConstants
 class MininetWifiExp():
     RUN_CMD = 'sudo python3 -u mininetWifiAdapter/MininetScript.py'
     CLEAR_CMD= 'sudo mn -c && sudo service network-manager restart'
-    KILL_CMD = 'sudo kill -9'
+    KILL_CMD = 'sudo kill -9 && sudo service network-manager restart'
     EXPERIMENT_TIMEOUT = 125
     PROCESS_OFFSET = 2
 
