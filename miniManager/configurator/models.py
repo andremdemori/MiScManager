@@ -52,7 +52,7 @@ class MobilityModel(models.Model):
         db_table = "MobilityModel"
 class Measure(models.Model):
     name = models.CharField(max_length=20)
-    unit = models.CharField(max_length=10, null=True, blank=False)
+    unit = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
         db_table = "Measures"
