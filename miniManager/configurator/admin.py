@@ -9,6 +9,8 @@ admin.site.register(Configuration)
 
 admin.site.register(Measure)
 
+admin.site.register(PerformanceMeasure)
+
 admin.site.register(Measurement)
 
 admin.site.register(PropagationModel)
