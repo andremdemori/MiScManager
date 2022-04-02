@@ -59,7 +59,7 @@ class Measure(models.Model):
 
 class PerformanceMeasure(models.Model):
     name = models.CharField(max_length=30)
-    unit = models.CharField(max_length=10)
+    unit = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
         db_table = "PerformanceMeasure"
