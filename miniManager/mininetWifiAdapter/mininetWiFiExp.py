@@ -7,8 +7,8 @@ from .outputHandler import PartialResultHandler, ErrorHandler, EOFHandler
 from .constants import MininetConstants
 class MininetWifiExp():
     RUN_CMD = 'sudo python3 -u mininetWifiAdapter/MininetScript.py'
-    CLEAR_CMD= 'sudo mn -c && sudo service network-manager restart'
-    KILL_CMD = 'sudo kill -9 && sudo service network-manager restart'
+    CLEAR_CMD= 'sudo mn -c && sudo service network-manager restart && sudo sync && sudo sysctl vm.drop_caches=3'
+    KILL_CMD = 'sudo kill -9 && sudo service network-manager restart && sudo sync && sudo sysctl vm.drop_caches=3'
     EXPERIMENT_TIMEOUT = 125
     PROCESS_OFFSET = 2
 
