@@ -23,7 +23,7 @@ vncserver
 
 export DISPLAY=:1.0; xhost +
 
-6 - Instalar Mininet Wi-Fi
+6 - Instalar Mininet-WiFi
 
 https://github.com/intrig-unicamp/mininet-wifi
 
