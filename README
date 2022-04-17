@@ -1,4 +1,4 @@
-LINK DA INSTÂNCIA AMAZON EC2 (1GB): http://15.228.156.3:8000/
+LINK DA INSTÂNCIA AMAZON EC2 (1GB): http://54.233.142.144:8000/
 
 LINK PARA INSTALAÇÃO DO MININET-WIFI: https://github.com/intrig-unicamp/mininet-wifi
 
@@ -8,4 +8,5 @@ MiniManager é uma aplicação Django Framework.
 Devem ser instalados os pacotes listados no arquivo requirements.txt.
 
 Banco de dados utilizado: PostgreSQL.
+
 

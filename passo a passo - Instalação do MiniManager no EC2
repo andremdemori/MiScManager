@@ -3,6 +3,10 @@
 2 - Mudar Kernel (pode ser o mesmo do video) (pode ser 5.14.1generic...)
 https://www.youtube.com/watch?v=9MfQ0L34pw8&list=LL&index=6&t=671s
 
+sudo apt --fix-broken install
+sudo apt-get update
+sudo apt-get upgrade
+
 3 - Instalar o NetworkManager
 
 sudo apt-get install network-manager
