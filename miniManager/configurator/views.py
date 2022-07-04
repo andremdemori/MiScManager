@@ -33,7 +33,7 @@ class ConfigurationView():
             destination = request.POST.get('performancemeasuredestination')
             period = request.POST.get('performanceperiod')
 
-            measure = PerformanceMeasure.objects.get(name=name)
+            measure = PerformanceMeasure.objects.get(name=name) #ping
             measurement = PerformanceMeasurement(period=period, source=source, destination=destination, measure=measure, config=configuration)
             measurement.save()
             
@@ -75,7 +75,7 @@ class ConfigurationView():
         nodeParams = {}
         for attr in nodeAttributes:
             nodeParams[attr] = request.POST.get(nodeID + "-" + attr)
-        node = Node(network = network, type = type, **nodeParams)
+        node = Node(network=network, type=type, **nodeParams)
         node.save()
 
         specParams = {}
@@ -212,7 +212,7 @@ class VersionView(ConfigurationView, View):
             args.update(self.getHelper())
             return render(request, 'version.html', args)
 
-        url = reverse('versions', kwargs={ 'test_plan_id': testPlanID })
+        url = reverse('versions', kwargs={'test_plan_id': testPlanID })
         return HttpResponseRedirect(url)
 
 class VersionsView(View):
@@ -245,7 +245,7 @@ class TestPlanView(View):
         testplanAuthor = request.POST.get('test-plan_author')
 
         try:
-            testPlan = TestPlan(name=testPlanName, author = testplanAuthor, description = testPlanDescription)
+            testPlan = TestPlan(name=testPlanName, author=testplanAuthor, description = testPlanDescription)
             testPlan.save()
         except:
             args = {"error": True, "errorMessage": "Ocorreu um erro ao salvar o plano de teste, verifique os dados inseridos"}

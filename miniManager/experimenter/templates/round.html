@@ -125,9 +125,11 @@
       myChart.update();
     }
 
+    const pointImage = new Image();
+    pointImage.src = 'https://www.chartjs.org/docs/latest/favicon.ico'
     const getPointByType = (type) => {
       const map = {
-        station: {pointStyle: 'circle', color: '#2196f3'},
+        station: {pointStyle: [pointImage, 'circle', 'triangle', pointImage]},
         accessPoint: {pointStyle: 'triangle', color: '#000000'}
       };
 

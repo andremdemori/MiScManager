@@ -3,8 +3,18 @@ import time
 
 from mininet.node import Controller
 from mn_wifi.link import adhoc
+
+from mn_wifi.cli import CLI
 from mn_wifi.net import Mininet_wifi
-from mininet.log import info
+
+from mininet.log import setLogLevel, info
+from mn_wifi.link import wmediumd, mesh
+from mn_wifi.wmediumdConnector import interference
+from json import dumps
+from requests import put
+from mininet.util import quietRun
+from os import listdir, environ
+import re
 
 class MininetDecoratorComponent(ABC):
     @abstractmethod
@@ -45,7 +55,7 @@ class MininetNetwork(MininetDecoratorComponent):
                 self.__network.addSwitch(node["name"], **node["args"], **node["interface"]["args"])
 
         info("*** Configuring wifi nodes\n")
-        self.__network.configureWifiNodes()
+        self.__network.configureWifiNodes() #self.__network = net
 
 class MininetBaseDecorator(MininetDecoratorComponent):
     def __init__(self, component):
@@ -128,6 +138,10 @@ class NetworkStarterDecorator(MininetBaseDecorator):
         for link in self.__links:
             network.addLink(link["node1"], link["node2"], **link["args"])
 
+        info("*** Creating mesh links\n")
+        for ap in network.aps:
+            network.addLink(ap, intf=str(ap.name)+'-wlan2', cls=mesh, ssid='mesh-ssid', channel=5)
+
         network.telemetry(nodes=network.stations, single=True)
         network.build()
 
@@ -141,3 +155,52 @@ class NetworkStarterDecorator(MininetBaseDecorator):
 
             for s in network.switches:
                 network.get(s.name).start([network.get("c1")])
+
+            ### CÓDIGO PARA RODAR NO MININET DASHBOARD
+
+            for ap in network.aps:
+                ap.cmd('iw dev %s-mp2 interface add %s-mon0 type monitor' % (ap.name, ap.name))  # iw dev to view the available WiFi hardware/interfaces
+                # ap2.cmd('iw dev %s-mp2 interface add %s-mon0 type monitor' % (ap2.name, ap2.name)) # add mon to use monitor mode
+                ap.cmd('ifconfig %s-mon0 up' % ap.name)  # ativar interface
+                # ap2.cmd('ifconfig %s-mon0 up' % ap2.name) # ativar interface
+
+            ifname = 'enp2s0'  # have to be changed to your own iface!
+            collector = environ.get('COLLECTOR', '127.0.0.1')
+            sampling = environ.get('SAMPLING', '10')
+            polling = environ.get('POLLING', '10')
+            sflow = 'ovs-vsctl -- --id=@sflow create sflow agent=%s target=%s ' \
+                    'sampling=%s polling=%s --' % (ifname, collector, sampling, polling)
+
+            for ap in network.aps:
+                sflow += ' -- set bridge %s sflow=@sflow' % ap
+                info(' '.join([ap.name for ap in network.aps]))
+                quietRun(sflow)
+
+            agent = '127.0.0.1'
+            topo = {'nodes': {}, 'links': {}}
+            for ap in network.aps:
+                topo['nodes'][ap.name] = {'agent': agent, 'ports': {}}
+
+            path = '/sys/devices/virtual/mac80211_hwsim/'
+            for child in listdir(path):
+                dir_ = '/sys/devices/virtual/mac80211_hwsim/' + '%s' % child + '/net/'
+                for child_ in listdir(dir_):
+                    node = child_[:3]
+                    if node in topo['nodes']:
+                        ifindex = open(dir_ + child_ + '/ifindex').read().split('\n', 1)[0]
+                        topo['nodes'][node]['ports'][child_] = {'ifindex': ifindex}
+
+            path = '/sys/devices/virtual/net/'
+            for child in listdir(path):
+                parts = re.match('(^.+)-(.+)', child)
+                if parts is None: continue
+                if parts.group(1) in topo['nodes']:
+                    ifindex = open(path + child + '/ifindex').read().split('\n', 1)[0]
+                    topo['nodes'][parts.group(1)]['ports'][child] = {'ifindex': ifindex}
+            #
+            # linkName = '%s-%s' % (ap1.name, ap2.name)
+            # topo['links'][linkName] = {'node1': ap1.name, 'port1': 'ap1-mp2', 'node2': ap2.name, 'port2': 'ap2-mp2'}
+            # linkName = '%s-%s' % (ap1.name, ap2.name)
+            # topo['links'][linkName] = {'node1': ap1.name, 'port1': ap1.wintfs[0].name, 'node2': ap2.name, 'port2': ap2.wintfs[0].name} #interface name
+
+            put('http://127.0.0.1:8008/topology/json', data=dumps(topo))

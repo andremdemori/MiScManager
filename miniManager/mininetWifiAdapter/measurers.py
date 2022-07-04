@@ -146,3 +146,5 @@ class PerformanceMeasurer(IMeasurer):
         #splittedResult = iperfResult.split('\r\n')
         print(iperfResult)
         return []
+
+

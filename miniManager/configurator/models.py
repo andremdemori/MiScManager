@@ -83,8 +83,10 @@ class MobilityParam(models.Model):
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
+    military_organization = models.CharField(max_length=30, blank=True, null=True)
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
+    #recurso
 
     class Meta:
         db_table = "Node"
@@ -97,7 +99,7 @@ class Node(models.Model):
             "switch": Switch
         }
 
-        return nodeTypeToSpecialization[self.type].objects.get(node_id = self.id).serialize()
+        return nodeTypeToSpecialization[self.type].objects.get(node_id=self.id).serialize()
 
     def getInterface(self):
         return Interface.objects.get(node_id = self.id).serialize()
@@ -135,16 +137,17 @@ class Switch(models.Model):
         return {}
 
 class AccessPoint(models.Model):
-    ssid = models.CharField(max_length=30)
+    ssid = models.CharField(max_length=30) # ssid=['ssid1', 'mesh']
     mode = models.CharField(max_length=30)
     channel = models.CharField(max_length=30)
-    node = models.OneToOneField(Node,on_delete=models.CASCADE, unique=True)
+    wlans = models.IntegerField(max_length=30)
+    node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
 
     class Meta:
         db_table = "AccessPoint"
 
     def serialize(self):
-        return {"ssid": self.ssid, "mode": self.mode, "channel": self.channel}
+        return {"ssid": [self.ssid, "mesh"], "mode": self.mode, "channel": self.channel, "wlans": self.wlans}
 
 class Interface(models.Model):
     name = models.CharField(max_length=30)
@@ -204,7 +207,7 @@ class Configuration(models.Model):
 
     def getNodes(self):
         result = []
-        nodes = Node.objects.filter(network_id = self.network.id)
+        nodes = Node.objects.filter(network_id=self.network.id)
 
         for node in nodes:
             nodeObj = node.serialize()
@@ -269,7 +272,7 @@ class Configuration(models.Model):
 
 class PerformanceMeasurement(models.Model):
     period = models.IntegerField()
-    measure = models.ForeignKey(PerformanceMeasure, on_delete=models.CASCADE)
+    measure = models.ForeignKey(PerformanceMeasure, on_delete=models.CASCADE) #ping
     config = models.ForeignKey(Configuration, on_delete=models.CASCADE)
     source = models.CharField(max_length=20)
     destination = models.CharField(max_length=20)
