@@ -16,7 +16,6 @@ class MininetScript():
         self.__configuration = self.__loadConfiguration()
         self.__radioFrequencyMeasurements = self.__configuration["radioFrequencyMeasurements"]
         self.__performanceMeasurements = self.__configuration["performanceMeasurements"]
-        #self.__performanceBehavior = self.__configuration["performanceBehavior"]
         self.__net = None
 
     def __loadConfiguration(self):
@@ -47,10 +46,11 @@ class MininetScript():
         self.__net = networkStarter.getNetwork()
 
     def __analyse(self):
+        nodes_om = self.__configuration["nodes"]
         nodes = { "station": self.__net.stations, "accessPoint": self.__net.aps }
         positionMeasurer = meas.PositionMeasurer(self.__start, nodes)
         radioFrequencyMeasurer = meas.RadioFrequencyMeasurer(self.__start, self.__net.stations, self.__radioFrequencyMeasurements)
-        performanceMeasurer = meas.PerformanceMeasurer(self.__start, self.__net, self.__performanceMeasurements)
+        performanceMeasurer = meas.PerformanceMeasurer(self.__start, self.__net, self.__performanceMeasurements, nodes_om)
 
         measurers = [positionMeasurer, radioFrequencyMeasurer, performanceMeasurer]
 

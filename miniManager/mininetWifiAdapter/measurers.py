@@ -1,3 +1,4 @@
+import random
 from abc import ABC, abstractmethod
 import time
 import math
@@ -96,10 +97,11 @@ class RadioFrequencyMeasurer(IMeasurer):
         return getattr(node.wintfs[0],measureName)
 
 class PerformanceMeasurer(IMeasurer):
-    def __init__(self, start, net, measurements):
+    def __init__(self, start, net, measurements, nodes_om):
         self.__start = start
         self.__net = net
         self.__measurements = measurements
+        self.__nodes_om = nodes_om
 
     def run(self):
         threads = []
@@ -126,15 +128,55 @@ class PerformanceMeasurer(IMeasurer):
         name = measure["name"]
 
         value = []
-        source = self.__net.get(sourceName)
-        destination = self.__net.get(destinationName)
+        stations = []
+        stations_destination = []
+
+        #### Behavior ###
+
+        #captura todos as estações
+        for node in self.__nodes_om:
+            if node["type"] == "station":
+                stations.append(node)
+
+        # CHOOSE SOURCE
+        s = random.choice(stations)
+        source_Name = s["name"]
+        source = self.__net.get(source_Name)
+
+        # CHOOSE DESTINATION
+        if s["military_organization"] == "Brigada":
+            for node in self.__nodes_om:
+                if node["name"] != source_Name and (node["military_organization"] == "Batalhão" or node["military_organization"] == "Regimento" or node["military_organization"] == "Brigada"):
+                    stations_destination.append(node)
+        elif s["military_organization"] == "Batalhão":
+            for node in self.__nodes_om:
+                if node["name"] != source_Name and (node["military_organization"] == "Brigada" or node["military_organization"] == "Regimento" or node["military_organization"] == "Batalhão" or node["military_organization"] == "Companhia"):
+                    stations_destination.append(node)
+        elif s["military_organization"] == "Companhia":
+            for node in self.__nodes_om:
+                if node["name"] != source_Name and (node["military_organization"] == "Batalhão" or node["military_organization"] == "Companhia"):
+                    stations_destination.append(node)
+        elif s["military_organization"] == "Regimento":
+            for node in self.__nodes_om:
+                if node["name"] != source_Name and (node["military_organization"] == "Batalhão" or node["military_organization"] == "Esquadrão" or node["military_organization"] == "Brigada" or node["military_organization"] == "Regimento"):
+                    stations_destination.append(node)
+        elif s["military_organization"] == "Esquadrão":
+            for node in self.__nodes_om:
+                if node["name"] != source_Name and (node["military_organization"] == "Regimento" or node["military_organization"] == "Esquadrão"):
+                    stations_destination.append(node)
+
+
+        d = random.choice(stations_destination)
+        destination_Name = d["name"]
+        destination = self.__net.get(destination_Name)
+
         if name == "ping":
             value = self.__ping(source, destination)
 
         #if name == "Iperf":
             #value = self.__iperf(source, destination)
 
-        return {"name": name, "source": sourceName, "destination": destinationName, "value": value}
+        return {"name": name, "source": source_Name+"-"+s["military_organization"], "destination": destination_Name+"-"+d["military_organization"], "value": value}
 
     def __ping(self, source, destination):
         pingResult = source.cmd('ping', '-c 10 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[0].ip)

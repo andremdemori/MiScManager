@@ -107,7 +107,7 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
-        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs, "interface": interface}
+        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs, "interface": interface, "military_organization": self.military_organization}
 
 class Station(models.Model):
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
