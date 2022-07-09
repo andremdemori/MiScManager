@@ -127,7 +127,7 @@ class PerformanceMeasurer(IMeasurer):
     def __getMeasure(self, measure, sourceName, destinationName):
         name = measure["name"]
 
-        value = []
+        value = ''
         stations = []
         stations_destination = []
 
@@ -137,6 +137,17 @@ class PerformanceMeasurer(IMeasurer):
         for node in self.__nodes_om:
             if node["type"] == "station":
                 stations.append(node)
+
+        ##METADADOS DOS CONTEÚDOS
+        precedence = ['urgente', 'urgentissima', 'preferencial', 'rotina']
+        security_level = ['ultra-secreto', 'secreto', 'confidencial', 'reservado', 'ostensivo']
+
+        ##PRESCRIÇÃO DO EMPREGO-RÁDIO
+        classification = ['rad_sil_absoluto', 'rad_silencio', 'rad_restrito', 'radio_livre']
+
+        prec = random.choice(precedence)  # escolhe a precedência aleatóriamente
+        sec_level = random.choice(security_level)  # escolhe o security_level aleatóriamente
+        classif = random.choice(classification)  # escolhe a classificação aleatóriamente
 
         # CHOOSE SOURCE
         s = random.choice(stations)
@@ -176,10 +187,13 @@ class PerformanceMeasurer(IMeasurer):
         #if name == "Iperf":
             #value = self.__iperf(source, destination)
 
-        return {"name": name, "source": source_Name+"-"+s["military_organization"], "destination": destination_Name+"-"+d["military_organization"], "value": value}
+        return {"name": name + ", sec_level: "+ sec_level + ", precedence: " + prec,
+                "source": source_Name+"-"+s["military_organization"],
+                "destination": destination_Name+"-"+d["military_organization"],
+                "value": value}
 
     def __ping(self, source, destination):
-        pingResult = source.cmd('ping', '-c 10 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[0].ip)
+        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[0].ip)
         splittedResult = pingResult.split('\r\n')
         return [splittedResult[3], splittedResult[4]]
 
