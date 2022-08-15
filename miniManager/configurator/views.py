@@ -13,8 +13,9 @@ class ConfigurationView():
         mmodels = MModelCatalog.objects.all()
         measures = Measure.objects.all()
         pmeasures = PerformanceMeasure.objects.all
+        oms = MilitaryOrganization.objects.all()
 
-        return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures}
+        return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures, "oms": oms}
 
     def __saveMeasurements(self, request, configuration):
         paramlist = request.POST.getlist('radiofrequency')
@@ -53,6 +54,10 @@ class ConfigurationView():
     
     def __saveNode(self, request, network, nodeID):
         type = request.POST.get(nodeID + "-" + "type")
+        om_id = request.POST.get(nodeID + "-" + "military_organization")
+        om = MilitaryOrganization.objects.get(Id=int(om_id))
+        commander_id = request.POST.get(nodeID + "-" + "commander")
+        commander = MilitaryOrganization.objects.get(Id=int(commander_id))
 
         nodeTypeToSaverMap = {
             "station": Station,
@@ -69,13 +74,16 @@ class ConfigurationView():
         nodeAttributeString = request.POST.get(type+"_node_attribute")
         nodeAttributes = self.__parseAttributes(nodeAttributeString)
 
+        nodeAttributes.remove('military_organization')
+        nodeAttributes.remove('commander')
+
         interfaceAttributeString = request.POST.get(type+"_interface_attribute")
         interfaceAttributes = self.__parseAttributes(interfaceAttributeString)
 
         nodeParams = {}
         for attr in nodeAttributes:
             nodeParams[attr] = request.POST.get(nodeID + "-" + attr)
-        node = Node(network=network, type=type, **nodeParams)
+        node = Node(network=network, type=type, military_organization=om, commander=commander, **nodeParams)
         node.save()
 
         specParams = {}
@@ -202,9 +210,10 @@ class VersionView(ConfigurationView, View):
             args.update(self.getHelper())
             return render(request, 'version.html', args)
 
+        #configuration = self.postHelper(request)
         try:
             configuration = self.postHelper(request)
-            version = Version(name=versionName, test_plan_id = testPlanID, configuration=configuration)
+            version = Version(name=versionName, test_plan_id=testPlanID, configuration=configuration)
             version.save()
         except:
             testPlan = TestPlan.objects.get(id=testPlanID)

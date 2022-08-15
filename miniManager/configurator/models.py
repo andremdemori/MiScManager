@@ -80,13 +80,28 @@ class MobilityParam(models.Model):
     class Meta:
         db_table = "MobilityParam"
 
+##########
+#CATEGORY MILITARYORGANIZATION
+class MilitaryOrganization(models.Model):
+    Id = models.AutoField(primary_key=True, unique=True)
+    subkind = models.CharField(max_length=30) #Kinds of Category
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        db_table = "MilitaryOrganization"
+        verbose_name = 'MilitaryOrganization'
+        verbose_name_plural = 'MilitaryOrganization'
+
+        def __str__(self):
+            return self.Id
+
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
-    military_organization = models.CharField(max_length=30, blank=True, null=True)
+    military_organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='military_organization')
+    commander = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='commander')
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
-    #recurso
 
     class Meta:
         db_table = "Node"
@@ -107,7 +122,7 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
-        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs, "interface": interface, "military_organization": self.military_organization}
+        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs, "interface": interface, "military_organization": self.military_organization.Id, "om_name": self.military_organization.name, "subkind": self.military_organization.subkind, "commander": self.commander.Id}
 
 class Station(models.Model):
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)

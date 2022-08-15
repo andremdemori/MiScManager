@@ -127,59 +127,52 @@ class PerformanceMeasurer(IMeasurer):
     def __getMeasure(self, measure, sourceName, destinationName):
         name = measure["name"]
 
-        value = ''
-        stations = []
+        stations = []  # all stations
         stations_destination = []
 
-        #### Behavior ###
-
-        #captura todos as estações
+        # captura todas as estações
         for node in self.__nodes_om:
             if node["type"] == "station":
                 stations.append(node)
 
-        ##METADADOS DOS CONTEÚDOS
-        precedence = ['urgente', 'urgentissima', 'preferencial', 'rotina']
-        security_level = ['ultra-secreto', 'secreto', 'confidencial', 'reservado', 'ostensivo']
-
-        ##PRESCRIÇÃO DO EMPREGO-RÁDIO
-        classification = ['rad_sil_absoluto', 'rad_silencio', 'rad_restrito', 'radio_livre']
-
-        prec = random.choice(precedence)  # escolhe a precedência aleatóriamente
-        sec_level = random.choice(security_level)  # escolhe o security_level aleatóriamente
-        classif = random.choice(classification)  # escolhe a classificação aleatóriamente
-
         # CHOOSE SOURCE
         s = random.choice(stations)
         source_Name = s["name"]
+        source_om_name = s["om_name"]
         source = self.__net.get(source_Name)
 
         # CHOOSE DESTINATION
-        if s["military_organization"] == "Brigada":
-            for node in self.__nodes_om:
-                if node["name"] != source_Name and (node["military_organization"] == "Batalhão" or node["military_organization"] == "Regimento" or node["military_organization"] == "Brigada"):
-                    stations_destination.append(node)
-        elif s["military_organization"] == "Batalhão":
-            for node in self.__nodes_om:
-                if node["name"] != source_Name and (node["military_organization"] == "Brigada" or node["military_organization"] == "Regimento" or node["military_organization"] == "Batalhão" or node["military_organization"] == "Companhia"):
-                    stations_destination.append(node)
-        elif s["military_organization"] == "Companhia":
-            for node in self.__nodes_om:
-                if node["name"] != source_Name and (node["military_organization"] == "Batalhão" or node["military_organization"] == "Companhia"):
-                    stations_destination.append(node)
-        elif s["military_organization"] == "Regimento":
-            for node in self.__nodes_om:
-                if node["name"] != source_Name and (node["military_organization"] == "Batalhão" or node["military_organization"] == "Esquadrão" or node["military_organization"] == "Brigada" or node["military_organization"] == "Regimento"):
-                    stations_destination.append(node)
-        elif s["military_organization"] == "Esquadrão":
-            for node in self.__nodes_om:
-                if node["name"] != source_Name and (node["military_organization"] == "Regimento" or node["military_organization"] == "Esquadrão"):
-                    stations_destination.append(node)
+        for c in self.__nodes_om:
+            if str(c["name"]) != str(s["name"]):
+                if c["type"] == "station" and str(c["subkind"]) == str(s["subkind"]):
+                    stations_destination.append(c)  # insere todos que possuem o mesmo subkind
 
+        for c in self.__nodes_om:
+            if str(c["name"]) != str(s["name"]):
+                if c["type"] == "station" and str(c["commander"]) == str(s["military_organization"]):
+                    stations_destination.append(c)  # insere os subordinados
+
+        for c in self.__nodes_om:
+            if str(c["name"]) != str(s["name"]):
+                if c["type"] == "station" and str(c["military_organization"]) == str(s["commander"]):
+                        stations_destination.append(c)  # insere o comandante do source
+
+        for c in self.__nodes_om:
+            if str(c["name"]) != str(s["name"]):
+                if c["type"] == "station" and str(c["subkind"]) != str(s["subkind"]):
+                    if c["commander"] == str(s["commander"]):
+                        stations_destination.append(c)  # insere aqueles que possuem diferentes kinds mas mesmo commandante
 
         d = random.choice(stations_destination)
         destination_Name = d["name"]
-        destination = self.__net.get(destination_Name)
+        destination_om_name = d["om_name"]
+        destination = self.__net.get(destination_Name)  # escolhe o destino
+
+        ##METADADOS DOS CONTEÚDOS
+        precedence = ['urgente', 'urgentissima', 'preferencial', 'rotina']
+        security_level = ['ultra-secreto', 'secreto', 'confidencial', 'reservado', 'ostensivo']
+        prec = random.choice(precedence)  # escolhe a precedência aleatóriamente
+        sec_level = random.choice(security_level)  # escolhe o security_level aleatóriamente
 
         if name == "ping":
             value = self.__ping(source, destination)
@@ -187,9 +180,9 @@ class PerformanceMeasurer(IMeasurer):
         #if name == "Iperf":
             #value = self.__iperf(source, destination)
 
-        return {"name": name + ", sec_level: "+ sec_level + ", precedence: " + prec,
-                "source": source_Name+"-"+s["military_organization"],
-                "destination": destination_Name+"-"+d["military_organization"],
+        return {"name": name + "-" + "\nprec: " + prec + "\nsec_level: " + sec_level, # <-- data
+                "source": source_Name +"-"+ source_om_name, # + splittedResult2[8],
+                "destination": destination_Name + "-" + destination_om_name,
                 "value": value}
 
     def __ping(self, source, destination):

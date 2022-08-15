@@ -10,7 +10,7 @@
     <div class="new-node">
       <div class="row form-group">
         <div class="col">
-
+<!--
           <label for="node">Selecione o recurso</label>
           <select id="recurso" onchange="buscaClasses(this.value); genderSelectHandler(this.value)" class="form-control">
             <option value="" disabled selected>Selecione o recurso</option>
@@ -24,18 +24,7 @@
             <option value="">Selecione o tipo de recurso</option>
           </select>
           <br/>
-
-          <!--
-          <label for="military_organization">Selecione a organização militar</label>
-          <select id="military_organization" for="mac" name="military_organization" class="form-control">
-            <option value="Brigada">Brigada</option>
-            <option value="Batalhão">Batalhão</option>
-            <option value="Companhia">Companhia</option>
-            <option value="Regimento">Regimento</option>
-            <option value="Esquadrão">Esquadrão</option>
-          </select>
-          <br/>-->
-
+          -->
           <label for="node">Selecione o Tipo de Nó</label>
           <select class="form-control" onchange="onnodeSelect(this)" name="node" id="node">
             <option value="station">Estação</option>
@@ -50,7 +39,7 @@
       </div>
       <div id="station"  class="hidde-element form-group" style="display: none;">
         <input type="hidden" id="station_specific_attribute" name="station_specific_attribute" value="">
-        <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_organization">
+        <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_organization,commander">
         <input type="hidden" id="station_interface_attribute" name="station_interface_attribute" value="ip">
         <div class="form-group row">
           <div class="col">
@@ -58,8 +47,21 @@
             <input type="text" name="station_name" class="form-control" id="station_name" placeholder="sta1">
           </div>
           <div class="col">
-            <label id="military_organization" for="military_organizationstation">Military Organization</label>
-            <input type="text" name="station_military_organization" class="form-control" id="station_military_organization" placeholder="Brigada">
+            <label id="military_organization" for="military_organization">CommDevice Operator's Military organization</label>
+            <select name="station_military_organization" id="station_military_organization">
+              {% for om in oms %}
+                <option value="{{om.Id}}">{{om.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col">
+            <label id="commander" for="commander">Commander</label>
+            <select name="station_commander" id="station_commander">
+              {% for om in oms %}
+                <option value="{{om.Id}}">{{om.name}}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class="col">
             <label id="mac" for="mac">mac address</label>
@@ -73,7 +75,7 @@
       </div>
       <div id="accesspoint"  class="hidde-element form-group" style="display: none;">
         <input type="hidden" id="accesspoint_specific_attribute" name="accesspoint_specific_attribute" value="ssid,mode,channel,wlans">
-        <input type="hidden" id="accesspoint_node_attribute" name="accesspoint_node_attribute" value="name,military_organization">
+        <input type="hidden" id="accesspoint_node_attribute" name="accesspoint_node_attribute" value="name,military_organization,commander">
         <input type="hidden" id="accesspoint_interface_attribute" name="accesspoint_interface_attribute" value="">
         <div class="form-group row">
           <div class="col">
@@ -81,9 +83,27 @@
             <input type="text" name="accesspoint_name" class="form-control" id="accesspoint_name" placeholder="ap1">
           </div>
           <div class="col">
-            <label id="military_organization" for="military_organizationaccess">name</label>
+            <label id="military_organization" for="military_organizationaccess">CommDevice Operator's Military organization</label>
+            <select name="accesspoint_military_organization" id="accesspoint_military_organization">
+              {% for om in oms %}
+                <option value="{{om.Id}}">{{om.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col">
+            <label id="commander" for="commander">Commander</label>
+            <select name="accesspoint_commander" id="accesspoint_commander">
+              {% for om in oms %}
+                <option value="{{om.Id}}">{{om.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <!--
+          <div class="col">
+            <label id="military_organization" for="military_organizationaccess">CommDevice Operator's Military organization</label>
             <input type="text" name="accesspoint_military_organization" class="form-control" id="accesspoint_military_organization" placeholder="Brigada">
           </div>
+          -->
           <div class="col">
             <label id="name" for="ssidlb">ssid</label>
             <input type="text" name="accesspoint_ssid" class="form-control" id="accesspoint_ssid" placeholder="new-ssid"> 
@@ -104,17 +124,19 @@
       </div>
       <div id="host"  class="hidde-element form-group" style="display: none;">
         <input type="hidden" id="host_specific_attribute" name="host_specific_attribute" value="">
-        <input type="hidden" id="host_node_attribute" name="host_node_attribute" value="name,mac,military_organization">
+        <input type="hidden" id="host_node_attribute" name="host_node_attribute" value="name,mac">
         <input type="hidden" id="host_interface_attribute" name="host_interface_attribute" value="ip">
         <div class="form-group row">
           <div class="col">
             <label id="name" for="namehost">name</label>
             <input type="text" name="host_name" class="form-control" id="host_name" placeholder="h1">
           </div>
+          <!--
           <div class="col">
-            <label id="name" for="namehost">Military organization</label>
+            <label id="name" for="namehost">CommDevice Operator's Military organization</label>
             <input type="text" name="host_military_organization" class="form-control" id="host_military_organization" placeholder="Brigada">
           </div>
+          -->
           <div class="col">
             <label id="name" for="mac">mac address</label>
             <input type="text" name="host_mac" class="form-control" id="host_mac" placeholder="00:00:00:00:00:02">
@@ -127,17 +149,19 @@
       </div>
       <div id="switch"  class="hidde-element form-group" style="display: none;">
         <input type="hidden" id="switch_specific_attribute" name="switch_specific_attribute" value="">
-        <input type="hidden" id="switch_node_attribute" name="switch_node_attribute" value="name,military_organization">
+        <input type="hidden" id="switch_node_attribute" name="switch_node_attribute" value="name">
         <input type="hidden" id="switch_interface_attribute" name="switch_interface_attribute" value="">
         <div class="form-group row">
           <div class="col">
             <label id="name" for="switchname">name</label>
             <input type="text" name="switch_name" class="form-control" id="switch_name" placeholder="s1">
           </div>
+          <!--
           <div class="col">
-            <label id="name" for="switchmilitary_organization">military organization</label>
+            <label id="name" for="switchmilitary_organization">CommDevice Operator's Military organization</label>
             <input type="text" name="switch_military_organization" class="form-control" id="switch_military_organization" placeholder="Brigada">
           </div>
+          -->
         </div>
       </div>
     </div>

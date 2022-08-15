@@ -47,3 +47,5 @@ admin.site.register(Interface)
 
 admin.site.register(Link)
 
+admin.site.register(MilitaryOrganization)
+

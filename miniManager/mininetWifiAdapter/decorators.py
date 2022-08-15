@@ -55,7 +55,7 @@ class MininetNetwork(MininetDecoratorComponent):
                 self.__network.addSwitch(node["name"], **node["args"], **node["interface"]["args"])
 
         info("*** Configuring wifi nodes\n")
-        self.__network.configureWifiNodes() #self.__network = net
+        self.__network.configureWifiNodes() #self.__network --> net
 
 class MininetBaseDecorator(MininetDecoratorComponent):
     def __init__(self, component):

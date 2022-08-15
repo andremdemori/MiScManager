@@ -4,7 +4,7 @@
   {% include "network.html" %}
   {% include "propagationModel.html" with pmodels=pmodels only %}
   {% include "mobilityModel.html" with mmodels=mmodels only %}
-  {% include "nodes.html" %}
+  {% include "nodes.html" with oms=oms only %}
   {% include "links.html" %}
   {% include "radioFrequencyMeasurements.html" with measures=measures only %}
   {% include "performanceMeasurements.html" with measures=pmeasures only %}
