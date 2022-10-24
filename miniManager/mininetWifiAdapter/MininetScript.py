@@ -37,7 +37,7 @@ class MininetScript():
     def __topology(self):
         networkAttributes = self.__configuration["network"]["args"]
         isAdhoc = self.__configuration["network"]["adhoc"]
-        mininetNetwork = decorators.MininetNetwork(networkAttributes, self.__configuration["nodes"], isAdhoc)
+        mininetNetwork = decorators.MininetNetwork(networkAttributes, self.__configuration["nodes"], isAdhoc, self.__configuration["mobilityModel"])
         propagationModel = decorators.PropagationModelDecorator(mininetNetwork, self.__configuration["propagationModel"])
         mobilityModel = decorators.MobilityModelDecorator(propagationModel, self.__configuration["mobilityModel"])
         networkStarter = decorators.NetworkStarterDecorator(mobilityModel, self.__configuration["links"], isAdhoc)

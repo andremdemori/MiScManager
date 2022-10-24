@@ -1,20 +1,12 @@
 from abc import ABC, abstractmethod
-import time
 
+from mininet.log import info
 from mininet.node import Controller
 from mn_wifi.link import adhoc
-
-from mn_wifi.cli import CLI
+from mn_wifi.link import wmediumd
 from mn_wifi.net import Mininet_wifi
-
-from mininet.log import setLogLevel, info
-from mn_wifi.link import wmediumd, mesh
 from mn_wifi.wmediumdConnector import interference
-from json import dumps
-from requests import put
-from mininet.util import quietRun
-from os import listdir, environ
-import re
+
 
 class MininetDecoratorComponent(ABC):
     @abstractmethod
@@ -25,11 +17,12 @@ class MininetDecoratorComponent(ABC):
     def getNetwork(self):
         pass
 class MininetNetwork(MininetDecoratorComponent):
-    def __init__(self, networkAttributes, nodes, isAdhoc):
+    def __init__(self, networkAttributes, nodes, isAdhoc, mobilityModel):
         self.__network = None
         self.__nodes = nodes
         self.__networkAttributes = networkAttributes
         self.__isAdhoc = isAdhoc
+        self.__mobilityModel = mobilityModel
 
     def getNetwork(self):
         return self.__network
@@ -38,24 +31,43 @@ class MininetNetwork(MininetDecoratorComponent):
         info("*** Creating network\n")
 
         if self.__isAdhoc:
-            self.__network = Mininet_wifi(**self.__networkAttributes)
+            self.__network = Mininet_wifi(link=wmediumd, wmediumd_mode=interference, **self.__networkAttributes)
         else:
-            self.__network = Mininet_wifi(controller=Controller, **self.__networkAttributes)
+            self.__network = Mininet_wifi(link=wmediumd, wmediumd_mode=interference, controller=Controller, **self.__networkAttributes)
             self.__network.addController('c1')
         
         info("*** Creating nodes\n")
         for node in self.__nodes:
             if node["type"] == "station":
-                self.__network.addStation(node["name"], **node["args"], **node["interface"]["args"])
+                if node["args"]["check_position"] == "3":  # random move
+                    self.__network.addStation(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) # **node["interface"]["args"]
+                elif node["args"]["check_position"] == "2":
+                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["args"]["v_min"], max_v=node["args"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                elif node["args"]["check_position"] == "1":
+                    self.__network.addStation(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
             if node["type"] == "accesspoint":
-                self.__network.addAccessPoint(node["name"], **node["args"], **node["interface"]["args"])
+                if node["args"]["check_position"] == "3":  # random move
+                    self.__network.addAccessPoint(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) #**node["args"]
+                elif node["args"]["check_position"] == "2":
+                    self.__network.addAccessPoint(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["y_max"], min_v=node["args"]["v_min"], max_v=node["args"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                elif node["args"]["check_position"] == "1":
+                    self.__network.addAccessPoint(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
             if node["type"] == "host":
-                self.__network.addHost(node["name"], **node["args"], **node["interface"]["args"])
+                self.__network.addHost(node["name"], **node["args"], wlans=2)
             if node["type"] == "switch":
-                self.__network.addSwitch(node["name"], **node["args"], **node["interface"]["args"])
+                self.__network.addSwitch(node["name"], **node["args"])
 
         info("*** Configuring wifi nodes\n")
         self.__network.configureWifiNodes() #self.__network --> net
+
+        info("*** Configuring interfaces\n")
+        network = self.getNetwork()
+        for station in network.stations:
+            station_name = str(station.name)
+            for node in self.__nodes:
+                if node["name"] == station_name:
+                    station.setIP(str(node["interface"]["args"]["ip_intf1"]), intf=station.wintfs[1].name) #'10.0.0.2/16'
+                    station.setIP(str(node["interface"]["args"]["ip_intf0"]), intf=station.wintfs[0].name) #'10.2.2.2/15'
 
 class MininetBaseDecorator(MininetDecoratorComponent):
     def __init__(self, component):
@@ -135,19 +147,25 @@ class NetworkStarterDecorator(MininetBaseDecorator):
         info("*** Starting network\n")
         network = self.getNetwork()
 
+        # TWO NODES LINK
         for link in self.__links:
             network.addLink(link["node1"], link["node2"], **link["args"])
 
-        info("*** Creating mesh links\n")
-        for ap in network.aps:
-            network.addLink(ap, intf=str(ap.name)+'-wlan2', cls=mesh, ssid='mesh-ssid', channel=5)
+        #info("*** Creating mesh links\n") # Sflow-RT
+        #for ap in network.aps:
+            #network.addLink(ap, intf=str(ap.name)+'-wlan2', cls=mesh, ssid='mesh-ssid', channel=5)
 
         network.telemetry(nodes=network.stations, single=True)
         network.build()
 
         if self.__isAdhoc:
             for station in network.stations:
-                network.addLink(station, cls=adhoc, intf=station.wintfs[0].name, ssid='adhocNet')
+                network.addLink(station, cls=adhoc, intf=station.wintfs[1].name, ssid='adhocNet',
+                                mode='g', channel=5, ht_cap='HT40+')
+                network.addLink(station, cls=adhoc, intf=station.wintfs[0].name, ssid='adhocNet',
+                                mode='g', channel=5, ht_cap='HT40+')
+
+                # if node has wlans=2, addLink for another interface
         else:
             network.get("c1").start()
             for ap in network.aps:
@@ -156,8 +174,10 @@ class NetworkStarterDecorator(MininetBaseDecorator):
             for s in network.switches:
                 network.get(s.name).start([network.get("c1")])
 
-            ### CÓDIGO PARA RODAR NO MININET DASHBOARD
 
+
+            ### CÓDIGO PARA RODAR NO MININET DASHBOARD
+            '''
             for ap in network.aps:
                 ap.cmd('iw dev %s-mp2 interface add %s-mon0 type monitor' % (ap.name, ap.name))  # iw dev to view the available WiFi hardware/interfaces
                 # ap2.cmd('iw dev %s-mp2 interface add %s-mon0 type monitor' % (ap2.name, ap2.name)) # add mon to use monitor mode
@@ -204,3 +224,4 @@ class NetworkStarterDecorator(MininetBaseDecorator):
             # topo['links'][linkName] = {'node1': ap1.name, 'port1': ap1.wintfs[0].name, 'node2': ap2.name, 'port2': ap2.wintfs[0].name} #interface name
 
             put('http://127.0.0.1:8008/topology/json', data=dumps(topo))
+            '''

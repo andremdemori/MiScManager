@@ -56,8 +56,6 @@ class ConfigurationView():
         type = request.POST.get(nodeID + "-" + "type")
         om_id = request.POST.get(nodeID + "-" + "military_organization")
         om = MilitaryOrganization.objects.get(Id=int(om_id))
-        commander_id = request.POST.get(nodeID + "-" + "commander")
-        commander = MilitaryOrganization.objects.get(Id=int(commander_id))
 
         nodeTypeToSaverMap = {
             "station": Station,
@@ -75,7 +73,6 @@ class ConfigurationView():
         nodeAttributes = self.__parseAttributes(nodeAttributeString)
 
         nodeAttributes.remove('military_organization')
-        nodeAttributes.remove('commander')
 
         interfaceAttributeString = request.POST.get(type+"_interface_attribute")
         interfaceAttributes = self.__parseAttributes(interfaceAttributeString)
@@ -83,7 +80,7 @@ class ConfigurationView():
         nodeParams = {}
         for attr in nodeAttributes:
             nodeParams[attr] = request.POST.get(nodeID + "-" + attr)
-        node = Node(network=network, type=type, military_organization=om, commander=commander, **nodeParams)
+        node = Node(network=network, type=type, military_organization=om, **nodeParams)
         node.save()
 
         specParams = {}
@@ -132,7 +129,8 @@ class ConfigurationView():
         links = linksString.split(",")
 
         for linkID in links:
-            self.__saveLink(request, linkID, nodeToInterfaceMap)
+            if linkID != '':
+                self.__saveLink(request, linkID, nodeToInterfaceMap)
 
     def __saveNetwork(self, request):
         adhoc = request.POST.get('adhoc') == 'on'

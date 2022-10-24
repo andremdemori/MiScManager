@@ -86,6 +86,7 @@ class MilitaryOrganization(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
     subkind = models.CharField(max_length=30) #Kinds of Category
     name = models.CharField(max_length=30)
+    commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = "MilitaryOrganization"
@@ -99,7 +100,6 @@ class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
     military_organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='military_organization')
-    commander = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='commander')
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
 
@@ -122,16 +122,31 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
-        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs, "interface": interface, "military_organization": self.military_organization.Id, "om_name": self.military_organization.name, "subkind": self.military_organization.subkind, "commander": self.commander.Id}
+        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
+                "interface": interface, "military_organization": self.military_organization.Id,
+                "om_name": self.military_organization.name, "subkind": self.military_organization.subkind,
+                "commander": self.military_organization.commander}
 
 class Station(models.Model):
+    check_position = models.CharField(max_length=1, blank=True, null=True)
+    position_node = models.CharField(max_length=30, blank=True, null=True)
+    x_min = models.FloatField(max_length=30, blank=True, null=True)
+    x_max = models.FloatField(max_length=30, blank=True, null=True)
+    y_min = models.FloatField(max_length=30, blank=True, null=True)
+    y_max = models.FloatField(max_length=30, blank=True, null=True)
+    v_min = models.FloatField(max_length=30, blank=True, null=True)
+    v_max = models.FloatField(max_length=30, blank=True, null=True)
+    range = models.FloatField(max_length=30, blank=True, null=True)
+    antenna_gain = models.FloatField(max_length=30, blank=True, null=True)
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
 
     class Meta:
         db_table = "Station"
     
     def serialize(self):
-        return {}
+        return {"check_position": self.check_position,
+                "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
+                "y_max": self.y_max, "v_min": self.v_min, "v_max": self.v_min, "range": self.range, "antenna_gain": self.antenna_gain}
 
 class Host(models.Model):
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
@@ -156,24 +171,38 @@ class AccessPoint(models.Model):
     mode = models.CharField(max_length=30)
     channel = models.CharField(max_length=30)
     wlans = models.IntegerField(max_length=30)
+    check_position = models.CharField(max_length=1, blank=True, null=True)
+    position_node = models.CharField(max_length=30, blank=True, null=True)
+    x_min = models.FloatField(max_length=30, blank=True, null=True)
+    x_max = models.FloatField(max_length=30, blank=True, null=True)
+    y_min = models.FloatField(max_length=30, blank=True, null=True)
+    y_max = models.FloatField(max_length=30, blank=True, null=True)
+    v_min = models.FloatField(max_length=30, blank=True, null=True)
+    v_max = models.FloatField(max_length=30, blank=True, null=True)
+    range = models.FloatField(max_length=30, blank=True, null=True)
+    antenna_gain = models.FloatField(max_length=30, blank=True, null=True)
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
 
     class Meta:
         db_table = "AccessPoint"
 
     def serialize(self):
-        return {"ssid": [self.ssid, "mesh"], "mode": self.mode, "channel": self.channel, "wlans": self.wlans}
+        return {"ssid": [self.ssid, "mesh"], "mode": self.mode, "channel": self.channel, "wlans": self.wlans,
+                "check_position": self.check_position,
+                "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
+                "y_max": self.y_max, "v_min": self.v_min, "v_max": self.v_min, "range": self.range, "antenna_gain": self.antenna_gain}
 
 class Interface(models.Model):
     name = models.CharField(max_length=30)
-    ip = models.CharField(max_length=30)
-    node = models.ForeignKey(Node, on_delete=models.CASCADE) 
+    ip_intf0 = models.CharField(max_length=30)
+    ip_intf1 = models.CharField(max_length=30)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Interface"
 
     def serialize(self):
-        args = {"ip": self.ip}
+        args = {"ip_intf0": self.ip_intf0, "ip_intf1": self.ip_intf1}
         return {"id": self.id, "name": self.name, "args": args}
 
 class Link(models.Model):

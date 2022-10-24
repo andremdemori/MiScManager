@@ -15,6 +15,35 @@ body {
   backface-visibility: hidden;
 }
 
+.button {
+  background-color: white;
+  color: #1E90FF;
+  padding: 0px;
+  display: inline-block;
+  font-size: 25px;
+  height: 25px;
+  width: 25px;
+  font: italic 1.2em "Fira Sans", serif;
+  margin: 2px 2px;
+
+}
+
+.button1 {border-radius: 50%;
+          border: 2px solid #1E90FF;}
+
+.mensagem{
+  display:none;
+  position:absolute;
+  top: -100%; /* Usei % para que voce entenda que da para se adaptar com o tamanho do botão/container ou qualquer outra coisa a qual a mensagem esta relacionada*/
+  left:0;
+  right:0;
+  margin: auto;
+  width:100px;
+  height:20px;
+  border:1px solid red;}
+
+
+
 h1, h2, h3, h4 {
   font-size: 35px;
   color: #222222;

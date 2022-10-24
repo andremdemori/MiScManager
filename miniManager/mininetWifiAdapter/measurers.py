@@ -5,6 +5,9 @@ import math
 
 import constants
 import threading
+import json
+
+import os
 
 class IMeasurer(ABC):
     @abstractmethod
@@ -129,6 +132,26 @@ class PerformanceMeasurer(IMeasurer):
 
         stations = []  # all stations
         stations_destination = []
+        next_hop_commander = ''
+        next_hop = ''
+        source_commander = ''
+        destination_commander = ''
+        id_sec_commander = ''
+        node_atual = ''
+        next_node_name = ''
+        commander_network_name = None
+        id_sub = ''
+
+        source_commanders = []
+        destination_commanders = []
+        subordinados_atuais = []
+        #value = ''
+
+        ##METADADOS DOS CONTEÚDOS
+        precedence = ['urgente', 'urgentissima', 'preferencial', 'rotina']
+        security_level = ['ultra-secreto', 'secreto', 'confidencial', 'reservado', 'ostensivo']
+        prec = random.choice(precedence)  # escolhe a precedência aleatóriamente
+        sec_level = random.choice(security_level)  # escolhe o security_level aleatóriamente
 
         # captura todas as estações
         for node in self.__nodes_om:
@@ -138,55 +161,167 @@ class PerformanceMeasurer(IMeasurer):
         # CHOOSE SOURCE
         s = random.choice(stations)
         source_Name = s["name"]
+
+        if s["commander"] is not None:
+            source_commander = s["commander"]["Id"]
+        else:
+            source_commander = None
+        comandante_fonte = source_commander
+
+        source_om = s["military_organization"]
         source_om_name = s["om_name"]
         source = self.__net.get(source_Name)
 
+        #preenche a lista com todos os comandantes de source
+        while comandante_fonte != None:
+            for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o encaminhamento
+                if node["military_organization"] == comandante_fonte:
+                    source_commanders.append(node["name"]) # insere na lista
+                    if node["commander"] is not None:
+                        comandante_fonte = node["commander"]["Id"] # pega o próximo comandante
+                    else:
+                        comandante_fonte = None
+
         # CHOOSE DESTINATION
-        for c in self.__nodes_om:
-            if str(c["name"]) != str(s["name"]):
-                if c["type"] == "station" and str(c["subkind"]) == str(s["subkind"]):
-                    stations_destination.append(c)  # insere todos que possuem o mesmo subkind
 
-        for c in self.__nodes_om:
-            if str(c["name"]) != str(s["name"]):
-                if c["type"] == "station" and str(c["commander"]) == str(s["military_organization"]):
-                    stations_destination.append(c)  # insere os subordinados
+        #proibir de ser igual ao source
 
-        for c in self.__nodes_om:
-            if str(c["name"]) != str(s["name"]):
-                if c["type"] == "station" and str(c["military_organization"]) == str(s["commander"]):
-                        stations_destination.append(c)  # insere o comandante do source
-
-        for c in self.__nodes_om:
-            if str(c["name"]) != str(s["name"]):
-                if c["type"] == "station" and str(c["subkind"]) != str(s["subkind"]):
-                    if c["commander"] == str(s["commander"]):
-                        stations_destination.append(c)  # insere aqueles que possuem diferentes kinds mas mesmo commandante
-
-        d = random.choice(stations_destination)
+        d = random.choice(stations)
         destination_Name = d["name"]
+        if d["commander"] is not None:
+            destination_commander = d["commander"]["Id"]
+        else:
+            destination_commander = None
+        comandante_destino = destination_commander
+        destination_om = d["military_organization"]
         destination_om_name = d["om_name"]
-        destination = self.__net.get(destination_Name)  # escolhe o destino
+        destination = self.__net.get(destination_Name)
 
-        ##METADADOS DOS CONTEÚDOS
-        precedence = ['urgente', 'urgentissima', 'preferencial', 'rotina']
-        security_level = ['ultra-secreto', 'secreto', 'confidencial', 'reservado', 'ostensivo']
-        prec = random.choice(precedence)  # escolhe a precedência aleatóriamente
-        sec_level = random.choice(security_level)  # escolhe o security_level aleatóriamente
+        #preenche a lista com todos os comandantes de destination
+        destination_commanders.append(d["name"]) #salva o próprio destino na lista para descida
+        while comandante_destino != None:
+            for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o encaminhamento
+                if node["military_organization"] == comandante_destino:
+                    destination_commanders.append(node["name"]) # insere na lista
+                    if node["commander"] is not None:
+                        comandante_destino = node["commander"]["Id"] # pega o próximo comandante
+                    else:
+                        comandante_destino = None
+                        destination_commanders.pop() # apaga o último pois é quem vai começar a encaminhar pra baixo
 
-        if name == "ping":
-            value = self.__ping(source, destination)
+
+        # PROCEDIMENTO DE ENVIO
+
+        #PRIMEIRO CASO: ENVIAR PARA O COMANDANTE
+        if source_commander == destination_om:
+            value = self.__pingcommander(source, destination)
+
+        #SEGUNDO CASO: ENVIAR PARA O SUBORDINADO
+        elif source_om == destination_commander:
+            value = self.__pingsubordinate(source, destination)
+
+        #TERCEIRO CASO: VERIFICAR SE SOURCE E DESTINATION POSSUEM O MESMO COMANDANTE
+        elif source_commander == destination_commander:
+            for node in self.__nodes_om: # encontra o nó que é o comandante para fazer o encaminhamento
+                if node["military_organization"] == source_commander:
+                    commander_network_name = node["name"]
+                    next_hop = self.__net.get(commander_network_name)
+
+            value = self.__pingcommander(source, next_hop) #um pra cima
+            value = value + self.__pingsubordinate(next_hop, destination) #e um pra baixo
+
+        #QUARTO CASO: NÃO É O COMANDANTE, NEM TEM O MESMO COMANDANTE ENTÃO ENVIA PARA O COMANDANTE RECURSIVAMENTE
+        #RECURSIVAMENTE ENVIA PARA O COMANDANTE DE NOVO E VERIFICA SE É O DESTINO
+        #SUBIDA RECURSIVA
+        elif source_commander != destination_commander:
+            node_atual = source
+            x = 0
+            # pega o próximo nó
+            next_node_name = source_commanders[0]
+
+            for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o primeiro encaminhamento
+                if node["name"] == next_node_name:
+                    commander_network_name = node["name"]
+                    next_hop = self.__net.get(commander_network_name)
+                    if node["commander"] is not None:
+                        next_hop_commander = node["commander"]["Id"]  # e pega o comandante dele
+                        for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o primeiro encaminhamento
+                            if node["military_organization"] == next_hop_commander:
+                                next_hop_commander = node["name"] # pega o nome do comandante dele
+                    else:
+                        next_hop_commander = None
+            value = self.__pingcommander(node_atual, next_hop) # envia para o comandante direto
+            node_atual = next_hop
+            next_node_name = next_hop_commander
+            source_commanders.pop(0) # apaga o próximo nó da lista de comandantes
+            #if commander_network_name == destination_Name:
+            #    x = 1 # destino final
+            if next_hop_commander == None:
+                x = 1 #não da mais pra subir
+            # entra em loop para subida até encontrar o destino ou o limite
+            while x == 0:
+                for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o encaminhamento
+                    if node["name"] == next_node_name:
+                        commander_network_name = node["name"]
+                        next_hop = self.__net.get(commander_network_name)
+                        if node["commander"] is not None:
+                            next_hop_commander = node["commander"]["Id"]  # e pega o comandante dele
+                            for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o primeiro encaminhamento
+                                if node["military_organization"] == next_hop_commander:
+                                    next_hop_commander = node["name"]  # pega o nome do comandante dele
+                        else:
+                            next_hop_commander = None
+                value = value + self.__pingcommander(node_atual, next_hop)
+                node_atual = next_hop
+                next_node_name = next_hop_commander
+                source_commanders.pop(0)  # apaga o próximo nó da lista de comandantes
+                if commander_network_name == destination_Name:
+                    x = 3  # destino final
+                elif next_hop_commander == None:
+                    x = 1  # não da mais pra subir
+
+            # DESCIDA RECURSIVA
+            if x == 1:
+                while x == 1:
+                    for node in self.__nodes_om:
+                        if node["name"] == destination_commanders[-1]: # o último da lista de comandantes vai ser o primeiro a recebe de cima pra baixo
+                            subordinate_network_name = node["name"]
+                            next_hop = self.__net.get(subordinate_network_name)
+                    value = value + self.__pingsubordinate(node_atual, next_hop)
+                    print(node_atual.cmd('xterm'))
+                    node_atual = next_hop
+                    destination_commanders.pop() # apaga o nó atual
+                    if subordinate_network_name == destination_Name:
+                        x = 2  # destino final
+
+        #elif name == "ping":
+            #value = self.__ping(source, destination)
+
+        #if name == "ping":
+            #value = self.__ping(source, destination)
 
         #if name == "Iperf":
             #value = self.__iperf(source, destination)
+
+        #print(source.cmd('xterm'))
 
         return {"name": name + "-" + "\nprec: " + prec + "\nsec_level: " + sec_level, # <-- data
                 "source": source_Name +"-"+ source_om_name, # + splittedResult2[8],
                 "destination": destination_Name + "-" + destination_om_name,
                 "value": value}
 
+    def __pingcommander(self, source, destination):
+        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[1].ip, destination.wintfs[0].ip)#10
+        splittedResult = pingResult.split('\r\n')
+        return [splittedResult[3], splittedResult[4]]
+
+    def __pingsubordinate(self, source, destination):
+        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[1].ip)#01
+        splittedResult = pingResult.split('\r\n')
+        return [splittedResult[3], splittedResult[4]]
+
     def __ping(self, source, destination):
-        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[0].ip)
+        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[1].ip, destination.wintfs[1].ip)
         splittedResult = pingResult.split('\r\n')
         return [splittedResult[3], splittedResult[4]]
 
