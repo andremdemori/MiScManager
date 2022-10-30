@@ -158,7 +158,7 @@ class PerformanceMeasurer(IMeasurer):
             if node["type"] == "station":
                 stations.append(node)
 
-        # CHOOSE SOURCE
+        # CHOOSE RANDOM SOURCE
         s = random.choice(stations)
         source_Name = s["name"]
 
@@ -182,7 +182,7 @@ class PerformanceMeasurer(IMeasurer):
                     else:
                         comandante_fonte = None
 
-        # CHOOSE DESTINATION
+        # CHOOSE RANDOM DESTINATION
 
         #proibir de ser igual ao source
 
@@ -210,15 +210,21 @@ class PerformanceMeasurer(IMeasurer):
                         destination_commanders.pop() # apaga o último pois é quem vai começar a encaminhar pra baixo
 
 
-        # PROCEDIMENTO DE ENVIO
+        # PROCEDIMENTO DE ENVIO - ALGORITMO RECURSIVO DE ENCAMINHAMENTO DE MENSAGENS
 
         #PRIMEIRO CASO: ENVIAR PARA O COMANDANTE
         if source_commander == destination_om:
             value = self.__pingcommander(source, destination)
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
 
         #SEGUNDO CASO: ENVIAR PARA O SUBORDINADO
         elif source_om == destination_commander:
             value = self.__pingsubordinate(source, destination)
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
 
         #TERCEIRO CASO: VERIFICAR SE SOURCE E DESTINATION POSSUEM O MESMO COMANDANTE
         elif source_commander == destination_commander:
@@ -228,7 +234,14 @@ class PerformanceMeasurer(IMeasurer):
                     next_hop = self.__net.get(commander_network_name)
 
             value = self.__pingcommander(source, next_hop) #um pra cima
-            value = value + self.__pingsubordinate(next_hop, destination) #e um pra baixo
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
+            else:
+                value = value + self.__pingsubordinate(next_hop, destination) #e um pra baixo
+                saida = str(value)
+                if '0 recebidos' in saida:
+                    value = value + list('Falha no encaminhamento')
 
         #QUARTO CASO: NÃO É O COMANDANTE, NEM TEM O MESMO COMANDANTE ENTÃO ENVIA PARA O COMANDANTE RECURSIVAMENTE
         #RECURSIVAMENTE ENVIA PARA O COMANDANTE DE NOVO E VERIFICA SE É O DESTINO
@@ -256,46 +269,56 @@ class PerformanceMeasurer(IMeasurer):
             source_commanders.pop(0) # apaga o próximo nó da lista de comandantes
             #if commander_network_name == destination_Name:
             #    x = 1 # destino final
-            if next_hop_commander == None:
-                x = 1 #não da mais pra subir
-            # entra em loop para subida até encontrar o destino ou o limite
-            while x == 0:
-                for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o encaminhamento
-                    if node["name"] == next_node_name:
-                        commander_network_name = node["name"]
-                        next_hop = self.__net.get(commander_network_name)
-                        if node["commander"] is not None:
-                            next_hop_commander = node["commander"]["Id"]  # e pega o comandante dele
-                            for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o primeiro encaminhamento
-                                if node["military_organization"] == next_hop_commander:
-                                    next_hop_commander = node["name"]  # pega o nome do comandante dele
-                        else:
-                            next_hop_commander = None
-                value = value + self.__pingcommander(node_atual, next_hop)
-                node_atual = next_hop
-                next_node_name = next_hop_commander
-                source_commanders.pop(0)  # apaga o próximo nó da lista de comandantes
-                if commander_network_name == destination_Name:
-                    x = 3  # destino final
-                elif next_hop_commander == None:
-                    x = 1  # não da mais pra subir
-
-            # DESCIDA RECURSIVA
-            if x == 1:
-                while x == 1:
-                    for node in self.__nodes_om:
-                        if node["name"] == destination_commanders[-1]: # o último da lista de comandantes vai ser o primeiro a recebe de cima pra baixo
-                            subordinate_network_name = node["name"]
-                            next_hop = self.__net.get(subordinate_network_name)
-                    value = value + self.__pingsubordinate(node_atual, next_hop)
-                    print(node_atual.cmd('xterm'))
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
+            else:
+                if next_hop_commander == None:
+                    x = 1 #não da mais pra subir
+                # entra em loop para subida até encontrar o destino ou o limite
+                while x == 0:
+                    for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o encaminhamento
+                        if node["name"] == next_node_name:
+                            commander_network_name = node["name"]
+                            next_hop = self.__net.get(commander_network_name)
+                            if node["commander"] is not None:
+                                next_hop_commander = node["commander"]["Id"]  # e pega o comandante dele
+                                for node in self.__nodes_om:  # encontra o nó que é o comandante para fazer o primeiro encaminhamento
+                                    if node["military_organization"] == next_hop_commander:
+                                        next_hop_commander = node["name"]  # pega o nome do comandante dele
+                            else:
+                                next_hop_commander = None
+                    value = value + self.__pingcommander(node_atual, next_hop)
                     node_atual = next_hop
-                    destination_commanders.pop() # apaga o nó atual
-                    if subordinate_network_name == destination_Name:
-                        x = 2  # destino final
+                    next_node_name = next_hop_commander
+                    source_commanders.pop(0)  # apaga o próximo nó da lista de comandantes
+                    saida = str(value)
+                    if '0 recebidos' in saida:
+                        value = value + list('Falha no encaminhamento')
+                        break
+                    else:
+                        if commander_network_name == destination_Name:
+                            x = 3  # destino final
+                        elif next_hop_commander == None:
+                            x = 1  # não da mais pra subir
 
-        #elif name == "ping":
-            #value = self.__ping(source, destination)
+                # DESCIDA RECURSIVA
+                if x == 1:
+                    while x == 1:
+                        for node in self.__nodes_om:
+                            if node["name"] == destination_commanders[-1]: # o último da lista de comandantes vai ser o primeiro a recebe de cima pra baixo
+                                subordinate_network_name = node["name"]
+                                next_hop = self.__net.get(subordinate_network_name)
+                        value = value + self.__pingsubordinate(node_atual, next_hop)
+                        node_atual = next_hop
+                        destination_commanders.pop() # apaga o nó atual
+                        saida = str(value)
+                        if '0 recebidos' in saida:
+                            value = value + list('Falha no encaminhamento')
+                            break
+                        else:
+                            if subordinate_network_name == destination_Name:
+                                x = 2  # destino final
 
         #if name == "ping":
             #value = self.__ping(source, destination)
@@ -305,8 +328,8 @@ class PerformanceMeasurer(IMeasurer):
 
         #print(source.cmd('xterm'))
 
-        return {"name": name + "-" + "\nprec: " + prec + "\nsec_level: " + sec_level, # <-- data
-                "source": source_Name +"-"+ source_om_name, # + splittedResult2[8],
+        return {"name": name + "-" + "\nprec: " + prec + "\nsec_level: " + sec_level,
+                "source": source_Name +"-"+ source_om_name,
                 "destination": destination_Name + "-" + destination_om_name,
                 "value": value}
 
@@ -321,7 +344,7 @@ class PerformanceMeasurer(IMeasurer):
         return [splittedResult[3], splittedResult[4]]
 
     def __ping(self, source, destination):
-        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[1].ip, destination.wintfs[1].ip)
+        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[0].ip)
         splittedResult = pingResult.split('\r\n')
         return [splittedResult[3], splittedResult[4]]
 
