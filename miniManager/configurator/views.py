@@ -33,9 +33,10 @@ class ConfigurationView():
             source = request.POST.get('performancemeasuresource')
             destination = request.POST.get('performancemeasuredestination')
             period = request.POST.get('performanceperiod')
+            random_choice = int(request.POST.get('random_choice'))
 
             measure = PerformanceMeasure.objects.get(name=name) #ping
-            measurement = PerformanceMeasurement(period=period, source=source, destination=destination, measure=measure, config=configuration)
+            measurement = PerformanceMeasurement(period=period, source=source, destination=destination, random_choice=random_choice, measure=measure, config=configuration)
             measurement.save()
             
 

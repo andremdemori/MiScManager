@@ -40,17 +40,19 @@ class MininetScript():
         mininetNetwork = decorators.MininetNetwork(networkAttributes, self.__configuration["nodes"], isAdhoc, self.__configuration["mobilityModel"])
         propagationModel = decorators.PropagationModelDecorator(mininetNetwork, self.__configuration["propagationModel"])
         mobilityModel = decorators.MobilityModelDecorator(propagationModel, self.__configuration["mobilityModel"])
-        networkStarter = decorators.NetworkStarterDecorator(mobilityModel, self.__configuration["links"], isAdhoc)
+        networkStarter = decorators.NetworkStarterDecorator(mobilityModel, self.__configuration["links"], isAdhoc, self.__configuration["nodes"])
         
         networkStarter.configure()
         self.__net = networkStarter.getNetwork()
 
     def __analyse(self):
         nodes_om = self.__configuration["nodes"]
+        isAdhoc = self.__configuration["network"]["adhoc"]
+        random_choice = self.__configuration["performanceMeasurements"]
         nodes = { "station": self.__net.stations, "accessPoint": self.__net.aps }
         positionMeasurer = meas.PositionMeasurer(self.__start, nodes)
-        radioFrequencyMeasurer = meas.RadioFrequencyMeasurer(self.__start, self.__net.stations, self.__radioFrequencyMeasurements)
-        performanceMeasurer = meas.PerformanceMeasurer(self.__start, self.__net, self.__performanceMeasurements, nodes_om)
+        radioFrequencyMeasurer = meas.RadioFrequencyMeasurer(self.__start, self.__net.stations, self.__radioFrequencyMeasurements, isAdhoc)
+        performanceMeasurer = meas.PerformanceMeasurer(self.__start, self.__net, self.__performanceMeasurements, nodes_om, random_choice)
 
         measurers = [positionMeasurer, radioFrequencyMeasurer, performanceMeasurer]
 

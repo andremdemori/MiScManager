@@ -96,10 +96,25 @@ class MilitaryOrganization(models.Model):
         def __str__(self):
             return self.Id
 
+class Resource(models.Model):
+    TYPE_CHOICES = (
+        ("Military", "Military"),
+        ("Platform", "Platform")
+    )
+    Id = models.AutoField(primary_key=True, unique=True)
+    type = models.CharField(max_length=30, choices=TYPE_CHOICES)  # platform, military
+    v_min = models.FloatField(max_length=30, blank=True, null=True)
+    v_max = models.FloatField(max_length=30, blank=True, null=True)
+
+class Platform(Resource):
+    category = models.CharField(max_length=30)  # tank, car
+    kind = models.CharField(max_length=30)  # urutu, cascavel, guarani
+
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
     military_organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='military_organization')
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, related_name='resource')
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
 
@@ -125,7 +140,7 @@ class Node(models.Model):
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
                 "interface": interface, "military_organization": self.military_organization.Id,
                 "om_name": self.military_organization.name, "subkind": self.military_organization.subkind,
-                "commander": self.military_organization.commander}
+                "commander": self.military_organization.commander, "resource": self.resource}
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)
@@ -134,8 +149,6 @@ class Station(models.Model):
     x_max = models.FloatField(max_length=30, blank=True, null=True)
     y_min = models.FloatField(max_length=30, blank=True, null=True)
     y_max = models.FloatField(max_length=30, blank=True, null=True)
-    v_min = models.FloatField(max_length=30, blank=True, null=True)
-    v_max = models.FloatField(max_length=30, blank=True, null=True)
     range = models.FloatField(max_length=30, blank=True, null=True)
     antenna_gain = models.FloatField(max_length=30, blank=True, null=True)
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
@@ -146,7 +159,7 @@ class Station(models.Model):
     def serialize(self):
         return {"check_position": self.check_position,
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
-                "y_max": self.y_max, "v_min": self.v_min, "v_max": self.v_min, "range": self.range, "antenna_gain": self.antenna_gain}
+                "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
 
 class Host(models.Model):
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
@@ -177,8 +190,6 @@ class AccessPoint(models.Model):
     x_max = models.FloatField(max_length=30, blank=True, null=True)
     y_min = models.FloatField(max_length=30, blank=True, null=True)
     y_max = models.FloatField(max_length=30, blank=True, null=True)
-    v_min = models.FloatField(max_length=30, blank=True, null=True)
-    v_max = models.FloatField(max_length=30, blank=True, null=True)
     range = models.FloatField(max_length=30, blank=True, null=True)
     antenna_gain = models.FloatField(max_length=30, blank=True, null=True)
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
@@ -190,19 +201,22 @@ class AccessPoint(models.Model):
         return {"ssid": [self.ssid, "mesh"], "mode": self.mode, "channel": self.channel, "wlans": self.wlans,
                 "check_position": self.check_position,
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
-                "y_max": self.y_max, "v_min": self.v_min, "v_max": self.v_min, "range": self.range, "antenna_gain": self.antenna_gain}
+                "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
 
 class Interface(models.Model):
     name = models.CharField(max_length=30)
     ip_intf0 = models.CharField(max_length=30)
     ip_intf1 = models.CharField(max_length=30)
+    txpower_intf0 = models.IntegerField(default=15)
+    txpower_intf1 = models.IntegerField(default=15)
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Interface"
 
     def serialize(self):
-        args = {"ip_intf0": self.ip_intf0, "ip_intf1": self.ip_intf1}
+        args = {"ip_intf0": self.ip_intf0, "ip_intf1": self.ip_intf1,
+                "txpower_intf0": self.txpower_intf0, "txpower_intf1": self.txpower_intf1}
         return {"id": self.id, "name": self.name, "args": args}
 
 class Link(models.Model):
@@ -280,7 +294,7 @@ class Configuration(models.Model):
         result = []
         measurements = PerformanceMeasurement.objects.filter(config_id = self.id)
         for measurement in measurements:
-            result.append({"period": measurement.period, "source": measurement.source, "destination": measurement.destination, "measure": {"name": measurement.measure.name}})
+            result.append({"period": measurement.period, "source": measurement.source, "destination": measurement.destination, "measure": {"name": measurement.measure.name}, "random_choice": measurement.random_choice})
 
         return result
 
@@ -320,6 +334,7 @@ class PerformanceMeasurement(models.Model):
     config = models.ForeignKey(Configuration, on_delete=models.CASCADE)
     source = models.CharField(max_length=20)
     destination = models.CharField(max_length=20)
+    random_choice = models.IntegerField(default=1)
 
     class Meta:
         db_table = "PerformanceMeasurement"

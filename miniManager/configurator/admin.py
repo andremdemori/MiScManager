@@ -11,6 +11,8 @@ admin.site.register(Measure)
 
 admin.site.register(PerformanceMeasure)
 
+admin.site.register(PerformanceMeasurement)
+
 admin.site.register(Measurement)
 
 admin.site.register(PropagationModel)
@@ -48,4 +50,8 @@ admin.site.register(Interface)
 admin.site.register(Link)
 
 admin.site.register(MilitaryOrganization)
+
+admin.site.register(Resource)
+
+admin.site.register(Platform)
 

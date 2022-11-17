@@ -42,14 +42,14 @@ class MininetNetwork(MininetDecoratorComponent):
                 if node["args"]["check_position"] == "3":  # random move
                     self.__network.addStation(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) # **node["interface"]["args"]
                 elif node["args"]["check_position"] == "2":
-                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["args"]["v_min"], max_v=node["args"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["resource"]["v_min"], max_v=node["resource"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
                 elif node["args"]["check_position"] == "1":
                     self.__network.addStation(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
             if node["type"] == "accesspoint":
                 if node["args"]["check_position"] == "3":  # random move
                     self.__network.addAccessPoint(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) #**node["args"]
                 elif node["args"]["check_position"] == "2":
-                    self.__network.addAccessPoint(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["y_max"], min_v=node["args"]["v_min"], max_v=node["args"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addAccessPoint(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["y_max"], min_v=node["resource"]["v_min"], max_v=node["resource"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
                 elif node["args"]["check_position"] == "1":
                     self.__network.addAccessPoint(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
             if node["type"] == "host":
@@ -68,6 +68,7 @@ class MininetNetwork(MininetDecoratorComponent):
                 if node["name"] == station_name:
                     station.setIP(str(node["interface"]["args"]["ip_intf1"]), intf=station.wintfs[1].name) #'10.0.0.2/16'
                     station.setIP(str(node["interface"]["args"]["ip_intf0"]), intf=station.wintfs[0].name) #'10.2.2.2/15'
+
 
 class MininetBaseDecorator(MininetDecoratorComponent):
     def __init__(self, component):
@@ -137,14 +138,15 @@ class MobilityModelDecorator(MininetBaseDecorator):
         self.getNetwork().setMobilityModel(time=0, model=self.__mobilityModel["model"], **self.__args)
 
 class NetworkStarterDecorator(MininetBaseDecorator):
-    def __init__(self, component, links, isAdhoc):
+    def __init__(self, component, links, isAdhoc, nodes):
         super().__init__(component)
         self.__links = links
         self.__isAdhoc = isAdhoc
+        self.__nodes = nodes
     
     def configure(self):
         super().configure()
-        info("*** Starting network\n")
+        info("*** configure links\n")
         network = self.getNetwork()
 
         # TWO NODES LINK
@@ -174,10 +176,19 @@ class NetworkStarterDecorator(MininetBaseDecorator):
             for s in network.switches:
                 network.get(s.name).start([network.get("c1")])
 
+        info("*** setTxPower\n")
+        for station in network.stations:
+            station_name = str(station.name)
+            for node in self.__nodes:
+                if node["name"] == station_name:
+                    station.setTxPower(node["interface"]["args"]["txpower_intf1"], intf=station.wintfs[1].name)  # 16
+                    station.setTxPower(node["interface"]["args"]["txpower_intf0"], intf=station.wintfs[0].name)  # 16
 
+        info("*** Starting network\n")
 
+        '''
             ### CÓDIGO PARA RODAR NO MININET DASHBOARD
-            '''
+            
             for ap in network.aps:
                 ap.cmd('iw dev %s-mp2 interface add %s-mon0 type monitor' % (ap.name, ap.name))  # iw dev to view the available WiFi hardware/interfaces
                 # ap2.cmd('iw dev %s-mp2 interface add %s-mon0 type monitor' % (ap2.name, ap2.name)) # add mon to use monitor mode
@@ -224,4 +235,4 @@ class NetworkStarterDecorator(MininetBaseDecorator):
             # topo['links'][linkName] = {'node1': ap1.name, 'port1': ap1.wintfs[0].name, 'node2': ap2.name, 'port2': ap2.wintfs[0].name} #interface name
 
             put('http://127.0.0.1:8008/topology/json', data=dumps(topo))
-            '''
+        '''

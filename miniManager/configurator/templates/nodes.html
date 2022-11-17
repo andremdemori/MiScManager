@@ -31,9 +31,9 @@
       </div>
 
       <div id="station"  class="hidde-element form-group" style="display: none;">
-        <input type="hidden" id="station_specific_attribute" name="station_specific_attribute" value="position_node,check_position,x_max,x_min,y_max,y_min,v_max,v_min,range,antenna_gain">
+        <input type="hidden" id="station_specific_attribute" name="station_specific_attribute" value="position_node,check_position,x_max,x_min,y_max,y_min,range,antenna_gain">
         <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_organization">
-        <input type="hidden" id="station_interface_attribute" name="station_interface_attribute" value="ip_intf0,ip_intf1">
+        <input type="hidden" id="station_interface_attribute" name="station_interface_attribute" value="ip_intf0,ip_intf1,txpower_intf0,txpower_intf1">
         <div class="form-group row">
 
           <div class="col">
@@ -55,12 +55,21 @@
           </div>
 
           <div class="col">
-            <label id="ip_intf0" for="ip_intf0">ip interface 0</label>
+            <label id="ip_intf0" for="ip_intf0">ip commdevice 1</label>
             <input type="text" name="station_ip_intf0" class="form-control" id="station_ip_intf0" placeholder="10.0.0.1/8">
           </div>
             <div class="col">
-            <label id="ip_intf1" for="ip_intf1">ip interface 1</label>
+            <label id="ip_intf1" for="ip_intf1">ip commdevice 2</label>
             <input type="text" name="station_ip_intf1" class="form-control" id="station_ip_intf1" placeholder="10.0.0.1/8">
+          </div>
+
+          <div class="col">
+            <label id="txpower_intf0" for="txpower_intf0">txpower commdevice 1</label>
+            <input type="number" name="station_txpower_intf0" class="form-control" id="station_txpower_intf0" placeholder="15">
+          </div>
+            <div class="col">
+            <label id="txpower_intf1" for="txpower_intf1">txpower commdevice 2</label>
+            <input type="number" name="station_txpower_intf1" class="form-control" id="station_txpower_intf1" placeholder="15">
           </div>
 
           <div class="col">
@@ -96,16 +105,6 @@
         <div class="col">
             <label id="y_min" for="y_min">y_min</label>
             <input type="number" step="any" name="station_y_min" id="station_y_min">
-        </div>
-
-        <div class="col">
-            <label id="v_max" for="y_min">v_max</label>
-            <input type="number" step="any" name="station_v_max" id="station_v_max">
-        </div>
-
-        <div class="col">
-            <label id="v_min" for="y_min">v_min</label>
-            <input type="number" step="any" name="station_v_min" id="station_v_min">
         </div>
 
         <div class="col">
