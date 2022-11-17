@@ -51,7 +51,7 @@ admin.site.register(Link)
 
 admin.site.register(MilitaryOrganization)
 
-admin.site.register(Resource)
+admin.site.register(CommDeviceCarrier)
 
-admin.site.register(Platform)
+admin.site.register(MilitaryPlatform)
 

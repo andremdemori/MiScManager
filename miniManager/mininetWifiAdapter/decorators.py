@@ -42,7 +42,7 @@ class MininetNetwork(MininetDecoratorComponent):
                 if node["args"]["check_position"] == "3":  # random move
                     self.__network.addStation(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) # **node["interface"]["args"]
                 elif node["args"]["check_position"] == "2":
-                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["resource"]["v_min"], max_v=node["resource"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["carrier"]["v_min"], max_v=node["carrier"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
                 elif node["args"]["check_position"] == "1":
                     self.__network.addStation(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
             if node["type"] == "accesspoint":

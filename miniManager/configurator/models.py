@@ -1,43 +1,48 @@
 from django.db import models
 
+
 class TestPlan(models.Model):
     name = models.CharField(max_length=60)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    description = models.TextField(null = True)
-    author = models.CharField(max_length=50, null = True)
+    description = models.TextField(null=True)
+    author = models.CharField(max_length=50, null=True)
 
     class Meta:
         db_table = "TestPlan"
+
 
 class Network(models.Model):
     noise_th = models.IntegerField(default=-91)
     fading_cof = models.IntegerField(default=0)
     adhoc = models.BooleanField(default=False)
-    
+
     class Meta:
-        db_table="Network"
+        db_table = "Network"
 
     def seialize(self):
         return {"adhoc": self.adhoc, "args": {"fading_cof": self.fading_cof, "noise_th": self.noise_th}}
 
-#class NetworkController(models.Model): /vamos usar o Controller do mininet.node
-    #protocol = models.CharField(max_length=30)
 
-#PModelCatalog works as a catalog of propagation models
-class PModelCatalog(models.Model): 
+# class NetworkController(models.Model): /vamos usar o Controller do mininet.node
+# protocol = models.CharField(max_length=30)
+
+# PModelCatalog works as a catalog of propagation models
+class PModelCatalog(models.Model):
     name = models.CharField(max_length=30)
     displayname = models.CharField(max_length=30)
 
     class Meta:
         db_table = "PModelCatalog"
 
-class MModelCatalog(models.Model): 
+
+class MModelCatalog(models.Model):
     name = models.CharField(max_length=30)
     displayname = models.CharField(max_length=30)
 
     class Meta:
         db_table = "MModelCatalog"
+
 
 class PropagationModel(models.Model):
     model = models.ForeignKey(PModelCatalog, on_delete=models.CASCADE)
@@ -45,11 +50,14 @@ class PropagationModel(models.Model):
     class Meta:
         db_table = "PropagationModel"
 
+
 class MobilityModel(models.Model):
     model = models.ForeignKey(MModelCatalog, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "MobilityModel"
+
+
 class Measure(models.Model):
     name = models.CharField(max_length=20)
     unit = models.CharField(max_length=10, null=True, blank=True)
@@ -57,12 +65,14 @@ class Measure(models.Model):
     class Meta:
         db_table = "Measures"
 
+
 class PerformanceMeasure(models.Model):
     name = models.CharField(max_length=30)
     unit = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
         db_table = "PerformanceMeasure"
+
 
 class PropagationParam(models.Model):
     name = models.CharField(max_length=30)
@@ -72,6 +82,7 @@ class PropagationParam(models.Model):
     class Meta:
         db_table = "PropagationParam"
 
+
 class MobilityParam(models.Model):
     name = models.CharField(max_length=30)
     value = models.FloatField()
@@ -80,11 +91,12 @@ class MobilityParam(models.Model):
     class Meta:
         db_table = "MobilityParam"
 
+
 ##########
-#CATEGORY MILITARYORGANIZATION
+# CATEGORY MILITARYORGANIZATION
 class MilitaryOrganization(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
-    subkind = models.CharField(max_length=30) #Kinds of Category
+    subkind = models.CharField(max_length=30)  # Kinds of Category
     name = models.CharField(max_length=30)
     commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
 
@@ -96,7 +108,7 @@ class MilitaryOrganization(models.Model):
         def __str__(self):
             return self.Id
 
-class Resource(models.Model):
+class CommDeviceCarrier(models.Model):
     TYPE_CHOICES = (
         ("Military", "Military"),
         ("Platform", "Platform")
@@ -106,15 +118,16 @@ class Resource(models.Model):
     v_min = models.FloatField(max_length=30, blank=True, null=True)
     v_max = models.FloatField(max_length=30, blank=True, null=True)
 
-class Platform(Resource):
+class MilitaryPlatform(CommDeviceCarrier):
     category = models.CharField(max_length=30)  # tank, car
     kind = models.CharField(max_length=30)  # urutu, cascavel, guarani
+
 
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
     military_organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='military_organization')
-    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, related_name='resource')
+    carrier = models.ForeignKey(CommDeviceCarrier, on_delete=models.CASCADE, related_name='carrier')
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
 
@@ -132,7 +145,7 @@ class Node(models.Model):
         return nodeTypeToSpecialization[self.type].objects.get(node_id=self.id).serialize()
 
     def getInterface(self):
-        return Interface.objects.get(node_id = self.id).serialize()
+        return Interface.objects.get(node_id=self.id).serialize()
 
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
@@ -140,7 +153,8 @@ class Node(models.Model):
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
                 "interface": interface, "military_organization": self.military_organization.Id,
                 "om_name": self.military_organization.name, "subkind": self.military_organization.subkind,
-                "commander": self.military_organization.commander, "resource": self.resource}
+                "commander": self.military_organization.commander, "carrier": self.carrier}
+
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)
@@ -155,11 +169,12 @@ class Station(models.Model):
 
     class Meta:
         db_table = "Station"
-    
+
     def serialize(self):
         return {"check_position": self.check_position,
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
                 "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
+
 
 class Host(models.Model):
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
@@ -170,17 +185,19 @@ class Host(models.Model):
     def serialize(self):
         return {}
 
+
 class Switch(models.Model):
-    node = models.OneToOneField(Node,on_delete=models.CASCADE, unique=True)
-    
+    node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
+
     class Meta:
-        db_table="Switch"
+        db_table = "Switch"
 
     def serialize(self):
         return {}
 
+
 class AccessPoint(models.Model):
-    ssid = models.CharField(max_length=30) # ssid=['ssid1', 'mesh']
+    ssid = models.CharField(max_length=30)  # ssid=['ssid1', 'mesh']
     mode = models.CharField(max_length=30)
     channel = models.CharField(max_length=30)
     wlans = models.IntegerField(max_length=30)
@@ -203,6 +220,7 @@ class AccessPoint(models.Model):
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
                 "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
 
+
 class Interface(models.Model):
     name = models.CharField(max_length=30)
     ip_intf0 = models.CharField(max_length=30)
@@ -219,6 +237,7 @@ class Interface(models.Model):
                 "txpower_intf0": self.txpower_intf0, "txpower_intf1": self.txpower_intf1}
         return {"id": self.id, "name": self.name, "args": args}
 
+
 class Link(models.Model):
     int1 = models.ForeignKey(Interface, related_name='int1', on_delete=models.CASCADE, null=True)
     int2 = models.ForeignKey(Interface, related_name='int2', on_delete=models.CASCADE, null=True)
@@ -229,11 +248,13 @@ class Link(models.Model):
     jitter = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        db_table="Link"
+        db_table = "Link"
 
     def serialize(self):
-        args = {"bw": self.bw, "delay": self.delay, "loss": self.loss, "max_queue_size": self.max_queue_size, "jitter": self.jitter}
+        args = {"bw": self.bw, "delay": self.delay, "loss": self.loss, "max_queue_size": self.max_queue_size,
+                "jitter": self.jitter}
         return {"node1": self.int1.node.name, "node2": self.int2.node.name, "args": args}
+
 
 class Mobility(models.Model):
     tempo = models.FloatField()
@@ -241,22 +262,25 @@ class Mobility(models.Model):
     y = models.FloatField()
     z = models.FloatField()
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
+
     class Meta:
         db_table = "Mobility"
+
 
 class Position(models.Model):
     x = models.FloatField()
     y = models.FloatField()
     z = models.FloatField()
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
-   
+
     class Meta:
         db_table = "Position"
 
+
 class Configuration(models.Model):
     medicao_schema = models.TextField()
-    propagationmodel = models.ForeignKey(PropagationModel, on_delete=models.CASCADE, null= True)
-    mobilitymodel = models.ForeignKey(MobilityModel, on_delete = models.CASCADE, null=True)
+    propagationmodel = models.ForeignKey(PropagationModel, on_delete=models.CASCADE, null=True)
+    mobilitymodel = models.ForeignKey(MobilityModel, on_delete=models.CASCADE, null=True)
     stop_time = models.IntegerField(null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE, null=True)
 
@@ -276,7 +300,7 @@ class Configuration(models.Model):
     def getLinks(self, nodes):
         links = []
         for node in nodes:
-            foundedLinks = Link.objects.filter(int1_id = node["interface"]["id"]).all()
+            foundedLinks = Link.objects.filter(int1_id=node["interface"]["id"]).all()
             for link in foundedLinks:
                 links.append(link.serialize())
 
@@ -284,7 +308,7 @@ class Configuration(models.Model):
 
     def getMeasurements(self):
         result = []
-        measurements = Measurement.objects.filter(config_id = self.id)
+        measurements = Measurement.objects.filter(config_id=self.id)
         for measurement in measurements:
             result.append({"period": measurement.period, "measure": {"name": measurement.measure.name}})
 
@@ -292,16 +316,18 @@ class Configuration(models.Model):
 
     def getPerformanceMeasurements(self):
         result = []
-        measurements = PerformanceMeasurement.objects.filter(config_id = self.id)
+        measurements = PerformanceMeasurement.objects.filter(config_id=self.id)
         for measurement in measurements:
-            result.append({"period": measurement.period, "source": measurement.source, "destination": measurement.destination, "measure": {"name": measurement.measure.name}, "random_choice": measurement.random_choice})
+            result.append(
+                {"period": measurement.period, "source": measurement.source, "destination": measurement.destination,
+                 "measure": {"name": measurement.measure.name}, "random_choice": measurement.random_choice})
 
         return result
 
     def getPropagationModel(self):
         propagationmodel = self.propagationmodel
         args = {}
-        params = PropagationParam.objects.filter(propagationmodel_id = propagationmodel.id)
+        params = PropagationParam.objects.filter(propagationmodel_id=propagationmodel.id)
         for param in params:
             args[param.name] = param.value
 
@@ -310,7 +336,7 @@ class Configuration(models.Model):
     def getMobilityModel(self):
         mobilitymodel = self.mobilitymodel
         args = {}
-        params = MobilityParam.objects.filter(mobilitymodel_id = mobilitymodel.id)
+        params = MobilityParam.objects.filter(mobilitymodel_id=mobilitymodel.id)
         for param in params:
             args[param.name] = param.value
 
@@ -328,9 +354,10 @@ class Configuration(models.Model):
             "links": self.getLinks(nodes)
         }
 
+
 class PerformanceMeasurement(models.Model):
     period = models.IntegerField()
-    measure = models.ForeignKey(PerformanceMeasure, on_delete=models.CASCADE) #ping
+    measure = models.ForeignKey(PerformanceMeasure, on_delete=models.CASCADE)  # ping
     config = models.ForeignKey(Configuration, on_delete=models.CASCADE)
     source = models.CharField(max_length=20)
     destination = models.CharField(max_length=20)
@@ -339,6 +366,7 @@ class PerformanceMeasurement(models.Model):
     class Meta:
         db_table = "PerformanceMeasurement"
 
+
 class Measurement(models.Model):
     period = models.IntegerField()
     measure = models.ForeignKey(Measure, on_delete=models.CASCADE)
@@ -346,6 +374,7 @@ class Measurement(models.Model):
 
     class Meta:
         db_table = "Measurement"
+
 
 class Version(models.Model):
     name = models.CharField(max_length=30)
