@@ -417,7 +417,7 @@ class PerformanceMeasurer(IMeasurer):
         #if name == "ping":
             #value = self.__ping(source, destination)
 
-        #if name == "Iperf":
+        #if name == "Iperf":4. Platform
             #value = self.__iperf(source, destination)
 
         #print(source.cmd('xterm'))
