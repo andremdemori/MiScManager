@@ -55,3 +55,8 @@ admin.site.register(CommDeviceCarrier)
 
 admin.site.register(MilitaryPlatform)
 
+admin.site.register(MilitaryAsCarrier)
+
+admin.site.register(MilitaryPerson)
+
+

@@ -93,7 +93,7 @@ class MobilityParam(models.Model):
 
 
 ##########
-# CATEGORY MILITARYORGANIZATION
+# MILITARYORGANIZATION
 class MilitaryOrganization(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
     subkind = models.CharField(max_length=30)  # Kinds of Category
@@ -109,24 +109,35 @@ class MilitaryOrganization(models.Model):
             return self.Id
 
 class CommDeviceCarrier(models.Model):
-    TYPE_CHOICES = (
-        ("Military", "Military"),
-        ("Platform", "Platform")
-    )
     Id = models.AutoField(primary_key=True, unique=True)
-    type = models.CharField(max_length=30, choices=TYPE_CHOICES)  # platform, military
+    VisibilityRange = models.FloatField(max_length=30, blank=True, null=True)
     v_min = models.FloatField(max_length=30, blank=True, null=True)
     v_max = models.FloatField(max_length=30, blank=True, null=True)
 
+
 class MilitaryPlatform(CommDeviceCarrier):
-    category = models.CharField(max_length=30)  # tank, car
+    category = models.CharField(max_length=30)  # armored, car
     kind = models.CharField(max_length=30)  # urutu, cascavel, guarani
 
+class MilitaryAsCarrier(CommDeviceCarrier):
+    Id_mc = models.AutoField(primary_key=True, unique=True)
+
+class MilitaryPerson(models.Model):
+    Identifier = models.CharField(max_length=30)  # tank, car
+    MilitaryOrganization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
+    CommDeviceCarrier = models.ForeignKey(CommDeviceCarrier, on_delete=models.CASCADE, related_name='commdevicecarrier')
+
+    class Meta:
+        db_table = "MilitaryPerson"
+
+    def serialize(self):
+        return {}
 
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
     military_organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='military_organization')
+    militaryperson = models.ForeignKey(MilitaryPerson, on_delete=models.CASCADE)
     carrier = models.ForeignKey(CommDeviceCarrier, on_delete=models.CASCADE, related_name='carrier')
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
@@ -153,8 +164,7 @@ class Node(models.Model):
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
                 "interface": interface, "military_organization": self.military_organization.Id,
                 "om_name": self.military_organization.name, "subkind": self.military_organization.subkind,
-                "commander": self.military_organization.commander, "carrier": self.carrier}
-
+                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.carrier}
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)
