@@ -84,7 +84,7 @@ class ConfigurationView():
         nodeAttributes = self.__parseAttributes(nodeAttributeString)
 
         nodeAttributes.remove('military_person')
-        nodeAttributes.remove('military_organization')
+        #nodeAttributes.remove('military_organization')
 
         interfaceAttributeString = request.POST.get(type+"_interface_attribute")
         interfaceAttributes = self.__parseAttributes(interfaceAttributeString)

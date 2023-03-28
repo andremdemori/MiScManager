@@ -17,7 +17,7 @@
     {% if round.status != "DONE" %}
     <form action="/finish-round" method="post">
         {% csrf_token %}
-        <button type="sumbit" id="finish-button" class="btn btn-primary" name="round" value="{{round.id}}">Finalizar</button>
+        <button type="sumbit" id="finish-button" class="btn btn-secondary" name="round" value="{{round.id}}">Finalizar</button>
     </form>
 
     <p style="color:red;">Ao clicar em finalizar serão removidos todos os módulos e as configurações WiFi e <br>

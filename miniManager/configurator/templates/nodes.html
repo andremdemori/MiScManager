@@ -25,7 +25,7 @@
         </div>
 
         <div class="add-button col">
-          <button type="button" onclick="addNodeByForm()" class="btn btn-primary">Adicionar Nó</button>
+          <button type="button" onclick="addNodeByForm()" class="btn btn-secondary">Adicionar Nó</button>
         </div>
 
       </div>
@@ -46,15 +46,6 @@
             <select name="station_military_person" id="station_military_person">
               {% for mp in mpersons %}
                 <option value="{{mp.id}}">{{mp.Identifier}}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="col">
-            <label id="military_organization" for="military_organization">Operator's MO</label>
-            <select name="station_military_organization" id="station_military_organization">
-              {% for om in oms %}
-                <option value="{{om.Id}}">{{om.name}}</option>
               {% endfor %}
             </select>
           </div>
