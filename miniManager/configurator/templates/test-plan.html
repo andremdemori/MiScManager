@@ -27,6 +27,17 @@
       </div>
       <label for="test-plan_name" class="form-label">Descrição</label>
       <input type="text" class="form-control" id="test-plan_description" name="test-plan_description" placeholder="Plano de Teste criado para reproduzir o cenário X">
+
+    <div class="col">
+      <label id="military_scenario" for="military_scenario">Military Scenario</label>
+      <select name="military_scenario" id="military_scenario">
+        {% for sce in scenarios %}
+          <option value="{{sce.Id}}">{{sce.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+
     </div>
     <button type="submit" class="submit-button btn btn-primary">Criar Plano de Teste</button>
     {% if error %}

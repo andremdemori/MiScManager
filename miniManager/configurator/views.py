@@ -8,14 +8,24 @@ from .models import *
 from .xmlSchemaGenerator import XMLSchemaGenerator
 
 class ConfigurationView():
-    def getHelper(self):
+    def getHelper(self, request):
         pmodels = PModelCatalog.objects.all()
         mmodels = MModelCatalog.objects.all()
         measures = Measure.objects.all()
-        pmeasures = PerformanceMeasure.objects.all
-        oms = MilitaryOrganization.objects.all()
+        pmeasures = PerformanceMeasure.objects.all()
 
-        return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures, "oms": oms}
+        #get scenario id of the test plan
+        current_url = request.build_absolute_uri()
+        test_plan_id = current_url[-1]
+        test_plan_id = int(test_plan_id)
+
+        #filter elements of the military scenario
+        oms = MilitaryOrganization.objects.filter(scenario__Id=test_plan_id)
+        mpersons = MilitaryPerson.objects.filter(scenario__Id=test_plan_id)
+
+        #para passar os dados para o template tem que definir aqui, em configuration.html e em version.html
+
+        return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures, "oms": oms, "mpersons": mpersons}
 
     def __saveMeasurements(self, request, configuration):
         paramlist = request.POST.getlist('radiofrequency')
@@ -55,8 +65,8 @@ class ConfigurationView():
     
     def __saveNode(self, request, network, nodeID):
         type = request.POST.get(nodeID + "-" + "type")
-        om_id = request.POST.get(nodeID + "-" + "military_organization")
-        om = MilitaryOrganization.objects.get(Id=int(om_id))
+        mperson_id = request.POST.get(nodeID + "-" + "military_person")
+        mp = MilitaryPerson.objects.get(id=int(mperson_id))
 
         nodeTypeToSaverMap = {
             "station": Station,
@@ -73,6 +83,7 @@ class ConfigurationView():
         nodeAttributeString = request.POST.get(type+"_node_attribute")
         nodeAttributes = self.__parseAttributes(nodeAttributeString)
 
+        nodeAttributes.remove('military_person')
         nodeAttributes.remove('military_organization')
 
         interfaceAttributeString = request.POST.get(type+"_interface_attribute")
@@ -81,7 +92,7 @@ class ConfigurationView():
         nodeParams = {}
         for attr in nodeAttributes:
             nodeParams[attr] = request.POST.get(nodeID + "-" + attr)
-        node = Node(network=network, type=type, military_organization=om, **nodeParams)
+        node = Node(network=network, type=type, militaryperson=mp, **nodeParams)
         node.save()
 
         specParams = {}
@@ -195,7 +206,8 @@ class VersionView(ConfigurationView, View):
     def get(self, request, test_plan_id):
         testPlan = TestPlan.objects.get(id=test_plan_id)
         args = {"error": False, "errorMessage": "", "testPlan": testPlan}
-        args.update(self.getHelper())
+        args.update(self.getHelper(request))
+
 
         return render(request, 'version.html', args)
 
@@ -206,7 +218,7 @@ class VersionView(ConfigurationView, View):
         if Version.objects.filter(name=versionName, test_plan_id=testPlanID).exists():
             testPlan = TestPlan.objects.get(id=testPlanID)
             args = {"error": True, "errorMessage": "Já existe uma versão com esse nome", "testPlan": testPlan}
-            args.update(self.getHelper())
+            args.update(self.getHelper(request))
             return render(request, 'version.html', args)
 
         #configuration = self.postHelper(request)
@@ -217,7 +229,7 @@ class VersionView(ConfigurationView, View):
         except:
             testPlan = TestPlan.objects.get(id=testPlanID)
             args = {"error": True, "errorMessage": "Ocorreu um erro ao salvar a versão, verifique os dados inseridos", "testPlan": testPlan}
-            args.update(self.getHelper())
+            args.update(self.getHelper(request))
             return render(request, 'version.html', args)
 
         url = reverse('versions', kwargs={'test_plan_id': testPlanID })
@@ -240,10 +252,14 @@ class HomeView(View):
 class TestPlanView(View):
     def get(self, request):
         args = {"error": False, "errorMessage": ""}
+        scenarios = MilitaryScenario.objects.all()
+        args["scenarios"] = scenarios  # add scenarios to args
         return render(request, 'test-plan.html', args)
 
     def post(self, request):
         testPlanName = request.POST.get('test-plan_name')
+        scenario = request.POST.get('military_scenario')
+        scenario = MilitaryScenario.objects.get(Id=scenario)
 
         if TestPlan.objects.filter(name=testPlanName).exists():
             args = {"error": True, "errorMessage": "Já existe um plano de teste com esse nome"}
@@ -253,7 +269,7 @@ class TestPlanView(View):
         testplanAuthor = request.POST.get('test-plan_author')
 
         try:
-            testPlan = TestPlan(name=testPlanName, author=testplanAuthor, description = testPlanDescription)
+            testPlan = TestPlan(name=testPlanName, author=testplanAuthor, description = testPlanDescription, scenario=scenario)
             testPlan.save()
         except:
             args = {"error": True, "errorMessage": "Ocorreu um erro ao salvar o plano de teste, verifique os dados inseridos"}

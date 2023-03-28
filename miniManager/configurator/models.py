@@ -7,6 +7,7 @@ class TestPlan(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     description = models.TextField(null=True)
     author = models.CharField(max_length=50, null=True)
+    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = "TestPlan"
@@ -91,6 +92,19 @@ class MobilityParam(models.Model):
     class Meta:
         db_table = "MobilityParam"
 
+class MilitaryScenario(models.Model):
+    Id = models.AutoField(primary_key=True, unique=True)
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        db_table = "MilitaryScenario"
+        verbose_name = 'MilitaryScenario'
+        verbose_name_plural = 'MilitaryScenario'
+
+        def __str__(self):
+            return self.Id
+
+
 
 ##########
 # MILITARYORGANIZATION
@@ -99,6 +113,7 @@ class MilitaryOrganization(models.Model):
     subkind = models.CharField(max_length=30)  # Kinds of Category
     name = models.CharField(max_length=30)
     commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
+    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = "MilitaryOrganization"
@@ -123,22 +138,24 @@ class MilitaryAsCarrier(CommDeviceCarrier):
     Id_mc = models.AutoField(primary_key=True, unique=True)
 
 class MilitaryPerson(models.Model):
-    Identifier = models.CharField(max_length=30)  # tank, car
+    Identifier = models.CharField(max_length=30)  # 01,02,03...
     MilitaryOrganization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
     CommDeviceCarrier = models.ForeignKey(CommDeviceCarrier, on_delete=models.CASCADE, related_name='commdevicecarrier')
+    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = "MilitaryPerson"
+        verbose_name = 'MilitaryPerson'
+        verbose_name_plural = 'MilitaryPerson'
 
-    def serialize(self):
-        return {}
+        def __str__(self):
+            return self.Identifier
+
 
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
-    military_organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE, related_name='military_organization')
     militaryperson = models.ForeignKey(MilitaryPerson, on_delete=models.CASCADE)
-    carrier = models.ForeignKey(CommDeviceCarrier, on_delete=models.CASCADE, related_name='carrier')
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
 
@@ -162,9 +179,9 @@ class Node(models.Model):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
-                "interface": interface, "military_organization": self.military_organization.Id,
-                "om_name": self.military_organization.name, "subkind": self.military_organization.subkind,
-                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.carrier}
+                "interface": interface, "military_organization": self.militaryperson.MilitaryOrganization.Id,
+                "om_name": self.militaryperson.MilitaryOrganization.name, "subkind": self.militaryperson.MilitaryOrganization.subkind,
+                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.CommDeviceCarrier}
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)

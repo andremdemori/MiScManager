@@ -32,7 +32,7 @@
 
       <div id="station"  class="hidde-element form-group" style="display: none;">
         <input type="hidden" id="station_specific_attribute" name="station_specific_attribute" value="position_node,check_position,x_max,x_min,y_max,y_min,range,antenna_gain">
-        <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_organization">
+        <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_organization,military_person">
         <input type="hidden" id="station_interface_attribute" name="station_interface_attribute" value="ip_intf0,ip_intf1,txpower_intf0,txpower_intf1">
         <div class="form-group row">
 
@@ -40,8 +40,18 @@
             <label id="name" for="namestation">name</label>
             <input type="text" name="station_name" class="form-control" id="station_name" placeholder="sta1">
           </div>
+
           <div class="col">
-            <label id="military_organization" for="military_organization">CommDevice Operator's Military organization</label>
+            <label id="military_person" for="military_person">Operator</label>
+            <select name="station_military_person" id="station_military_person">
+              {% for mp in mpersons %}
+                <option value="{{mp.id}}">{{mp.Identifier}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col">
+            <label id="military_organization" for="military_organization">Operator's MO</label>
             <select name="station_military_organization" id="station_military_organization">
               {% for om in oms %}
                 <option value="{{om.Id}}">{{om.name}}</option>
@@ -50,29 +60,29 @@
           </div>
 
           <div class="col">
-            <label id="mac" for="mac">mac address</label>
+            <label id="mac" for="mac">mac addr</label>
             <input type="text" name="station_mac" class="form-control" id="station_mac" placeholder="00:00:00:00:00:02">
           </div>
 
           <div class="col">
-            <label id="ip_intf0" for="ip_intf0">ip interface 1</label>
+            <label id="ip_intf0" for="ip_intf0">ip interf 1</label>
             <input type="text" name="station_ip_intf0" class="form-control" id="station_ip_intf0" placeholder="10.0.0.1/8">
           </div>
             <div class="col">
-            <label id="ip_intf1" for="ip_intf1">ip interface 2</label>
+            <label id="ip_intf1" for="ip_intf1">ip interf 2</label>
             <input type="text" name="station_ip_intf1" class="form-control" id="station_ip_intf1" placeholder="10.0.0.1/8">
           </div>
 
           <div class="col">
-            <label id="txpower_intf0" for="txpower_intf0">txpower interface 1</label>
+            <label id="txpower_intf0" for="txpower_intf0">txpower interf 1</label>
             <input type="number" name="station_txpower_intf0" class="form-control" id="station_txpower_intf0" placeholder="15">
           </div>
             <div class="col">
-            <label id="txpower_intf1" for="txpower_intf1">txpower interface 2</label>
+            <label id="txpower_intf1" for="txpower_intf1">txpower interf 2</label>
             <input type="number" name="station_txpower_intf1" class="form-control" id="station_txpower_intf1" placeholder="15">
           </div>
 
-          <div class="col">
+          <div class="col" id="position_node_wrapper" style="display: none;">
             <label id="position_node" for="position_node">position</label> <button type="button" data-balloon-length="large" class="button button1" aria-label="Only applies to Tracked Mobility Model." data-balloon-pos="up">i</button>
             <input type="text" name="station_position_node" class="form-control" id="station_position_node" placeholder="347.414,572.84,0">
           </div>
@@ -80,41 +90,41 @@
        <div class="col">
             <label id="check_position" for="check_position">Position mode</label>
             <select name="station_check_position" id="station_check_position">
-                <option value="1">1 - Fixed position</option>
+              <option value="">---</option>
+              <option value="1">1 - Fixed position</option>
               <option value="2">2 - quadrant</option>
-              <option value="3">3 - random move</option>
+              <option value="3">3 - random move in defined mobility model</option>
             </select>
           </div>
         </div>
 
-        <div class="col">
+        <div id="quadrant_wrapper" style="display: none;">
+          <div class="col">
             <label id="x_max" for="x_max">x_max</label>
             <input type="number" step="any" name="station_x_max" id="station_x_max">
-        </div>
-
-        <div class="col">
+          </div>
+          <div class="col">
             <label id="x_min" for="x_min">x_min</label>
             <input type="number" step="any" name="station_x_min" id="station_x_min">
-        </div>
-
-        <div class="col">
-            <label id="y_max" for="x_min">y_max</label>
+          </div>
+          <div class="col">
+            <label id="y_max" for="y_min">y_max</label>
             <input type="number" step="any" name="station_y_max" id="station_y_max">
-        </div>
-
-        <div class="col">
+          </div>
+          <div class="col">
             <label id="y_min" for="y_min">y_min</label>
             <input type="number" step="any" name="station_y_min" id="station_y_min">
+          </div>
         </div>
 
         <div class="col">
             <label id="range" for="range">range</label>
-            <input type="number" step="any" name="station_range" id="station_range">
+            <input type="number" step="any" name="station_range" id="station_range" class="form-control">
         </div>
 
         <div class="col">
             <label id="antenna_gain" for="antenna_gain">antenna_gain</label>
-            <input type="number" step="any" name="station_antenna_gain" id="station_antenna_gain">
+            <input type="number" step="any" name="station_antenna_gain" id="station_antenna_gain" class="form-control">
         </div>
         </div>
 
@@ -233,6 +243,44 @@
     </div>
   </div>
 </div>
+
+<script>
+  const checkPositionSelect = document.getElementById('station_check_position');
+  const positionNodeWrapper = document.getElementById('position_node_wrapper');
+  const quadrantWrapper = document.getElementById('quadrant_wrapper');
+  const stationPositionNode = document.getElementById('station_position_node');
+  const xMax = document.getElementById("station_x_max");
+  const xMin = document.getElementById("station_x_min");
+  const yMax = document.getElementById("station_y_max");
+  const yMin = document.getElementById("station_y_min");
+
+  checkPositionSelect.addEventListener('change', () => {
+    if (checkPositionSelect.value === '1') {
+      positionNodeWrapper.style.display = 'block';
+      quadrantWrapper.style.display = 'none';
+      stationPositionNode.value = '';
+    } else if (checkPositionSelect.value === '2') {
+      positionNodeWrapper.style.display = 'none';
+      quadrantWrapper.style.display = 'block';
+      xMax.parentElement.style.display = "block";
+      xMin.parentElement.style.display = "block";
+      yMax.parentElement.style.display = "block";
+      yMin.parentElement.style.display = "block";
+    } else {
+      positionNodeWrapper.style.display = 'none';
+      quadrantWrapper.style.display = 'none';
+      stationPositionNode.value = '0';
+      xMax.parentElement.style.display = "none";
+      xMin.parentElement.style.display = "none";
+      yMax.parentElement.style.display = "none";
+      yMin.parentElement.style.display = "none";
+      xMax.value = 0;
+      xMin.value = 0;
+      yMax.value = 0;
+      yMin.value = 0;
+    }
+  });
+</script>
 
 <script>
   function onlyOne(checkbox) {

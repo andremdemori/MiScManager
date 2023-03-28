@@ -59,4 +59,8 @@ admin.site.register(MilitaryAsCarrier)
 
 admin.site.register(MilitaryPerson)
 
+admin.site.register(MilitaryScenario)
+
+admin.site.register(TestPlan)
+
 
