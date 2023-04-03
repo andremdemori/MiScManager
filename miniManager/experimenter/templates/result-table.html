@@ -19,12 +19,16 @@
       {% for row in rows %}
         <tr class="{{row.type | type_style}}">
           {% if isDiff %}
-            <td>{{row.type | type_signal}}</td>  
+            <td >{{row.type | type_signal}}</td>
           {% endif %}
           {% for col in row.value %}
-            <td>{{ col }}</td>
+            {% if "0 recebidos" in col %}
+              <td style="border: 1px solid red; background-color: #8B0000; color: white;">{{ col }}</td>
+            {% else %}
+              <td>{{ col }}</td>
+            {% endif %}
           {% endfor %}
         </tr>
       {% endfor %}
-    </tbody>
+</tbody>
 </table>

@@ -46,6 +46,8 @@ admin.site.register(AccessPoint)
 
 admin.site.register(Interface)
 
+admin.site.register(InterfacePowerType)
+
 admin.site.register(Link)
 
 admin.site.register(MilitaryOrganization)

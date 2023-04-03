@@ -143,11 +143,19 @@ class CommDeviceCarrier(models.Model):
     VisibilityRange = models.FloatField(max_length=30, blank=True, null=True)
     v_min = models.FloatField(max_length=30, blank=True, null=True)
     v_max = models.FloatField(max_length=30, blank=True, null=True)
+    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
 
 
 class MilitaryPlatform(CommDeviceCarrier):
-    category = models.CharField(max_length=30)  # armored, car
-    kind = models.CharField(max_length=30)  # urutu, cascavel, guarani
+    ARMORED_CATEGORY = 'armored'
+    CATEGORY_CHOICES = (
+        (ARMORED_CATEGORY, 'Armored'),
+    )
+    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default=ARMORED_CATEGORY)
+    kind = models.CharField(max_length=30)
+    MilitaryOrganization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
+
+
 
 class MilitaryPerson(models.Model):
     Identifier = models.CharField(max_length=30)  # 01,02,03...
@@ -262,6 +270,17 @@ class AccessPoint(models.Model):
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
                 "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
 
+
+class InterfacePowerType(models.Model):
+    name = models.CharField(max_length=30)
+    txpower = models.IntegerField(default=15)
+    frequency = models.IntegerField(default=15)
+
+    class Meta:
+        db_table = "InterfacePowerType"
+
+    def serialize(self):
+        return {}
 
 class Interface(models.Model):
     name = models.CharField(max_length=30)
