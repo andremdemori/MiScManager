@@ -106,11 +106,26 @@ class MilitaryScenario(models.Model):
 
 
 
-##########
+#################################################################
+
+class MilitaryOrganizationPowerType(models.Model):
+    Id = models.AutoField(primary_key=True, unique=True)
+    name = models.CharField(max_length=30)
+    commander = models.ForeignKey("MilitaryOrganizationPowerType", on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        db_table = "MilitaryOrganizationPowerType"
+        verbose_name = 'MilitaryOrganizationPowerType'
+        verbose_name_plural = 'MilitaryOrganizationPowerTypes'
+
+        def __str__(self):
+            return self.Id
+
+
 # MILITARYORGANIZATION
 class MilitaryOrganization(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
-    subkind = models.CharField(max_length=30)  # Kinds of Category
+    type = models.ForeignKey("MilitaryOrganizationPowerType", on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=30)
     commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
     scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
@@ -134,9 +149,6 @@ class MilitaryPlatform(CommDeviceCarrier):
     category = models.CharField(max_length=30)  # armored, car
     kind = models.CharField(max_length=30)  # urutu, cascavel, guarani
 
-class MilitaryAsCarrier(CommDeviceCarrier):
-    Id_mc = models.AutoField(primary_key=True, unique=True)
-
 class MilitaryPerson(models.Model):
     Identifier = models.CharField(max_length=30)  # 01,02,03...
     MilitaryOrganization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
@@ -151,6 +163,8 @@ class MilitaryPerson(models.Model):
         def __str__(self):
             return self.Identifier
 
+
+###############################################################
 
 class Node(models.Model):
     name = models.CharField(max_length=30)
@@ -178,9 +192,10 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
+        subkind = self.militaryperson.MilitaryOrganization.type.name if self.militaryperson.MilitaryOrganization.type else ""
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
                 "interface": interface, "military_organization": self.militaryperson.MilitaryOrganization.Id,
-                "om_name": self.militaryperson.MilitaryOrganization.name, "subkind": self.militaryperson.MilitaryOrganization.subkind,
+                "om_name": self.militaryperson.MilitaryOrganization.name, "subkind": subkind,
                 "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.CommDeviceCarrier}
 
 class Station(models.Model):

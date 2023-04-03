@@ -4,7 +4,6 @@ from django.contrib import admin
 
 from .models import *
 
-
 admin.site.register(Configuration)
 
 admin.site.register(Measure)
@@ -51,16 +50,14 @@ admin.site.register(Link)
 
 admin.site.register(MilitaryOrganization)
 
+admin.site.register(MilitaryOrganizationPowerType)
+
 admin.site.register(CommDeviceCarrier)
 
 admin.site.register(MilitaryPlatform)
-
-admin.site.register(MilitaryAsCarrier)
 
 admin.site.register(MilitaryPerson)
 
 admin.site.register(MilitaryScenario)
 
 admin.site.register(TestPlan)
-
-
