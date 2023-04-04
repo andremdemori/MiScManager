@@ -50,16 +50,16 @@ admin.site.register(InterfacePowerType)
 
 admin.site.register(Link)
 
-admin.site.register(MilitaryOrganization)
+#admin.site.register(MilitaryOrganization)
 
-admin.site.register(MilitaryOrganizationPowerType)
+#admin.site.register(MilitaryOrganizationPowerType)
 
-admin.site.register(CommDeviceCarrier)
+#admin.site.register(CommDeviceCarrier)
 
-admin.site.register(MilitaryPlatform)
+#admin.site.register(MilitaryPlatform)
 
-admin.site.register(MilitaryPerson)
+#admin.site.register(MilitaryPerson)
 
-admin.site.register(MilitaryScenario)
+#admin.site.register(MilitaryScenario)
 
 admin.site.register(TestPlan)

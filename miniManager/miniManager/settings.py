@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'channels',
     'experimenter.apps.ExperimenterConfig',
     'provenanceCatcher.apps.ProvenancecatcherConfig',
-    'configurator.apps.ConfiguratorConfig'
+    'configurator.apps.ConfiguratorConfig',
+    'militaryScenarioConf.apps.MilitaryscenarioconfConfig'
 ]
 
 MIDDLEWARE = [

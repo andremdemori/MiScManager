@@ -1,4 +1,5 @@
 from django.db import models
+from militaryScenarioConf.models import *
 
 
 class TestPlan(models.Model):
@@ -7,7 +8,7 @@ class TestPlan(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     description = models.TextField(null=True)
     author = models.CharField(max_length=50, null=True)
-    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
+    scenario = models.ForeignKey(MilitaryScenario, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = "TestPlan"
@@ -92,6 +93,8 @@ class MobilityParam(models.Model):
     class Meta:
         db_table = "MobilityParam"
 
+#################################################################
+'''
 class MilitaryScenario(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
     name = models.CharField(max_length=30)
@@ -104,9 +107,6 @@ class MilitaryScenario(models.Model):
         def __str__(self):
             return self.Id
 
-
-
-#################################################################
 
 class MilitaryOrganizationPowerType(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
@@ -171,7 +171,7 @@ class MilitaryPerson(models.Model):
         def __str__(self):
             return self.Identifier
 
-
+'''
 ###############################################################
 
 class Node(models.Model):
@@ -204,7 +204,7 @@ class Node(models.Model):
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
                 "interface": interface, "military_organization": self.militaryperson.MilitaryOrganization.Id,
                 "om_name": self.militaryperson.MilitaryOrganization.name, "subkind": subkind,
-                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.CommDeviceCarrier}
+                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.CommDevice_Carrier}
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)
