@@ -3,7 +3,7 @@
 
 {% block content %}
   <div class="container">
-    <h1>Configure Military Scenario</h1>
+    <h1>Scenario</h1>
 
     <form class="test-plan-form" method="POST" onsubmit="return validateForm();">
       {% csrf_token %}
@@ -31,6 +31,18 @@
 
         <hr>
 
+        <div class="row">
+          <div class="col">
+            <h3>Military Persons</h3>
+            <div id="military-persons-container">
+              <!-- Existing military persons will be shown here -->
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addMilitaryPerson()">Add Military Person</button>
+          </div>
+        </div>
+
+        <hr>
+
         <button type="submit" class="btn btn-secondary">Save Scenario</button>
         {% if error %}
           <div id="status-bar" class="btn btn-secondary" role="alert">{{ errorMessage }}</div>
@@ -42,6 +54,7 @@
 
   <script>
     let militaryOrganizations = [];
+    let militaryPersons = [];
 
     function addMilitaryOrganization() {
       const name = prompt("Enter the name of the military organization:");
@@ -63,29 +76,99 @@
       return militaryOrganizations.some((militaryOrganization) => militaryOrganization.name === commander);
     }
 
-    function renderMilitaryOrganizations() {
-      const container = document.getElementById("military-organizations-container");
-      container.innerHTML = "";
+    function addMilitaryPerson() {
+      const identifier = prompt("Enter the identifier of the military person:");
+      const organization = selectMilitaryOrganization();
+      const carrier = selectCarrier();
 
-      militaryOrganizations.forEach((militaryOrganization, index) => {
-        const militaryOrganizationDiv = document.createElement("div");
-        militaryOrganizationDiv.className = "form-group row";
-        militaryOrganizationDiv.innerHTML = `
-          <div class="col">
-            <label for="military_organization_${index}_name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="military_organization_${index}_name" name="military_organization_${index}_name" value="${militaryOrganization.name}" readonly>
-          </div>
-          <div class="col">
-            <label for="military_organization_${index}_commander" class="form-label">Commander</label>
-            <input type="text" class="form-control" id="military_organization_${index}_commander" name="military_organization_${index}_commander" value="${militaryOrganization.commander}" readonly>
-          </div>
-          <div class="col">
-            <label for="military_organization_${index}_type" class="form-label">Type</label>
-            <input type="text" class="form-control" id="military_organization_${index}_type" name="military_organization_${index}_type" value="${militaryOrganization.type}" readonly>
-          </div>
-        `;
-        container.appendChild(militaryOrganizationDiv);
+      if (identifier && organization && carrier) {
+        militaryPersons.push({ identifier, organization, carrier });
+        renderMilitaryPersons();
+      }
+    }
+
+    function selectMilitaryOrganization() {
+      const organizations = militaryOrganizations.map((militaryOrganization) => militaryOrganization.name);
+      const selected = prompt("Select the military organization:", organizations.join(", "));
+
+      if (selected) {
+        const militaryOrganization = militaryOrganizations.find((militaryOrganization) => militaryOrganization.name === selected);
+        return militaryOrganization.name;
+      }
+    }
+
+    function selectCarrier() {
+      const carriers = ["Air", "Land", "Sea"];
+      const selected = prompt("Select the carrier:", carriers.join(", "));
+
+      if (selected) {
+        return selected;
+      }
+    }
+
+    function renderMilitaryOrganizations() {
+      const militaryOrganizationsContainer = document.getElementById("military-organizations-container");
+      militaryOrganizationsContainer.innerHTML = "";
+
+      militaryOrganizations.forEach((militaryOrganization) => {
+        const militaryOrganizationContainer = document.createElement("div");
+        militaryOrganizationContainer.className = "military-organization-container";
+
+        const militaryOrganizationName = document.createElement("p");
+        militaryOrganizationName.innerHTML = `<b>Name:</b> ${militaryOrganization.name}`;
+        militaryOrganizationContainer.appendChild(militaryOrganizationName);
+
+        const militaryOrganizationCommander = document.createElement("p");
+        militaryOrganizationCommander.innerHTML = `<b>Commander:</b> ${militaryOrganization.commander}`;
+        militaryOrganizationContainer.appendChild(militaryOrganizationCommander);
+
+        const militaryOrganizationType = document.createElement("p");
+        militaryOrganizationType.innerHTML = `<b>Type:</b> ${militaryOrganization.type}`;
+        militaryOrganizationContainer.appendChild(militaryOrganizationType);
+
+        militaryOrganizationsContainer.appendChild(militaryOrganizationContainer);
       });
     }
+
+    function renderMilitaryPersons() {
+      const militaryPersonsContainer = document.getElementById("military-persons-container");
+      militaryPersonsContainer.innerHTML = "";
+
+      militaryPersons.forEach((militaryPerson) => {
+        const militaryPersonContainer = document.createElement("div");
+        militaryPersonContainer.className = "military-person-container";
+
+        const militaryPersonIdentifier = document.createElement("p");
+        militaryPersonIdentifier.innerHTML = `<b>Identifier:</b> ${militaryPerson.identifier}`;
+        militaryPersonContainer.appendChild(militaryPersonIdentifier);
+
+        const militaryPersonOrganization = document.createElement("p");
+        militaryPersonOrganization.innerHTML = `<b>Organization:</b> ${militaryPerson.organization}`;
+        militaryPersonContainer.appendChild(militaryPersonOrganization);
+
+        const militaryPersonCarrier = document.createElement("p");
+        militaryPersonCarrier.innerHTML = `<b>Carrier:</b> ${militaryPerson.carrier}`;
+        militaryPersonContainer.appendChild(militaryPersonCarrier);
+
+        militaryPersonsContainer.appendChild(militaryPersonContainer);
+      });
+    }
+
+    function validateForm() {
+      if (militaryOrganizations.length === 0) {
+        alert("Please add at least one military organization.");
+        return false;
+      }
+
+      if (militaryPersons.length === 0) {
+        alert("Please add at least one military person.");
+        return false;
+      }
+
+      return true;
+    }
+
+    renderMilitaryOrganizations();
+    renderMilitaryPersons();
   </script>
 {% endblock %}
