@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <h1>Configure Military Scenario</h1>
+
+    <form class="test-plan-form" method="POST" onsubmit="return validateForm();">
+      {% csrf_token %}
+      <div class="test-plan-inputs">
+        <div class="row">
+          <div class="col">
+            <label for="scenario_name" class="form-label">Name of Scenario</label>
+            <input type="text" class="form-control" id="scenario_name" name="scenario_name" placeholder="Scenario x" required>
+            <label for="scenario_description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="scenario_description" name="scenario_description" placeholder="Description of scenario x" required>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col">
+            <h3>Military Organizations</h3>
+            <div id="military-organizations-container">
+              <!-- Existing military organizations will be shown here -->
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addMilitaryOrganization()">Add Military Organization</button>
+          </div>
+        </div>
+
+        <hr>
+
+        <button type="submit" class="btn btn-secondary">Save Scenario</button>
+        {% if error %}
+          <div id="status-bar" class="btn btn-secondary" role="alert">{{ errorMessage }}</div>
+        {% endif %}
+      </div>
+    </form>
+
+  </div>
+
+  <script>
+    let militaryOrganizations = [];
+
+    function addMilitaryOrganization() {
+      const name = prompt("Enter the name of the military organization:");
+      const commander = militaryOrganizations.length === 0 ? "" : prompt("Enter the name of the commander of the military organization:");
+      const type = prompt("Enter the type of the military organization:");
+
+      if (name && type) {
+        if (militaryOrganizations.length > 0 && !isCommanderValid(commander)) {
+          alert("The commander you entered is not valid. Please select a commander from the list.");
+          return;
+        }
+
+        militaryOrganizations.push({ name, commander, type });
+        renderMilitaryOrganizations();
+      }
+    }
+
+    function isCommanderValid(commander) {
+      return militaryOrganizations.some((militaryOrganization) => militaryOrganization.name === commander);
+    }
+
+    function renderMilitaryOrganizations() {
+      const container = document.getElementById("military-organizations-container");
+      container.innerHTML = "";
+
+      militaryOrganizations.forEach((militaryOrganization, index) => {
+        const militaryOrganizationDiv = document.createElement("div");
+        militaryOrganizationDiv.className = "form-group row";
+        militaryOrganizationDiv.innerHTML = `
+          <div class="col">
+            <label for="military_organization_${index}_name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="military_organization_${index}_name" name="military_organization_${index}_name" value="${militaryOrganization.name}" readonly>
+          </div>
+          <div class="col">
+            <label for="military_organization_${index}_commander" class="form-label">Commander</label>
+            <input type="text" class="form-control" id="military_organization_${index}_commander" name="military_organization_${index}_commander" value="${militaryOrganization.commander}" readonly>
+          </div>
+          <div class="col">
+            <label for="military_organization_${index}_type" class="form-label">Type</label>
+            <input type="text" class="form-control" id="military_organization_${index}_type" name="military_organization_${index}_type" value="${militaryOrganization.type}" readonly>
+          </div>
+        `;
+        container.appendChild(militaryOrganizationDiv);
+      });
+    }
+  </script>
+{% endblock %}
