@@ -97,6 +97,9 @@ class Migration(migrations.Migration):
                 ('kind', models.CharField(max_length=30)),
                 ('Military_Organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='militaryScenarioConf.military_organization')),
             ],
+            options={
+                'db_table': 'militaryScenarioConf_military_platform',
+            },
             bases=('militaryScenarioConf.commdevice_carrier',),
         ),
     ]

@@ -204,7 +204,7 @@ class Node(models.Model):
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
                 "interface": interface, "military_organization": self.militaryperson.MilitaryOrganization.Id,
                 "om_name": self.militaryperson.MilitaryOrganization.name, "subkind": subkind,
-                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.CommDevice_Carrier}
+                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.Carrier}
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)

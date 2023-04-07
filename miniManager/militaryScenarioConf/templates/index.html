@@ -24,7 +24,7 @@
             <h3>Military Organizations</h3>
             <div id="military-organizations-container">
               <!-- Existing military organizations will be shown here -->
-            </div>
+            </div><br>
             <button type="button" class="btn btn-secondary" onclick="addMilitaryOrganization()">Add Military Organization</button>
           </div>
         </div>
@@ -36,30 +36,77 @@
             <h3>Military Persons</h3>
             <div id="military-persons-container">
               <!-- Existing military persons will be shown here -->
-            </div>
+            </div><br>
             <button type="button" class="btn btn-secondary" onclick="addMilitaryPerson()">Add Military Person</button>
           </div>
         </div>
 
         <hr>
 
+        <input type="hidden" name="military_organizations" id="military_organizations_input">
+        <input type="hidden" name="military_persons" id="military_persons_input">
+
         <button type="submit" class="btn btn-secondary">Save Scenario</button>
         {% if error %}
           <div id="status-bar" class="btn btn-secondary" role="alert">{{ errorMessage }}</div>
         {% endif %}
       </div>
+
     </form>
 
   </div>
+
+  <style>
+    .military-organization-container {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .military-person-container {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  </style>
 
   <script>
     let militaryOrganizations = [];
     let militaryPersons = [];
 
-    function addMilitaryOrganization() {
+    async function fetchPowerTypes() {
+      const response = await fetch("{% url 'fetch_power_types' %}");
+      const data = await response.json();
+      return data.power_types;
+    }
+
+  async function selectPowerType() {
+    const powerTypes = await fetchPowerTypes();
+    let selected = null;
+
+    while (!selected || !powerTypes.includes(selected)) {
+      selected = prompt("Enter the type of the military organization:", powerTypes.join(", "));
+      if (!selected) {
+        break;
+      }
+      if (!powerTypes.includes(selected)) {
+        alert("Invalid power type selected. Please choose a power type from the list.");
+      }
+    }
+
+    return selected;
+  }
+
+    async function addMilitaryOrganization() {
       const name = prompt("Enter the name of the military organization:");
       const commander = militaryOrganizations.length === 0 ? "" : prompt("Enter the name of the commander of the military organization:");
-      const type = prompt("Enter the type of the military organization:");
+      const type = await selectPowerType();
 
       if (name && type) {
         if (militaryOrganizations.length > 0 && !isCommanderValid(commander)) {
@@ -98,14 +145,21 @@
     }
 
     function selectCarrier() {
-      const carriers = ["Air", "Land", "Sea"];
-      const selected = prompt("Select the carrier:", carriers.join(", "));
+      const carriers = ["Guarani", "By foot"];
+      let selected = null;
 
-      if (selected) {
-        return selected;
+      while (!selected || !carriers.includes(selected)) {
+        selected = prompt("Select the carrier (Guarani or By foot):", carriers.join(", "));
+        if (!selected) {
+          break;
+        }
+        if (!carriers.includes(selected)) {
+          showAlertModal("Invalid carrier selected. Please choose either 'Guarani' or 'By foot'.");
+        }
       }
-    }
 
+      return selected;
+    }
     function renderMilitaryOrganizations() {
       const militaryOrganizationsContainer = document.getElementById("military-organizations-container");
       militaryOrganizationsContainer.innerHTML = "";
@@ -155,18 +209,24 @@
     }
 
     function validateForm() {
-      if (militaryOrganizations.length === 0) {
-        alert("Please add at least one military organization.");
-        return false;
-      }
-
-      if (militaryPersons.length === 0) {
-        alert("Please add at least one military person.");
-        return false;
-      }
-
-      return true;
+    if (militaryOrganizations.length === 0) {
+      alert("Please add at least one military organization.");
+      return false;
     }
+
+    if (militaryPersons.length === 0) {
+      alert("Please add at least one military person.");
+      return false;
+    }
+
+    const militaryOrganizationsInput = document.getElementById("military_organizations_input");
+    militaryOrganizationsInput.value = JSON.stringify(militaryOrganizations);
+
+    const militaryPersonsInput = document.getElementById("military_persons_input");
+    militaryPersonsInput.value = JSON.stringify(militaryPersons);
+
+    return true;
+  }
 
     renderMilitaryOrganizations();
     renderMilitaryPersons();

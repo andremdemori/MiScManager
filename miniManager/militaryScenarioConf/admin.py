@@ -6,9 +6,11 @@ admin.site.register(MilitaryOrganization)
 
 admin.site.register(MilitaryOrganizationPowerType)
 
-admin.site.register(CommDevice_Carrier)
+admin.site.register(Carrier)
 
-admin.site.register(Military_Platform)
+admin.site.register(Platform)
+
+admin.site.register(Guarani)
 
 admin.site.register(MilitaryPerson)
 
