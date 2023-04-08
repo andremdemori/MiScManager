@@ -15,19 +15,21 @@ def fetch_power_types(request):
 
 class HomeScenarioView(TemplateView):
     template_name = 'index.html'
-
     def homescenario(request):
+        types = MilitaryOrganizationPowerType.objects.all()
+
         if request.method == 'POST':
             scenario_name = request.POST["scenario_name"]
             scenario_description = request.POST["scenario_description"]
 
-            military_organizations_data = json.loads(request.POST["military_organizations"])
-            military_persons_data = json.loads(request.POST["military_persons"])
+            military_organizations_data = json.loads(request.POST["military_org_data"])
+            military_persons_data = json.loads(request.POST["military_person_data"])
 
             #create the scenario
-            MilitaryScenario.objects.create(name=scenario_name,description=scenario_description)
+            #MilitaryScenario.objects.create(name=scenario_name,description=scenario_description)
 
-            #create om
+        context = {
+            "types":types
+        }
 
-
-        return render(request, 'index.html')
+        return render(request, 'index.html', context)
