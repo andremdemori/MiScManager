@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form class="test-plan-form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="col">
+      <label for="file">Select an .owl file to upload:</label><br>
+      <input type="file" id="file" name="file" required>
+      <br><br>
+      <input type="submit" class="btn btn-secondary" value="Upload">
+  </div>
+</form>
+
+{% endblock %}
