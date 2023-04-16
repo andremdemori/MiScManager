@@ -20,8 +20,10 @@ class ConfigurationView():
         test_plan_id = int(test_plan_id)
 
         #filter elements of the military scenario
-        oms = MilitaryOrganization.objects.filter(scenario__Id=test_plan_id)
-        mpersons = MilitaryPerson.objects.filter(scenario__Id=test_plan_id)
+        test_plan = TestPlan.objects.get(id=test_plan_id)
+        test_plan_scenario = test_plan.scenario
+        oms = MilitaryOrganization.objects.filter(scenario=test_plan_scenario)
+        mpersons = MilitaryPerson.objects.filter(scenario=test_plan_scenario)
 
         #para passar os dados para o template tem que definir aqui, em configuration.html e em version.html
 

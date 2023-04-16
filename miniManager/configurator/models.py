@@ -200,11 +200,11 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
-        subkind = self.militaryperson.MilitaryOrganization.type.name if self.militaryperson.MilitaryOrganization.type else ""
+        subkind = self.militaryperson.Military_Organization.type.name if self.militaryperson.Military_Organization.type else ""
         return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
-                "interface": interface, "military_organization": self.militaryperson.MilitaryOrganization.Id,
-                "om_name": self.militaryperson.MilitaryOrganization.name, "subkind": subkind,
-                "commander": self.militaryperson.MilitaryOrganization.commander,"carrier": self.militaryperson.Carrier}
+                "interface": interface, "military_organization": self.militaryperson.Military_Organization.Id,
+                "om_name": self.militaryperson.Military_Organization.name, "subkind": subkind,
+                "commander": self.militaryperson.Military_Organization.commander,"carrier": self.militaryperson.CommDevice_Carrier}
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)

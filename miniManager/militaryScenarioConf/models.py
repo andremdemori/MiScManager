@@ -36,7 +36,7 @@ class MilitaryOrganization(models.Model):
     type = models.ForeignKey("MilitaryOrganizationPowerType", on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=30)
     commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
-    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
+    scenario = models.ForeignKey(MilitaryScenario, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = "MilitaryOrganization"

@@ -14,6 +14,7 @@ from .models import *
 
 from django.http import JsonResponse
 from .models import MilitaryOrganizationPowerType
+from militaryScenarioConf.models import *
 
 def fetch_power_types(request):
     power_types = MilitaryOrganizationPowerType.objects.values_list('name', flat=True)
@@ -25,14 +26,65 @@ class HomeScenarioView(TemplateView):
         types = MilitaryOrganizationPowerType.objects.all()
 
         if request.method == 'POST':
+
+            ###CRIA O CENÁRIO
             scenario_name = request.POST["scenario_name"]
             scenario_description = request.POST["scenario_description"]
+            scenario_id = 0
 
+            try:
+                last_scenario = MilitaryScenario.objects.latest('Id')
+                scenario_id = last_scenario.Id + 1
+            except:
+                scenario_id = 1
+
+            MilitaryScenario.objects.create(Id=scenario_id,name=scenario_name,description=scenario_description)
+            scenario = MilitaryScenario.objects.get(Id=scenario_id)
+
+            ###CRIA MILITARY ORGANIZATIONS, MILITARY PERSONS E CARRIES
             military_organizations_data = json.loads(request.POST["military_org_data"])
             military_persons_data = json.loads(request.POST["military_person_data"])
 
-            #create the scenario
-            #MilitaryScenario.objects.create(name=scenario_name,description=scenario_description)
+            ###CRIA MILITARY ORGANIZATIONS
+            if len(military_organizations_data) > 0:
+                for i in range(len(military_organizations_data)):
+                    org = military_organizations_data[i]
+
+                    type = org["type"]
+                    type = MilitaryOrganizationPowerType.objects.get(name=type)
+                    name = org["mo_name"]
+                    commander = org["commander"]
+                    if commander == "":
+                        commander = None
+                    else:
+                        commander = MilitaryOrganization.objects.get(name=commander,scenario=scenario)
+
+                    MilitaryOrganization.objects.create(type=type,name=name,commander=commander,scenario=scenario)
+
+            ###CRIA MILITARY PERSONS
+            if len(military_persons_data) > 0:
+                for i in range(len(military_persons_data)):
+                    person = military_persons_data[i]
+
+                    identifier = person["identifier"]
+                    mo = person["person_mo"]
+                    mo = MilitaryOrganization.objects.get(name=mo,scenario=scenario)
+                    carrier = person["carrier"]
+                    if carrier == 'Guarani':
+                        last_guarani = Guarani.objects.latest('Id')
+                        Id = last_guarani.Id + 1
+                        last_guarani_name = last_guarani.name
+                        number = last_guarani_name[7:] # remove first 7 characters ("guarani") from the string
+                        number = int(number)
+                        number = number + 1
+                        number = str(number)
+                        new_guarani_name = 'guarani'+number
+                        Guarani.objects.create(Id=Id,VisibilityRange=1000,v_min=3.5,v_max=95,scenario=scenario,
+                                               category='Armored',Military_Organization=mo,name=new_guarani_name)
+                        carrier = Carrier.objects.latest('Id')
+                    elif carrier == 'By Foot':
+                        carrier = Carrier.objects.get(Id=1) # BY FOOT
+                    MilitaryPerson.objects.create(Identifier=identifier,Military_Organization=mo,CommDevice_Carrier=carrier,scenario=scenario)
 
         context = {
             "types":types
