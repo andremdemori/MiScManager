@@ -12,7 +12,7 @@ from .models import *
 
 # Create your views here.
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import MilitaryOrganizationPowerType
 from militaryScenarioConf.models import *
 
@@ -31,6 +31,9 @@ class HomeScenarioView(TemplateView):
             scenario_name = request.POST["scenario_name"]
             scenario_description = request.POST["scenario_description"]
             scenario_id = 0
+            x = 0
+            commander_type = ''
+            type_commander = ''
 
             try:
                 last_scenario = MilitaryScenario.objects.latest('Id')
@@ -38,12 +41,36 @@ class HomeScenarioView(TemplateView):
             except:
                 scenario_id = 1
 
-            MilitaryScenario.objects.create(Id=scenario_id,name=scenario_name,description=scenario_description)
+            MilitaryScenario.objects.create(Id=scenario_id, name=scenario_name, description=scenario_description)
             scenario = MilitaryScenario.objects.get(Id=scenario_id)
 
-            ###CRIA MILITARY ORGANIZATIONS, MILITARY PERSONS E CARRIES
             military_organizations_data = json.loads(request.POST["military_org_data"])
             military_persons_data = json.loads(request.POST["military_person_data"])
+
+            # verifica regras de hierarquia
+            if len(military_organizations_data) > 0:
+                for i in range(len(military_organizations_data)):
+                    org = military_organizations_data[i]
+                    type = org["type"]
+                    type = MilitaryOrganizationPowerType.objects.get(name=type)
+                    try:
+                        type_commander = MilitaryOrganizationPowerType.objects.get(name=type).commander
+                    except:
+                        type_commander = None
+                    name = org["mo_name"]
+                    commander = org["commander"]
+                    if commander == "":
+                        commander = None
+                    else:
+                        commander = MilitaryOrganization.objects.get(name=commander, scenario=scenario)
+                        commander_type = MilitaryOrganization.objects.get(name=commander, scenario=scenario).type
+                    if type != commander_type and commander_type == type_commander:
+                        x = 1 # OK
+                    else:
+                        #MilitaryScenario.objects.get(Id=scenario_id).delete()
+                        return HttpResponse("Commander type does not match. Organization creation failed.")
+
+            ###CRIA MILITARY ORGANIZATIONS, MILITARY PERSONS E CARRIES
 
             ###CRIA MILITARY ORGANIZATIONS
             if len(military_organizations_data) > 0:
@@ -60,6 +87,7 @@ class HomeScenarioView(TemplateView):
                         commander = MilitaryOrganization.objects.get(name=commander,scenario=scenario)
 
                     MilitaryOrganization.objects.create(type=type,name=name,commander=commander,scenario=scenario)
+
 
             ###CRIA MILITARY PERSONS
             if len(military_persons_data) > 0:
