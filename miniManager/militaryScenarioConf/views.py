@@ -35,27 +35,17 @@ class HomeScenarioView(TemplateView):
             commander_type = ''
             type_commander = ''
 
-            try:
-                last_scenario = MilitaryScenario.objects.latest('Id')
-                scenario_id = last_scenario.Id + 1
-            except:
-                scenario_id = 1
-
-            MilitaryScenario.objects.create(Id=scenario_id, name=scenario_name, description=scenario_description)
-            scenario = MilitaryScenario.objects.get(Id=scenario_id)
-
             military_organizations_data = json.loads(request.POST["military_org_data"])
             military_persons_data = json.loads(request.POST["military_person_data"])
 
-
             # verifica regras de hierarquia
             if len(military_organizations_data) > 0:
-                for i in range(len(military_organizations_data)-1):
-                    org = military_organizations_data[i+1]
+                for i in range(len(military_organizations_data) - 1):
+                    org = military_organizations_data[i + 1]  # começa do segundo, pois o primeiro não tem comandante
                     type = org["type"]
-                    type = MilitaryOrganizationPowerType.objects.get(name=type) # Companhia
+                    type = MilitaryOrganizationPowerType.objects.get(name=type)  # Companhia
                     try:
-                        type_commander = MilitaryOrganizationPowerType.objects.get(name=type.name).commander # Batalhão
+                        type_commander = MilitaryOrganizationPowerType.objects.get(name=type.name).commander  # Batalhão
                     except:
                         type_commander = None
                     name = org["mo_name"]
@@ -68,10 +58,18 @@ class HomeScenarioView(TemplateView):
                                 commander_type = orga.get('type')
                                 commander_type = MilitaryOrganizationPowerType.objects.get(name=commander_type)
                     if type != commander_type and commander_type == type_commander:
-                        validate = True # OK
+                        validate = True  # OK
                     else:
-                        #MilitaryScenario.objects.get(Id=scenario_id).delete()
                         return HttpResponse("Commander type does not match. Organization creation failed.")
+
+            try:
+                last_scenario = MilitaryScenario.objects.latest('Id')
+                scenario_id = last_scenario.Id + 1
+            except:
+                scenario_id = 1
+
+            MilitaryScenario.objects.create(Id=scenario_id, name=scenario_name, description=scenario_description)
+            scenario = MilitaryScenario.objects.get(Id=scenario_id)
 
             ###CRIA MILITARY ORGANIZATIONS, MILITARY PERSONS E CARRIES
 
