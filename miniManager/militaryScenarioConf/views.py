@@ -47,6 +47,7 @@ class HomeScenarioView(TemplateView):
             military_organizations_data = json.loads(request.POST["military_org_data"])
             military_persons_data = json.loads(request.POST["military_person_data"])
 
+            '''
             # verifica regras de hierarquia
             if len(military_organizations_data) > 0:
                 for i in range(len(military_organizations_data)):
@@ -69,7 +70,7 @@ class HomeScenarioView(TemplateView):
                     else:
                         #MilitaryScenario.objects.get(Id=scenario_id).delete()
                         return HttpResponse("Commander type does not match. Organization creation failed.")
-
+            '''
             ###CRIA MILITARY ORGANIZATIONS, MILITARY PERSONS E CARRIES
 
             ###CRIA MILITARY ORGANIZATIONS

@@ -1,4 +1,6 @@
 from django.db import models
+from eth_utils import ValidationError
+
 
 # Create your models here.
 
@@ -45,6 +47,7 @@ class MilitaryOrganization(models.Model):
 
         def __str__(self):
             return self.Id
+
 
 class Carrier(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
