@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'experimenter.apps.ExperimenterConfig',
     'provenanceCatcher.apps.ProvenancecatcherConfig',
     'configurator.apps.ConfiguratorConfig',
-    'militaryScenarioConf.apps.MilitaryscenarioconfConfig'
+    'militaryScenarioConf.apps.MilitaryscenarioconfConfig',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

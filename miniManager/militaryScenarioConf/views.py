@@ -127,6 +127,22 @@ class UploadScenarioView(TemplateView):
 
     def upload_scenario(request):
         types = MilitaryOrganizationPowerType.objects.all()
+        instances_output = ''
+
+        #variáveis para armazenar os elementos do owl
+        MilitaryScenario = ''
+        CommDevices = []
+        MilitaryOrganizations = []
+        Operators = []
+        Carriers = []
+        Passanger = []
+        guaranis = []
+        MOPowertypes = []
+        InterfPowertypes = []
+        Interfaces = []
+
+
+        #######
 
         if request.method == 'POST':
             data = request.FILES['file']
@@ -141,26 +157,54 @@ class UploadScenarioView(TemplateView):
             ref_onto = get_ontology(file_path).load()
 
             # read the ontology from the file
-            #for c in ref_onto.classes():
-            #    print(c)
-            print("\n\t############### Printing OWL ###############")
-            print("\nReference Ontology:\n", ref_onto)
-            print("\nList of classes:\n", list(ref_onto.classes()))
-            print("\nList of all properties:\n", list(ref_onto.properties()))
-            print("\nList of object properties:\n", list(ref_onto.object_properties()))
-            print("\nList of data properties:\n", list(ref_onto.data_properties()))
-
-            print("\n\t############### Printing Instances ###############")
+            class_names = ['MilitaryScenario', 'WirelessNetwork', 'CommDevice', 'CommDeviceOperator', 'Guarani', 'Interface', 'InterfacePowerType',
+                           'MilitaryAsCarrier', 'MilitaryAsPassenger', 'MilitaryOrganization',
+                           'MilitaryOrganizationPowerType']
 
             for i in range(len(list(ref_onto.classes()))):
                 classe = list(ref_onto.classes())[i]
-                if (classe.instances()):
-                    print(f"\n\t{classe.name}:")
-                for j in classe.instances():
-                    print(j.name)
+                if classe.name in class_names:
+                    instances_output += f"\n\t<br><b>{classe.name}</b>:"
+                    for j in classe.instances():
+                        instances_output += f"<br>{j.name}"
+                        if classe.name == 'MilitaryScenario':
+                            MilitaryScenario = str(j.name)
+                            MilitaryScenario_count = len(MilitaryScenario)
+                        if classe.name == 'CommDevice':
+                            CommDevices.append(str(j.name))
+                            CommDevices_count = len(CommDevices)
+                        if classe.name == 'Interface':
+                            Interfaces.append(str(j.name))
+                            Interfaces_count = len(Interfaces)
+                        if classe.name == 'InterfacePowerType':
+                            InterfPowertypes.append(str(j.name))
+                            InterfPowertypes_count = len(InterfPowertypes)
+                        if classe.name == 'MilitaryOrganizationPowerType':
+                            MOPowertypes.append(str(j.name))
+                            MOPowertypes_count = len(MOPowertypes)
+                        if classe.name == 'MilitaryAsCarrier':
+                            Carriers.append(str(j.name))
+                            Carriers_count = len(Carriers)
+                        if classe.name == 'CommDeviceOperator':
+                            Operators.append(str(j.name))
+                            Operators_count = len(Operators)
+                        if classe.name == 'MilitaryOrganization':
+                            MilitaryOrganizations.append(str(j.name))
+                            MilitaryOrganizations_count = len(MilitaryOrganizations)
+                        if classe.name == 'Guarani':
+                            guaranis.append(str(j.name))
+                            guaranis_count = len(guaranis)
+                        if classe.name == 'MilitaryAsPassenger':
+                            Passanger.append(str(j.name))
+                            Passanger_count = len(Passanger)
+
+
+                    instances_output += f"<hr>"
 
         context = {
-            "types": types
+            "types": types,
+            "instances_output": instances_output
         }
 
         return render(request, 'upload_scenario.html', context)
+

@@ -11,6 +11,19 @@
       <br><br>
       <input type="submit" class="btn btn-secondary" value="Upload">
   </div>
+
+    <div>
+        <br>
+        {% if instances_output %}
+            <h2>Instances:</h2>
+            <p>{{ instances_output|safe }}</p>
+
+            <br><br>
+            <input type="submit" class="btn btn-secondary" value="Confirmar e criar"><br>
+        {% endif %}
+
+    </div>
+
 </form>
 
 {% endblock %}

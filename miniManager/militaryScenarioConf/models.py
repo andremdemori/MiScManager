@@ -86,6 +86,9 @@ class Military_Platform(CommDevice_Carrier):
     Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
 #########################################################################################################
 
+#CRIAR OPERATIONAL ELEMENT E INSTITUTIONAL ELEMENT?
+
+
 class MilitaryPerson(models.Model):
     Identifier = models.CharField(max_length=30)  # 01,02,03...
     Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
