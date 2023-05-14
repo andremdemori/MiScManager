@@ -1,207 +1,325 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://myontology.com/scenario/2023/4/scenario"
+     xml:base="http://myontology.com/scenario/2023/4/untitled-ontology-85"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://myontology.com/scenario/2023/4/scenario">
+     ontologyIRI="http://myontology.com/scenario/2023/4/untitled-ontology-85">
+    <Prefix name="" IRI="http://myontology.com/scenario/2023/4/untitled-ontology-85"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <Class IRI="#Commander"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Range"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Broadcast"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Interface"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#MilitaryEmployment"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Regiment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasMOPowerType"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#VisibilityRange"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#CommDevice"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#Category"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#InterfacePowerType"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Car"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#DataTransferMethodOf"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#isCommanderOf"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sta0-wlan0"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#MilitaryPlatform"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryPerson"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#belongsTo"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#MilitaryOrganizationPowerType"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Subordinate"/>
+        <Class IRI="#AccessPoint"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Armored"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasInterfPowerType"/>
+        <Class IRI="#CommDevice"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#Kind"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#InstitutionalElement"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Unicast"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasInterface"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryAsCarrier"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sta2-wlan0"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#FunctionalComplex"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#carries"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sta2"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sta1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Commander"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sta0"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Company"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Battalion"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Brigade"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Interface"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryEmployment"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#CommDevice"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OperationalElement"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#Mixin"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Armored"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#mayTalkTo"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#Role"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#VisibilityRange_"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AccessPoint"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
+        <Class IRI="#CommDeviceCarrier"/>
     </Declaration>
     <Declaration>
         <Class IRI="#CommDeviceOperator"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/nemo/gufo#categorizes"/>
+        <Class IRI="#Commander"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+        <Class IRI="#DataTransferMethod"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#SDR"/>
+        <Class IRI="#Guarani"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Frequency_"/>
+        <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#networkHasAccessPoint"/>
+        <Class IRI="#InstitutionalElement"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#MinSpeed"/>
+        <Class IRI="#Interface"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#networkHasCommDevice"/>
+        <Class IRI="#InterfacePowerType"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#AntennaGain"/>
+        <Class IRI="#MilitaryAsCarrier"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Person"/>
+        <Class IRI="#MilitaryAsPassenger"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MilitaryEmployment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MilitaryOrganization"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MilitaryOrganizationPowerType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MilitaryPerson"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MilitaryPlatform"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MilitaryScenario"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OperationalElement"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Person"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Subordinate"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Vehicle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WirelessNetwork"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#Category"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#FunctionalComplex"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#IntrinsicMode"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#Kind"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#MaterialRelationshipType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#Mixin"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#Relator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://purl.org/nemo/gufo#Role"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#DataTransferMethodOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#belongsTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#carries"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasInterfPowerType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasInterface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMOPowerType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isCommanderOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isLocatedIn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSubordinateTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#mayTalkTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#networkHasAccessPoint"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#networkHasCommDevice"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#operates"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AmphibiousSpeed"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AntennaGain"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Frequency"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#MaxSpeedLand"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#MinSpeed"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Range"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Txpower"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#VisibilityRange"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#AccessPoint"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#AntennaGain_"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+        <NamedIndividual IRI="#Armored"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Battalion"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#BattleTeam"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Brigade"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Broadcast"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Car"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CommDevice"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CommDeviceCarrier"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CommDeviceOperator"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Commander"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Company"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CruisingSpeed_"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DataTransferMethod"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Frequency_"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#HierarchicallyEquivalentDuringCommunication"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Interface"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#InterfacePowerType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MilitaryAsPassenger"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MilitaryEmployment"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MilitaryOrganization"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MilitaryOrganizationPowerType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MilitaryPerson"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MilitaryPlatform"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MinSpeed_"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Multicast"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#OperationalElement"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P25"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Person"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Platoon"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Range_"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Regiment"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SDR"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Subordinate"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Txpower_"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Unicast"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Vehicle"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#VisibilityRange_"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#WirelessNetwork"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#guarani0"/>
@@ -210,169 +328,52 @@
         <NamedIndividual IRI="#guarani1"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#operates"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#CommDeviceCarrier"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#DataTransferMethod"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#MilitaryOrganization"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Frequency"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#WirelessNetwork"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#3Platoon"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#wn1"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#MaxSpeedLand"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Multicast"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#isLocatedIn"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Txpower_"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#2"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#0"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sta1-wlan0"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryAsPassenger"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#CruisingSpeed_"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Range_"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Vehicle"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryOrganization"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#MinSpeed_"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Txpower"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#AmphibiousSpeed"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#CommDeviceCarrier"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#Relator"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Vehicle"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryPlatform"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Person"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Guarani"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#AccessPoint"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#IntrinsicMode"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#CommDeviceOperator"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#OperationalElement"/>
+        <NamedIndividual IRI="#militaryHasMilitaryOrganization"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#scenario_simplified"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#MilitaryScenario"/>
+        <NamedIndividual IRI="#sta0"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#HierarchicallyEquivalentDuringCommunication"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Platoon"/>
+        <NamedIndividual IRI="#sta1"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#MilitaryAsPassenger"/>
+        <NamedIndividual IRI="#sta1-wlan0"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#WirelessNetwork"/>
+        <NamedIndividual IRI="#sta2"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#InterfacePowerType"/>
+        <NamedIndividual IRI="#sta2-wlan0"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#MilitaryPerson"/>
+        <NamedIndividual IRI="#wn1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#0"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#2Company"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#3Platoon"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/nemo/gufo#categorizes"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="http://purl.org/nemo/gufo#isDerivedFrom"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isSubordinateTo"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#BattleTeam"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="https://purl.org/nemo/gufo#MaterialRelationshipType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#DataTransferMethod"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#P25"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#militaryHasMilitaryOrganization"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MilitaryOrganizationPowerType"/>
+        <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#AccessPoint"/>
@@ -857,34 +858,6 @@
         <NamedIndividual IRI="#militaryHasMilitaryOrganization"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#CommDeviceCarrier"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#CommDeviceOperator"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#MilitaryAsCarrier"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#MilitaryPerson"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#OperationalElement"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Person"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="https://purl.org/nemo/gufo#FunctionalComplex"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-    </ClassAssertion>
-    <ClassAssertion>
         <Class IRI="#MilitaryScenario"/>
         <NamedIndividual IRI="#scenario_simplified"/>
     </ClassAssertion>
@@ -1013,6 +986,30 @@
         <NamedIndividual IRI="#2"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Commander"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#InstitutionalElement"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryOrganization"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Subordinate"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="https://purl.org/nemo/gufo#FunctionalComplex"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Commander"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#InstitutionalElement"/>
         <NamedIndividual IRI="#3Platoon"/>
     </ClassAssertion>
@@ -1021,18 +1018,21 @@
         <NamedIndividual IRI="#3Platoon"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Subordinate"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="https://purl.org/nemo/gufo#FunctionalComplex"/>
         <NamedIndividual IRI="#3Platoon"/>
     </ClassAssertion>
     <DifferentIndividuals>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <NamedIndividual IRI="#0"/>
-        <NamedIndividual IRI="#2"/>
-    </DifferentIndividuals>
-    <DifferentIndividuals>
         <NamedIndividual IRI="#sta0"/>
         <NamedIndividual IRI="#sta1"/>
         <NamedIndividual IRI="#sta2"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#3Platoon"/>
     </DifferentIndividuals>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
@@ -1080,19 +1080,9 @@
         <NamedIndividual IRI="#3Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#carries"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <NamedIndividual IRI="#sta1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <NamedIndividual IRI="#3Platoon"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#operates"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <NamedIndividual IRI="#sta1"/>
+        <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
+        <NamedIndividual IRI="#scenario_simplified"/>
+        <NamedIndividual IRI="#2Company"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
@@ -1108,11 +1098,6 @@
         <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
         <NamedIndividual IRI="#scenario_simplified"/>
         <NamedIndividual IRI="#guarani1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
-        <NamedIndividual IRI="#scenario_simplified"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
@@ -1246,8 +1231,28 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasMOPowerType"/>
+        <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#Company"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isCommanderOf"/>
+        <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
+        <NamedIndividual IRI="#3Platoon"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasMOPowerType"/>
         <NamedIndividual IRI="#3Platoon"/>
         <NamedIndividual IRI="#Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSubordinateTo"/>
+        <NamedIndividual IRI="#3Platoon"/>
+        <NamedIndividual IRI="#2Company"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Frequency"/>
@@ -1368,36 +1373,6 @@
         <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#guarani1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">95</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="#MaxSpeedLand"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="#MinSpeed"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="#VisibilityRange"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
-        <NamedIndividual IRI="#networkHasAccessPoint"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#AntennaGain"/>

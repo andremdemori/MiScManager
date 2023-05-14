@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://myontology.com/scenario/2023/4/scenario"
+     xml:base="http://myontology.com/scenario/2023/4/untitled-ontology-85"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://myontology.com/scenario/2023/4/scenario">
+     ontologyIRI="http://myontology.com/scenario/2023/4/untitled-ontology-85">
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -1778,18 +1778,18 @@
         <Body>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ClassAtom>
         </Body>
         <Head>
             <DataPropertyAtom>
                 <DataProperty IRI="#AntennaGain"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#Range"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">200</Literal>
             </DataPropertyAtom>
         </Head>
@@ -1810,77 +1810,77 @@
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m2"/>
+                <Variable IRI="http://example.com#m2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt2"/>
+                <Variable IRI="http://example.com#ompt2"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#isSubordinateTo"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#ompt2"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#ompt2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#mayTalkTo"/>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c1"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -1900,85 +1900,85 @@
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#mayTalkTo"/>
                 <Variable IRI="#c1"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m2"/>
+                <Variable IRI="http://example.com#m2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ClassAtom>
             <DifferentIndividualsAtom>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#o2"/>
             </DifferentIndividualsAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#o2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ClassAtom>
         </Head>
     </DLSafeRule>
@@ -1998,76 +1998,76 @@
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m2"/>
+                <Variable IRI="http://example.com#m2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
             <SameIndividualAtom>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#o2"/>
             </SameIndividualAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ClassAtom>
             <DifferentIndividualsAtom>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c1"/>
+                <Variable IRI="http://example.com#c2"/>
             </DifferentIndividualsAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#mayTalkTo"/>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c1"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -2086,64 +2086,64 @@
         </Annotation>
         <Body>
             <DifferentIndividualsAtom>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#o2"/>
             </DifferentIndividualsAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#mayTalkTo"/>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c1"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m2"/>
+                <Variable IRI="http://example.com#m2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#m2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="http://example.com#c2"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
+                <Variable IRI="http://example.com#c1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasDirectRelationshipWith"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#o2"/>
             </ObjectPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -2163,17 +2163,17 @@
         <Body>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#CommDeviceCarrier"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
         </Body>
         <Head>
             <ClassAtom>
                 <Class IRI="#MilitaryAsCarrier"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
         </Head>
     </DLSafeRule>
@@ -2193,28 +2193,28 @@
         <Body>
             <ClassAtom>
                 <Class IRI="#Guarani"/>
-                <Variable IRI="#g"/>
+                <Variable IRI="http://example.com#g"/>
             </ClassAtom>
         </Body>
         <Head>
             <DataPropertyAtom>
                 <DataProperty IRI="#MaxSpeedLand"/>
-                <Variable IRI="#g"/>
+                <Variable IRI="http://example.com#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">95</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#AmphibiousSpeed"/>
-                <Variable IRI="#g"/>
+                <Variable IRI="http://example.com#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">9</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#MinSpeed"/>
-                <Variable IRI="#g"/>
+                <Variable IRI="http://example.com#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3.5</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#VisibilityRange"/>
-                <Variable IRI="#g"/>
+                <Variable IRI="http://example.com#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1000</Literal>
             </DataPropertyAtom>
         </Head>
@@ -2298,23 +2298,23 @@
         <Body>
             <ClassAtom>
                 <Class IRI="#MilitaryAsCarrier"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
             </ClassAtom>
         </Body>
         <Head>
             <DataPropertyAtom>
                 <DataProperty IRI="#MaxSpeedLand"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">4</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#MinSpeed"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#VisibilityRange"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">300</Literal>
             </DataPropertyAtom>
         </Head>
@@ -2335,32 +2335,32 @@
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#isLocatedIn"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#mp"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#mp"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPlatform"/>
-                <Variable IRI="#mp"/>
+                <Variable IRI="http://example.com#mp"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m1"/>
+                <Variable IRI="http://example.com#m1"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#belongsTo"/>
-                <Variable IRI="#mp"/>
-                <Variable IRI="#mo"/>
+                <Variable IRI="http://example.com#mp"/>
+                <Variable IRI="http://example.com#mo"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#mo"/>
+                <Variable IRI="http://example.com#mo"/>
             </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#mo"/>
+                <Variable IRI="http://example.com#m1"/>
+                <Variable IRI="http://example.com#mo"/>
             </ObjectPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -2380,45 +2380,45 @@
         <Body>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt2"/>
+                <Variable IRI="http://example.com#ompt2"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#isSubordinateTo"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
             <DifferentIndividualsAtom>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#o2"/>
             </DifferentIndividualsAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#o1"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#ompt2"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#ompt2"/>
             </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o1"/>
             </ClassAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
+                <Variable IRI="http://example.com#o2"/>
             </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
-                <Variable IRI="#ompt2"/>
-                <Variable IRI="#ompt1"/>
+                <Variable IRI="http://example.com#ompt2"/>
+                <Variable IRI="http://example.com#ompt1"/>
             </ObjectPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -2503,15 +2503,15 @@
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#isSubordinateTo"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasDirectRelationshipWith"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#o1"/>
+                <Variable IRI="http://example.com#o2"/>
+                <Variable IRI="http://example.com#o1"/>
             </ObjectPropertyAtom>
         </Head>
     </DLSafeRule>

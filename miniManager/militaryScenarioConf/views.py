@@ -165,8 +165,13 @@ class UploadScenarioView(TemplateView):
                 classe = list(ref_onto.classes())[i]
                 if classe.name in class_names:
                     instances_output += f"\n\t<br><b>{classe.name}</b>:"
+                    teste = classe.instances()
+                    seen_names = set()  # Initialize an empty set to track seen names
                     for j in classe.instances():
-                        instances_output += f"<br>{j.name}"
+                        if j.name not in seen_names:  # Check if the name is not already in the set
+                            instances_output += f"<br>{j.name}"
+                            seen_names.add(j.name)  # Add the name to the set to mark it as seen
+                            #print(j.name)
                         if classe.name == 'MilitaryScenario':
                             MilitaryScenario = str(j.name)
                             MilitaryScenario_count = len(MilitaryScenario)
