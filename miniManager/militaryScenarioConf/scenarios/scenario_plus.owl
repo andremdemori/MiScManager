@@ -11,6 +11,7 @@
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="gufo" IRI="http://purl.org/nemo/gufo#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
         <Class IRI="#AccessPoint"/>
@@ -169,10 +170,10 @@
         <ObjectProperty IRI="#operates"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+        <ObjectProperty abbreviatedIRI="gufo:inheresIn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
+        <ObjectProperty abbreviatedIRI="gufo:mediates"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#AmphibiousSpeed"/>
@@ -200,6 +201,12 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="https://purl.org/nemo/gufo#hasQualityValue"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sta3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#3"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#AccessPoint"/>
@@ -367,10 +374,10 @@
         <NamedIndividual IRI="#3Platoon"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/nemo/gufo#categorizes"/>
+        <AnnotationProperty abbreviatedIRI="gufo:categorizes"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/nemo/gufo#isDerivedFrom"/>
+        <AnnotationProperty abbreviatedIRI="gufo:isDerivedFrom"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
@@ -406,7 +413,7 @@
     <SubClassOf>
         <Class IRI="#DataTransferMethod"/>
         <ObjectMinCardinality cardinality="1">
-            <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+            <ObjectProperty abbreviatedIRI="gufo:inheresIn"/>
             <Class IRI="#InterfacePowerType"/>
         </ObjectMinCardinality>
     </SubClassOf>
@@ -445,7 +452,7 @@
         <Class IRI="#InterfacePowerType"/>
         <ObjectExactCardinality cardinality="1">
             <ObjectInverseOf>
-                <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+                <ObjectProperty abbreviatedIRI="gufo:inheresIn"/>
             </ObjectInverseOf>
             <Class IRI="#DataTransferMethod"/>
         </ObjectExactCardinality>
@@ -476,14 +483,14 @@
     <SubClassOf>
         <Class IRI="#MilitaryEmployment"/>
         <ObjectMinCardinality cardinality="1">
-            <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
+            <ObjectProperty abbreviatedIRI="gufo:mediates"/>
             <Class IRI="#MilitaryOrganization"/>
         </ObjectMinCardinality>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#MilitaryEmployment"/>
         <ObjectMinCardinality cardinality="1">
-            <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
+            <ObjectProperty abbreviatedIRI="gufo:mediates"/>
             <Class IRI="#MilitaryPerson"/>
         </ObjectMinCardinality>
     </SubClassOf>
@@ -495,7 +502,7 @@
         <Class IRI="#MilitaryOrganization"/>
         <ObjectSomeValuesFrom>
             <ObjectInverseOf>
-                <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
+                <ObjectProperty abbreviatedIRI="gufo:mediates"/>
             </ObjectInverseOf>
             <Class IRI="#MilitaryEmployment"/>
         </ObjectSomeValuesFrom>
@@ -530,7 +537,7 @@
         <Class IRI="#MilitaryPerson"/>
         <ObjectExactCardinality cardinality="1">
             <ObjectInverseOf>
-                <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
+                <ObjectProperty abbreviatedIRI="gufo:mediates"/>
             </ObjectInverseOf>
             <Class IRI="#MilitaryEmployment"/>
         </ObjectExactCardinality>
@@ -585,6 +592,14 @@
         <Class IRI="#MilitaryAsCarrier"/>
         <Class IRI="#MilitaryAsPassenger"/>
     </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#CommDevice"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryPerson"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
     <ClassAssertion>
         <Class IRI="https://purl.org/nemo/gufo#Kind"/>
         <NamedIndividual IRI="#AccessPoint"/>
@@ -1035,6 +1050,21 @@
         <NamedIndividual IRI="#3Platoon"/>
     </DifferentIndividuals>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#carries"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryHasMilitaryOrganization"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#operates"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
         <NamedIndividual IRI="#Battalion"/>
         <NamedIndividual IRI="#Brigade"/>
@@ -1050,7 +1080,7 @@
         <NamedIndividual IRI="#SDR"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+        <ObjectProperty abbreviatedIRI="gufo:inheresIn"/>
         <NamedIndividual IRI="#Broadcast"/>
         <NamedIndividual IRI="#SDR"/>
     </ObjectPropertyAssertion>
@@ -1466,7 +1496,7 @@
     </DataPropertyAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#DataTransferMethodOf"/>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+        <ObjectProperty abbreviatedIRI="gufo:inheresIn"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasInterfPowerType"/>
@@ -1638,7 +1668,7 @@
         <Class IRI="#CommDevice"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
+        <ObjectProperty abbreviatedIRI="gufo:inheresIn"/>
         <Class IRI="#CommDeviceCarrier"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
@@ -2531,7 +2561,7 @@
         <Literal xml:lang="en">Interface</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://purl.org/nemo/gufo#categorizes"/>
+        <AnnotationProperty abbreviatedIRI="gufo:categorizes"/>
         <IRI>#InterfacePowerType</IRI>
         <IRI>#Interface</IRI>
     </AnnotationAssertion>
@@ -2546,7 +2576,7 @@
         <Literal xml:lang="en">MilitaryAsPassenger</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://purl.org/nemo/gufo#isDerivedFrom"/>
+        <AnnotationProperty abbreviatedIRI="gufo:isDerivedFrom"/>
         <IRI>#MilitaryEmployment</IRI>
         <IRI>#militaryHasMilitaryOrganization</IRI>
     </AnnotationAssertion>
@@ -2561,7 +2591,7 @@
         <Literal xml:lang="en">MilitaryOrganization</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://purl.org/nemo/gufo#categorizes"/>
+        <AnnotationProperty abbreviatedIRI="gufo:categorizes"/>
         <IRI>#MilitaryOrganizationPowerType</IRI>
         <IRI>#MilitaryOrganization</IRI>
     </AnnotationAssertion>
