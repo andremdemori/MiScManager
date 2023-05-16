@@ -162,72 +162,77 @@ class UploadScenarioView(TemplateView):
                            'MilitaryAsCarrier', 'MilitaryAsPassenger', 'MilitaryOrganization',
                            'MilitaryOrganizationPowerType']
 
-            for ind in ref_onto.individuals():  # for each individual
-                # type = str(ind.is_a).split(".")
-                #print(f"\n{ind.name}")  # a linha acima e esses [-1][:-1] servem apenas para printar certinho na tela
-                classe_ = str(ind.is_a).split(".")[-1]
-                classe_ = str(classe_).replace("]", "")
-                #print(classe_)
-                if classe_ == 'MilitaryOrganization':
-                    print(f"\n{ind.name}")
-                    for p in ind.get_properties():
-                        print(p.name, " ", str(p._get_value_for_individual(ind)).split(".")[-1])
-
             for i in range(len(list(ref_onto.classes()))):
                 classe = list(ref_onto.classes())[i]
                 if classe.name in class_names:
                     instances_output += f"\n\t<br><b>{classe.name}</b>:"
-                    #teste = classe.instances()
-                    seen_names = set()  # Initialize an empty set to track seen names
+
+                    seen_names = set()  # Initialize an empty set to store the seen names
                     for j in classe.instances():
-                        #if j.name not in seen_names:  # Check if the name is not already in the set
-                        instances_output += f"<br>{j.name}"
-                        #    seen_names.add(j.name)  # Add the name to the set to mark it as seen
-                            #print(j.name)
-                        if classe.name == 'MilitaryScenario':
-                            militaryscenario = str(j.name)
-                            MilitaryScenario_count = len(MilitaryScenario)
-
-                            ###CRIA CENÁRIO ###
-                            #MilitaryScenario.objects.create(name=militaryscenario, description='')
-                            #latest_scenario = MilitaryScenario.objects.latest('Id')
-
-
-                        if classe.name == 'CommDevice':
-                            CommDevices.append(str(j.name))
-                            CommDevices_count = len(CommDevices)
-                        if classe.name == 'Interface':
-                            Interfaces.append(str(j.name))
-                            Interfaces_count = len(Interfaces)
-                        if classe.name == 'InterfacePowerType':
-                            InterfPowertypes.append(str(j.name))
-                            InterfPowertypes_count = len(InterfPowertypes)
-                        if classe.name == 'MilitaryOrganizationPowerType':
-                            MOPowertypes.append(str(j.name))
-                            MOPowertypes_count = len(MOPowertypes)
-                        if classe.name == 'MilitaryAsCarrier':
-                            Carriers.append(str(j.name))
-                            Carriers_count = len(Carriers)
-                        if classe.name == 'CommDeviceOperator':
-                            Operators.append(str(j.name))
-                            Operators_count = len(Operators)
-                        if classe.name == 'MilitaryOrganization':
-                            MilitaryOrganizations.append(str(j.name))
-                            MilitaryOrganizations_count = len(MilitaryOrganizations)
-                        if classe.name == 'Guarani':
-                            guarani_name = str(j.name)
-                            guaranis.append(str(j.name))
-                            guaranis_count = len(guaranis)
-
-                            ###CRIA GUARANIS DO CENÁRIO ###
-                            #Guarani.objects.create(name=guarani_name,scenario=latest_scenario,VisibilityRange=1000,v_min=95,v_max=3.5,category='Armored')
-
-                        if classe.name == 'MilitaryAsPassenger':
-                            Passanger.append(str(j.name))
-                            Passanger_count = len(Passanger)
-
-
+                        if j.name not in seen_names:  # Check if the name is not already in the set
+                            instances_output += f"<br>{j.name}"
+                            seen_names.add(j.name)  # Add the name to the set of seen names
                     instances_output += f"<hr>"
+
+            for ind in ref_onto.classes():  # for each individual
+
+                classe_ = str(ind).split(".")[-1]
+
+                if classe_ == 'Ue':
+                    for j in ind.instances():
+                        print(f"\n{j.name}")
+                        for p in j.get_properties():
+                            print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
+
+                if classe_ == 'MilitaryOrganization':
+                    for j in ind.instances():
+                        print(f"\n{j.name}")
+                        for p in j.get_properties():
+                            print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
+
+            '''
+            if classe.name == 'MilitaryScenario':
+                militaryscenario = str(j.name)
+
+                ###CRIA CENÁRIO ###
+                #MilitaryScenario.objects.create(name=militaryscenario, description='')
+                #latest_scenario = MilitaryScenario.objects.latest('Id')
+
+
+            if classe.name == 'CommDevice':
+                CommDevices.append(str(j.name))
+                CommDevices_count = len(CommDevices)
+            if classe.name == 'Interface':
+                Interfaces.append(str(j.name))
+                Interfaces_count = len(Interfaces)
+            if classe.name == 'InterfacePowerType':
+                InterfPowertypes.append(str(j.name))
+                InterfPowertypes_count = len(InterfPowertypes)
+            if classe.name == 'MilitaryOrganizationPowerType':
+                MOPowertypes.append(str(j.name))
+                MOPowertypes_count = len(MOPowertypes)
+            if classe.name == 'MilitaryAsCarrier':
+                Carriers.append(str(j.name))
+                Carriers_count = len(Carriers)
+            if classe.name == 'CommDeviceOperator':
+                Operators.append(str(j.name))
+                Operators_count = len(Operators)
+            if classe.name == 'MilitaryOrganization':
+                MilitaryOrganizations.append(str(j.name))
+                MilitaryOrganizations_count = len(MilitaryOrganizations)
+            if classe.name == 'Guarani':
+                guaranis.append(str(j.name))
+                guarani_name = str(j.name)
+                guaranis_count = len(guaranis)
+
+                ###CRIA GUARANIS DO CENÁRIO ###
+                #Guarani.objects.create(name=guarani_name,scenario=latest_scenario,VisibilityRange=1000,v_min=95,v_max=3.5,category='Armored')
+
+            if classe.name == 'MilitaryAsPassenger':
+                Passanger.append(str(j.name))
+                Passanger_count = len(Passanger)
+            '''
+
 
         context = {
             "types": types,
