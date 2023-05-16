@@ -130,10 +130,11 @@ class UploadScenarioView(TemplateView):
         instances_output = ''
 
         #variáveis para armazenar os elementos do owl
-        militaryscenario = ''
+        scenario_name = ''
         latest_scenario = ''
+        MO_dictionary = {}
+
         CommDevices = []
-        MilitaryOrganizations = []
         Operators = []
         Carriers = []
         Passanger = []
@@ -176,19 +177,34 @@ class UploadScenarioView(TemplateView):
 
             for ind in ref_onto.classes():  # for each individual
 
+                seen_names = set()
                 classe_ = str(ind).split(".")[-1]
 
-                if classe_ == 'Ue':
+                ### COLETA INFORMAÇÕES PARA CRIAÇÃO DO CENÁRIO (PROPERTIES)###
+
+                if classe_ == 'MilitaryScenario':
                     for j in ind.instances():
+
+                        scenario_name = str(j.name)
+
                         print(f"\n{j.name}")
-                        for p in j.get_properties():
-                            print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
 
                 if classe_ == 'MilitaryOrganization':
                     for j in ind.instances():
-                        print(f"\n{j.name}")
-                        for p in j.get_properties():
-                            print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
+                        if j.name not in seen_names:
+                            MO_dictionary[j.name] = {}
+                            seen_names.add(j.name)
+                            for p in j.get_properties():
+                                p_value = str(p._get_value_for_individual(j)).split(".")[-1]
+                                MO_dictionary[j.name][p.name] = p_value
+
+                if classe_ == 'Ue':
+                    for j in ind.instances():
+                        if j.name not in seen_names:
+                            print(f"\n{j.name}")
+                            seen_names.add(j.name)
+                            for p in j.get_properties():
+                                print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
 
             '''
             if classe.name == 'MilitaryScenario':
