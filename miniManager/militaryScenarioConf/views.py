@@ -290,10 +290,18 @@ class UploadScenarioView(TemplateView):
                         for prop, prop_value in value.items():
                             if prop == 'militaryPersonHasMilitaryOrganization':
                                 mo_om = prop_value
+                                #mo_om = MilitaryOrganization.objects.get(name=mo_om,scenario=scenario)
                             if prop == 'isLocatedIn':
                                 vehicle = prop_value
+                                carrier = Guarani.objects.get(name=vehicle)
                             if prop == 'carries':
                                 by_foot = True
+                                #carrier = Carrier.objects.get(Id=1) # by foot
+
+
+                        #MilitaryPerson.objects.create(Identifier=identifier,Military_Organization=mo_om,CommDevice_Carrier=carrier,scenario=scenario)
+
+
 
         context = {
             "types": types,

@@ -65,7 +65,7 @@ class Platform(Carrier):
     Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
 
 class Guarani(Platform):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
 
 
 
