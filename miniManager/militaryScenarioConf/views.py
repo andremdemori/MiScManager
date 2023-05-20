@@ -133,6 +133,8 @@ class UploadScenarioView(TemplateView):
         scenario_name = ''
         latest_scenario = ''
         MO_dictionary = {}
+        commander_name = ''
+        MP_dictionary = {}
 
         CommDevices = []
         Operators = []
@@ -186,8 +188,7 @@ class UploadScenarioView(TemplateView):
                     for j in ind.instances():
 
                         scenario_name = str(j.name)
-
-                        print(f"\n{j.name}")
+                        #print(f"\n{j.name}")
 
                 if classe_ == 'MilitaryOrganization':
                     for j in ind.instances():
@@ -198,6 +199,24 @@ class UploadScenarioView(TemplateView):
                                 p_value = str(p._get_value_for_individual(j)).split(".")[-1]
                                 MO_dictionary[j.name][p.name] = p_value
 
+                    # Find the element without 'isSubordinateTo'
+                    element_without_subordinate = None
+                    for key, value in MO_dictionary.items():
+                        if 'isSubordinateTo' not in value:
+                            element_without_subordinate = (key, value)
+                            break
+
+                    # Remove the element without 'isSubordinateTo' from the dictionary
+                    if element_without_subordinate is not None:
+                        key, value = element_without_subordinate
+                        del MO_dictionary[key]
+
+                    # Insert the element without 'isSubordinateTo' as the first element in the dictionary
+                    if element_without_subordinate is not None:
+                        updated_data = {key: value}
+                        updated_data.update(MO_dictionary)
+                        MO_dictionary = updated_data
+
                 if classe_ == 'Ue':
                     for j in ind.instances():
                         if j.name not in seen_names:
@@ -206,15 +225,51 @@ class UploadScenarioView(TemplateView):
                             for p in j.get_properties():
                                 print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
 
+                if classe_ == 'MilitaryPerson':
+                    for j in ind.instances():
+                        if j.name not in seen_names:
+                            MP_dictionary[j.name] = {}
+                            seen_names.add(j.name)
+                            for p in j.get_properties():
+                                p_value = str(p._get_value_for_individual(j)).split(".")[-1]
+                                if p.name == 'isLocatedIn' or p.name == 'militaryPersonHasMilitaryOrganization' or p.name == 'operates' or p.name == 'carries':
+                                    MP_dictionary[j.name][p.name] = p_value
+
+            for i in range(len(list(ref_onto.classes()))):
+                classe = list(ref_onto.classes())[i]
+
+                if classe.name == 'MilitaryScenario':
+                    militaryscenario = str(j.name)
+
+                    ###CRIA CENÁRIO ###
+                    #MilitaryScenario.objects.create(name=militaryscenario, description='')
+                    #scenario = MilitaryScenario.objects.get(name=militaryscenario) # nomes de cenários precisam ser únicos
+
+                if classe.name == 'MilitaryOrganization':
+                    om_name = ''
+                    om_type = ''
+                    commander = ''
+                    for key, value in MO_dictionary.items():
+                        print(f"\nKey: {key}")
+                        om_name = key
+                        for prop, prop_value in value.items():
+                            if prop == 'hasMOPowerType':
+                                om_type = prop_value
+                            if prop == 'isSubordinateTo':
+                                commander_name = prop_value
+                        if commander_name == '':
+                            None
+                            #MilitaryOrganization.objects.create(type=om_type,name=om_name,commander=None,scenario=latest_scenario)
+                        else:
+                            commander = MilitaryOrganization.objects.get(name=commander_name,scenario=latest_scenario)
+                            #MilitaryOrganization.objects.create(type=om_type,name=om_name,commander=commander,scenario=latest_scenario)
+
+
+                if classe.name == 'MilitaryPerson':
+                    x=1
+
+
             '''
-            if classe.name == 'MilitaryScenario':
-                militaryscenario = str(j.name)
-
-                ###CRIA CENÁRIO ###
-                #MilitaryScenario.objects.create(name=militaryscenario, description='')
-                #latest_scenario = MilitaryScenario.objects.latest('Id')
-
-
             if classe.name == 'CommDevice':
                 CommDevices.append(str(j.name))
                 CommDevices_count = len(CommDevices)
@@ -233,9 +288,6 @@ class UploadScenarioView(TemplateView):
             if classe.name == 'CommDeviceOperator':
                 Operators.append(str(j.name))
                 Operators_count = len(Operators)
-            if classe.name == 'MilitaryOrganization':
-                MilitaryOrganizations.append(str(j.name))
-                MilitaryOrganizations_count = len(MilitaryOrganizations)
             if classe.name == 'Guarani':
                 guaranis.append(str(j.name))
                 guarani_name = str(j.name)

@@ -6,7 +6,7 @@ from eth_utils import ValidationError
 
 class MilitaryScenario(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=255)
 
     class Meta:
