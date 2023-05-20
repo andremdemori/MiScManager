@@ -3,13 +3,15 @@
 
 {% block content %}
 
+
+
 <form class="test-plan-form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
   <div class="col">
       <label for="file">Select an .owl file to upload:</label><br>
       <input type="file" id="file" name="file" required>
       <br><br>
-      <input type="submit" class="btn btn-secondary" value="Upload">
+      <input type="submit" class="btn btn-secondary" value="Upload scenario">
   </div>
 
     <div>
@@ -19,7 +21,6 @@
             <p>{{ instances_output|safe }}</p>
 
             <br><br>
-            <input type="submit" class="btn btn-secondary" value="Confirmar e criar"><br>
         {% endif %}
 
     </div>

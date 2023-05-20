@@ -1,4 +1,7 @@
 import json
+import mimetypes
+import os
+
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse
@@ -248,6 +251,44 @@ class HomeView(View):
     def get(self, request):
         args = {"error": False, "errorMessage": ""}
         return render(request, 'home.html', args)
+
+class AboutView(View):
+    def about(request):
+        if 'download_ttl' in request.POST:
+            # Define Django project base directory
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            # Define text file name
+            filename = 'scenario_teste.ttl'
+            # Define the full file path
+            filepath = BASE_DIR + '/media/' + filename
+            # Open the file for reading content
+            path = open(filepath, 'rb')
+            # Set the mime type
+            mime_type, _ = mimetypes.guess_type(filepath)
+            # Set the return value of the HttpResponse
+            response = HttpResponse(path, content_type=mime_type)
+            # Set the HTTP header for sending to browser
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            # Return the response value
+            return response
+        if 'download_paper' in request.POST:
+            # Define Django project base directory
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            # Define text file name
+            filename = 'MiniManager_Paper.pdf'
+            # Define the full file path
+            filepath = BASE_DIR + '/media/' + filename
+            # Open the file for reading content
+            path = open(filepath, 'rb')
+            # Set the mime type
+            mime_type, _ = mimetypes.guess_type(filepath)
+            # Set the return value of the HttpResponse
+            response = HttpResponse(path, content_type=mime_type)
+            # Set the HTTP header for sending to browser
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            # Return the response value
+            return response
+        return render(request, 'about.html')
 
 
 

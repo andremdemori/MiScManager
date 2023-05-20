@@ -102,12 +102,7 @@ class HomeScenarioView(TemplateView):
                     if carrier == 'Guarani':
                         last_guarani = Guarani.objects.latest('Id')
                         Id = last_guarani.Id + 1
-                        last_guarani_name = last_guarani.name
-                        number = last_guarani_name[7:] # remove first 7 characters ("guarani") from the string
-                        number = int(number)
-                        number = number + 1
-                        number = str(number)
-                        new_guarani_name = 'guarani'+number
+                        new_guarani_name = 'guarani'+scenario_name
                         Guarani.objects.create(Id=Id,VisibilityRange=1000,v_min=3.5,v_max=95,scenario=scenario,
                                                category='Armored',Military_Organization=mo,name=new_guarani_name)
                         carrier = Carrier.objects.latest('Id')
