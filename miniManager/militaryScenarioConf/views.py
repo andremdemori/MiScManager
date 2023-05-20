@@ -135,6 +135,7 @@ class UploadScenarioView(TemplateView):
         MO_dictionary = {}
         commander_name = ''
         MP_dictionary = {}
+        guaranis = []
 
         CommDevices = []
         Operators = []
@@ -235,6 +236,13 @@ class UploadScenarioView(TemplateView):
                                 if p.name == 'isLocatedIn' or p.name == 'militaryPersonHasMilitaryOrganization' or p.name == 'operates' or p.name == 'carries':
                                     MP_dictionary[j.name][p.name] = p_value
 
+                if classe_ == 'Guarani':
+                    for j in ind.instances():
+                        guaranis.append(j.name)
+
+
+
+            ### COMEÇA A POPULAR O BANCO DE DADOS COM OS DADOS IMPORTADOS ###
             for i in range(len(list(ref_onto.classes()))):
                 classe = list(ref_onto.classes())[i]
 
@@ -261,9 +269,15 @@ class UploadScenarioView(TemplateView):
                             None
                             #MilitaryOrganization.objects.create(type=om_type,name=om_name,commander=None,scenario=latest_scenario)
                         else:
-                            commander = MilitaryOrganization.objects.get(name=commander_name,scenario=latest_scenario)
+                            x=1
+                            #commander = MilitaryOrganization.objects.get(name=commander_name,scenario=scenario)
                             #MilitaryOrganization.objects.create(type=om_type,name=om_name,commander=commander,scenario=latest_scenario)
 
+                if classe.name == 'Guarani':
+                    x=1
+                    for g in guaranis:
+                        x=1
+                        #Guarani.objects.create(name=g,scenario=scenario,VisibilityRange=1000,v_min=95,v_max=3.5,category='Armored')
 
                 if classe.name == 'MilitaryPerson':
                     x=1
