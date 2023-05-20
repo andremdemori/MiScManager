@@ -281,40 +281,19 @@ class UploadScenarioView(TemplateView):
 
                 if classe.name == 'MilitaryPerson':
                     x=1
-
-
-            '''
-            if classe.name == 'CommDevice':
-                CommDevices.append(str(j.name))
-                CommDevices_count = len(CommDevices)
-            if classe.name == 'Interface':
-                Interfaces.append(str(j.name))
-                Interfaces_count = len(Interfaces)
-            if classe.name == 'InterfacePowerType':
-                InterfPowertypes.append(str(j.name))
-                InterfPowertypes_count = len(InterfPowertypes)
-            if classe.name == 'MilitaryOrganizationPowerType':
-                MOPowertypes.append(str(j.name))
-                MOPowertypes_count = len(MOPowertypes)
-            if classe.name == 'MilitaryAsCarrier':
-                Carriers.append(str(j.name))
-                Carriers_count = len(Carriers)
-            if classe.name == 'CommDeviceOperator':
-                Operators.append(str(j.name))
-                Operators_count = len(Operators)
-            if classe.name == 'Guarani':
-                guaranis.append(str(j.name))
-                guarani_name = str(j.name)
-                guaranis_count = len(guaranis)
-
-                ###CRIA GUARANIS DO CENÁRIO ###
-                #Guarani.objects.create(name=guarani_name,scenario=latest_scenario,VisibilityRange=1000,v_min=95,v_max=3.5,category='Armored')
-
-            if classe.name == 'MilitaryAsPassenger':
-                Passanger.append(str(j.name))
-                Passanger_count = len(Passanger)
-            '''
-
+                    identifier = ''
+                    vehicle = ''
+                    by_foot = False
+                    for key, value in MP_dictionary.items():
+                        print(f"\nKey: {key}")
+                        identifier = key
+                        for prop, prop_value in value.items():
+                            if prop == 'militaryPersonHasMilitaryOrganization':
+                                mo_om = prop_value
+                            if prop == 'isLocatedIn':
+                                vehicle = prop_value
+                            if prop == 'carries':
+                                by_foot = True
 
         context = {
             "types": types,
