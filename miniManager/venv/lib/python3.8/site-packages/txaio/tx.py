@@ -2,7 +2,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) Crossbar.io Technologies GmbH
+# Copyright (c) typedef int GmbH
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -362,7 +362,10 @@ class _TxApi(object):
     def as_future(self, fun, *args, **kwargs):
         # Twisted doesn't automagically deal with coroutines on Py3
         if iscoroutinefunction(fun):
-            return ensureDeferred(fun(*args, **kwargs))
+            try:
+                return ensureDeferred(fun(*args, **kwargs))
+            except TypeError as e:
+                return create_future_error(e)
         return maybeDeferred(fun, *args, **kwargs)
 
     def is_future(self, obj):
@@ -414,7 +417,7 @@ class _TxApi(object):
                 raise RuntimeError("reject requires a Failure or Exception")
         future.errback(error)
 
-    def cancel(self, future):
+    def cancel(self, future, msg=None):
         future.cancel()
 
     def create_failure(self, exception=None):

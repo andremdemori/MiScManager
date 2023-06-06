@@ -1,4 +1,4 @@
-#!/home/demori/PycharmProjects/mini-manager/miniManager/venv/bin/python
+#!/home/demori/PycharmProjects/mini-manager-extension/miniManager/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

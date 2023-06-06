@@ -68,24 +68,6 @@ class Guarani(Platform):
     name = models.CharField(max_length=30)
 
 
-
-############################essas duas classes estão com um problema no migrate###########################################################################
-class CommDevice_Carrier(models.Model):
-    Id = models.AutoField(primary_key=True, unique=True)
-    VisibilityRange = models.FloatField(max_length=30, blank=True, null=True)
-    v_min = models.FloatField(max_length=30, blank=True, null=True)
-    v_max = models.FloatField(max_length=30, blank=True, null=True)
-    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
-class Military_Platform(CommDevice_Carrier):
-    ARMORED_CATEGORY = 'armored'
-    CATEGORY_CHOICES = (
-        (ARMORED_CATEGORY, 'Armored'),
-    )
-    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default=ARMORED_CATEGORY)
-    kind = models.CharField(max_length=30)
-    Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
-#########################################################################################################
-
 #CRIAR OPERATIONAL ELEMENT E INSTITUTIONAL ELEMENT?
 
 

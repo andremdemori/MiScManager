@@ -1,4 +1,4 @@
-#!/home/demori/PycharmProjects/mini-manager/miniManager/venv/bin/python
+#!/home/demori/PycharmProjects/mini-manager-extension/miniManager/venv/bin/python
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

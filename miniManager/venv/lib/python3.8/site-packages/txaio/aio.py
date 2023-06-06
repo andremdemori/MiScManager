@@ -2,7 +2,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) Crossbar.io Technologies GmbH
+# Copyright (c) typedef int GmbH
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -459,8 +459,11 @@ class _AsyncioApi(object):
                 raise RuntimeError("reject requires an IFailedFuture or Exception")
         future.set_exception(error.value)
 
-    def cancel(self, future):
-        future.cancel()
+    def cancel(self, future, msg=None):
+        if sys.version_info >= (3, 9):
+            future.cancel(msg)
+        else:
+            future.cancel()
 
     def create_failure(self, exception=None):
         """
@@ -484,7 +487,7 @@ class _AsyncioApi(object):
                 res = f.result()
                 if callback:
                     callback(res)
-            except Exception:
+            except (Exception, asyncio.CancelledError):
                 if errback:
                     errback(create_failure())
         return future.add_done_callback(done)

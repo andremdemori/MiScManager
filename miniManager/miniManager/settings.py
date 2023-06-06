@@ -89,9 +89,9 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres2',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'minimanagerdb',
+        'USER': 'mmadmin',
+        'PASSWORD': '340600',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

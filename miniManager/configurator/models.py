@@ -342,7 +342,7 @@ class Configuration(models.Model):
     medicao_schema = models.TextField()
     propagationmodel = models.ForeignKey(PropagationModel, on_delete=models.CASCADE, null=True)
     mobilitymodel = models.ForeignKey(MobilityModel, on_delete=models.CASCADE, null=True)
-    stop_time = models.IntegerField(null=True)
+    stop_time = models.IntegerField(blank=True,null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE, null=True)
 
     class Meta:
