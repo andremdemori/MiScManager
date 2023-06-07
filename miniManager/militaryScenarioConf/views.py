@@ -15,6 +15,7 @@ from .models import *
 from django.http import JsonResponse, HttpResponse
 from .models import MilitaryOrganizationPowerType
 from militaryScenarioConf.models import *
+from configurator.models import *
 
 def fetch_power_types(request):
     power_types = MilitaryOrganizationPowerType.objects.values_list('name', flat=True)
@@ -131,7 +132,11 @@ class UploadScenarioView(TemplateView):
         commander_name = ''
         MP_dictionary = {}
         guaranis_dictionary = {}
+        CommDevices_dictionary = {}
         guarani_om = ''
+
+        testplan=''
+        network=''
 
         CommDevices = []
         Operators = []
@@ -242,6 +247,17 @@ class UploadScenarioView(TemplateView):
                                 if p.name == 'belongsTo':
                                     guaranis_dictionary[j.name][p.name] = p_value
 
+
+                if classe_ == 'CommDevice':
+                    for j in ind.instances():
+                        if j.name not in seen_names:
+                            CommDevices_dictionary[j.name] = {}
+                            seen_names.add(j.name)
+                            for p in j.get_properties():
+                                p_value = str(p._get_value_for_individual(j)).split(".")[-1]
+                                if p.name == 'hasInterface':
+                                    CommDevices_dictionary[j.name][p.name] = p_value
+
             ### COMEÇA A POPULAR O BANCO DE DADOS COM OS DADOS IMPORTADOS ###
             #for i in range(len(list(ref_onto.classes()))):
             #    classe = list(ref_onto.classes())[i]
@@ -286,7 +302,10 @@ class UploadScenarioView(TemplateView):
                         if prop == 'belongsTo':
                             guarani_om = prop_value
                             guarani_om = MilitaryOrganization.objects.get(name=guarani_om,scenario=scenario)
-                    g_id = Guarani.objects.latest('Id').Id + 1
+                    try:
+                        g_id = Guarani.objects.latest('Id').Id + 1
+                    except:
+                        g_id = 0
                     Guarani.objects.create(Id=g_id,name=guarani_name,scenario=scenario,VisibilityRange=1000,v_min=95,v_max=3.5,category='Armored', Military_Organization=guarani_om)
 
             if 'MilitaryPerson' in [classe.name for classe in ref_onto.classes()]:
@@ -308,6 +327,54 @@ class UploadScenarioView(TemplateView):
                             carrier = Carrier.objects.get(Id=1) # by foot
 
                     MilitaryPerson.objects.create(Identifier=identifier,Military_Organization=mo_om,CommDevice_Carrier=carrier,scenario=scenario)
+
+            ### COMEÇA A CRIAR OS ELEMENTOS ESPECÍFICOS DO MINIMANAGER E DA REDE ###
+
+            ###CRA PLANO DE TESTE###
+            testplan = TestPlan.objects.create(name=filename,description="imported owl",author="",scenario=scenario)
+
+            ###CRIA NETWORK###
+            try:
+                network = Network.objects.first()
+            except:
+                network = Network.objects.create(noise_th=-91,fading_cof=0,adhoc=True)
+
+            ###CRIA CONFIGURATION###
+            # Escape the XML string properly
+            xml_string = '<?xml version="1.0" encoding="UTF-8" ?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="result"><xs:complexType><xs:all><xs:element name="radioFrequency"><xs:complexType><xs:sequence><xs:element name="instant" maxOccurs="unbounded"><xs:complexType><xs:sequence><xs:element name="station" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:all><xs:element name="rssi" type="xs:string"/><xs:element name="channel" type="xs:string"/><xs:element name="band" type="xs:string"/><xs:element name="txpower" type="xs:string"/><xs:element name="ip" type="xs:string"/><xs:element name="position" type="xs:string"/><xs:element name="associatedTo" type="xs:string"/></xs:all><xs:attribute name="name" type="xs:string" use="required"/></xs:complexType></xs:element></xs:sequence><xs:attribute name="time" type="xs:string" use="required"/></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element><xs:element name="performance"><xs:complexType><xs:sequence><xs:element name="instance" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:all><xs:element name="value" type="xs:string"/></xs:all><xs:attribute name="name" type="xs:string" use="required"/><xs:attribute name="time" type="xs:string" use="required"/><xs:attribute name="source" type="xs:string" use="required"/><xs:attribute name="destination" type="xs:string" use="required"/></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:all><xs:attribute name="roundID" type="xs:string" use="required"/></xs:complexType></xs:element></xs:schema>'
+
+            propagationmodel=PropagationModel.objects.first()
+            mobilitymodel=MobilityModel.objects.first()
+            configuration = Configuration.objects.create(medicao_schema=xml_string,propagationmodel=propagationmodel,mobilitymodel=mobilitymodel,network=network)
+
+
+            ####CRIA VERSION###
+            Version.objects.create(name=filename+"_version",test_plan=testplan,configuration=configuration)
+
+            ###CRIA NODES###
+            stop = False
+            node = ''
+            node_name = ''
+            for key, value in MP_dictionary.items():
+                identifier = key
+                for prop, prop_value in value.items():
+                    if prop == 'operates':
+                        interface = prop_value
+                        #Encontra o commdevide correspondente
+                        for key, value in CommDevices_dictionary.items():
+                            node = key
+                            for prop, prop_value in value.items():
+                                if prop == 'hasInterface':
+                                    interface_ = prop_value
+                                    if interface_ == interface:
+                                        node_name = node
+                                        stop = True
+                                        break
+                                if stop == True:
+                                    break
+
+                        mp=MilitaryPerson.objects.get(Identifier=identifier,scenario=scenario)
+                        Node.objects.create(name=node_name, mac="",militaryperson=mp,type="station",network=network)
 
         context = {
             "types": types,

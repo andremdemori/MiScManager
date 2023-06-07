@@ -6,8 +6,8 @@ class TestPlan(models.Model):
     name = models.CharField(max_length=60)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    description = models.TextField(null=True)
-    author = models.CharField(max_length=50, null=True)
+    description = models.TextField(blank=True,null=True)
+    author = models.CharField(max_length=50, blank=True, null=True)
     scenario = models.ForeignKey(MilitaryScenario, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -92,87 +92,6 @@ class MobilityParam(models.Model):
 
     class Meta:
         db_table = "MobilityParam"
-
-#################################################################
-'''
-class MilitaryScenario(models.Model):
-    Id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(max_length=30)
-
-    class Meta:
-        db_table = "MilitaryScenario"
-        verbose_name = 'MilitaryScenario'
-        verbose_name_plural = 'MilitaryScenario'
-
-        def __str__(self):
-            return self.Id
-
-
-class MilitaryOrganizationPowerType(models.Model):
-    Id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(max_length=30)
-    commander = models.ForeignKey("MilitaryOrganizationPowerType", on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        db_table = "MilitaryOrganizationPowerType"
-        verbose_name = 'MilitaryOrganizationPowerType'
-        verbose_name_plural = 'MilitaryOrganizationPowerTypes'
-
-        def __str__(self):
-            return self.Id
-
-
-# MILITARYORGANIZATION
-class MilitaryOrganization(models.Model):
-    Id = models.AutoField(primary_key=True, unique=True)
-    type = models.ForeignKey("MilitaryOrganizationPowerType", on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=30)
-    commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
-    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        db_table = "MilitaryOrganization"
-        verbose_name = 'MilitaryOrganization'
-        verbose_name_plural = 'MilitaryOrganization'
-
-        def __str__(self):
-            return self.Id
-
-class CommDeviceCarrier(models.Model):
-    Id = models.AutoField(primary_key=True, unique=True)
-    VisibilityRange = models.FloatField(max_length=30, blank=True, null=True)
-    v_min = models.FloatField(max_length=30, blank=True, null=True)
-    v_max = models.FloatField(max_length=30, blank=True, null=True)
-    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
-
-
-class MilitaryPlatform(CommDeviceCarrier):
-    ARMORED_CATEGORY = 'armored'
-    CATEGORY_CHOICES = (
-        (ARMORED_CATEGORY, 'Armored'),
-    )
-    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default=ARMORED_CATEGORY)
-    kind = models.CharField(max_length=30)
-    MilitaryOrganization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
-
-
-
-class MilitaryPerson(models.Model):
-    Identifier = models.CharField(max_length=30)  # 01,02,03...
-    MilitaryOrganization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
-    CommDeviceCarrier = models.ForeignKey(CommDeviceCarrier, on_delete=models.CASCADE, related_name='commdevicecarrier')
-    scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        db_table = "MilitaryPerson"
-        verbose_name = 'MilitaryPerson'
-        verbose_name_plural = 'MilitaryPerson'
-
-        def __str__(self):
-            return self.Identifier
-
-'''
-###############################################################
 
 class Node(models.Model):
     name = models.CharField(max_length=30)
