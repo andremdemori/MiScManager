@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'links.css' %}" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+{% block content %}
+
+<div class="card link-form">
+  <h5 class="card-header">Edit mobility params to stations</h5>
+  <div class="card-body">
+    <div id="new-link">
+      <div class="form-group">
+      <form method="post">
+          {% csrf_token %}
+        <div class="row">
+            <div class="col-3">
+            {% for s in stations %}
+                <label>{{ s.node.name }}</label><br>
+
+                <div class="col" id="position_node_wrapper" style="display: none;">
+                    <p id="fixed_position_values">Current value: {{ s.position_node }} </p>
+                    <label id="position_node" for="position_node">position</label> <button type="button" data-balloon-length="large" class="button button1" aria-label="Only applies to Tracked Mobility Model." data-balloon-pos="up">i</button>
+                    <input type="text" name="{{s.node.name}}_position_node" class="form-control" id="station_position_node" placeholder="347.414,572.84,0">
+                </div>
+
+               <div class="col">
+                    <label id="check_position" for="check_position">Position mode</label><br>
+
+                    <select name="{{s.node.name}}_check_position" id="station_check_position">
+                      <option value="">---</option>
+                      <option value="1">1 - Fixed position</option>
+                      <option value="2">2 - quadrant</option>
+                      <option value="3">3 - random move in defined mobility model</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div id="quadrant_wrapper" style="display: none;">
+
+                    <p>Current values: x_min: {{ s.x_min }} | x_max: {{ s.x_max }} | y_min: {{ s.y_min }}  | y_max: {{ s.y_max }} </p>
+                  <div class="col">
+                    <label id="x_max" for="x_max">x_max</label>
+                    <input type="number" step="any" name="{{s.node.name}}_x_max" id="station_x_max">
+                  </div>
+                  <div class="col">
+                    <label id="x_min" for="x_min">x_min</label>
+                    <input type="number" step="any" name="{{s.node.name}}_x_min" id="station_x_min">
+                  </div>
+                  <div class="col">
+                    <label id="y_max" for="y_min">y_max</label>
+                    <input type="number" step="any" name="{{s.node.name}}_y_max" id="station_y_max">
+                  </div>
+                  <div class="col">
+                    <label id="y_min" for="y_min">y_min</label>
+                    <input type="number" step="any" name="{{s.node.name}}_y_min" id="station_y_min">
+                  </div>
+                </div>
+            {% endfor %}
+
+        </div>
+          <br>
+          <button type="submit" class="btn btn-secondary">Editar</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const checkPositionSelects = document.querySelectorAll('[id^="station_check_position"]');
+  const positionNodeWrappers = document.querySelectorAll('[id^="position_node_wrapper"]');
+  const quadrantWrappers = document.querySelectorAll('[id^="quadrant_wrapper"]');
+  const stationPositionNodes = document.querySelectorAll('[id^="station_position_node"]');
+  const xMaxs = document.querySelectorAll('[id^="station_x_max"]');
+  const xMins = document.querySelectorAll('[id^="station_x_min"]');
+  const yMaxs = document.querySelectorAll('[id^="station_y_max"]');
+  const yMins = document.querySelectorAll('[id^="station_y_min"]');
+
+  checkPositionSelects.forEach((checkPositionSelect, index) => {
+    const positionNodeWrapper = positionNodeWrappers[index];
+    const quadrantWrapper = quadrantWrappers[index];
+    const stationPositionNode = stationPositionNodes[index];
+    const xMax = xMaxs[index];
+    const xMin = xMins[index];
+    const yMax = yMaxs[index];
+    const yMin = yMins[index];
+
+    checkPositionSelect.addEventListener('change', () => {
+      if (checkPositionSelect.value === '1') {
+        positionNodeWrapper.style.display = 'block';
+        quadrantWrapper.style.display = 'none';
+        stationPositionNode.value = '';
+      } else if (checkPositionSelect.value === '2') {
+        positionNodeWrapper.style.display = 'none';
+        quadrantWrapper.style.display = 'block';
+        xMax.parentElement.style.display = "block";
+        xMin.parentElement.style.display = "block";
+        yMax.parentElement.style.display = "block";
+        yMin.parentElement.style.display = "block";
+      } else {
+        positionNodeWrapper.style.display = 'none';
+        quadrantWrapper.style.display = 'none';
+        stationPositionNode.value = '0';
+        xMax.parentElement.style.display = "none";
+        xMin.parentElement.style.display = "none";
+        yMax.parentElement.style.display = "none";
+        yMin.parentElement.style.display = "none";
+        xMax.value = 0;
+        xMin.value = 0;
+        yMax.value = 0;
+        yMin.value = 0;
+      }
+    });
+  });
+</script>
+
+
+{%endblock%}

@@ -133,6 +133,7 @@ class UploadScenarioView(TemplateView):
         MP_dictionary = {}
         guaranis_dictionary = {}
         CommDevices_dictionary = {}
+        Interfaces_dictionary = {}
         guarani_om = ''
 
         testplan=''
@@ -250,13 +251,33 @@ class UploadScenarioView(TemplateView):
 
                 if classe_ == 'CommDevice':
                     for j in ind.instances():
+                        #print(j.hasInterface[0])
+                        #print(j.hasInterface[1])
+                        print(j.MAC)
                         if j.name not in seen_names:
                             CommDevices_dictionary[j.name] = {}
                             seen_names.add(j.name)
-                            for p in j.get_properties():
-                                p_value = str(p._get_value_for_individual(j)).split(".")[-1]
-                                if p.name == 'hasInterface':
-                                    CommDevices_dictionary[j.name][p.name] = p_value
+                            p_value0 = str(j.hasInterface[0]).split(".")[-1]
+                            p_value1 = str(j.hasInterface[1]).split(".")[-1]
+                            mac = str(j.MAC).strip("[]")
+                            mac = mac.strip("'")
+                            CommDevices_dictionary[j.name]['hasInterface'] = [p_value0, p_value1]
+                            CommDevices_dictionary[j.name]['MAC'] = mac
+
+                if classe_ == 'UeUp' or classe_ == 'UeDown':
+                    for j in ind.instances():
+                        #print(j.IP)
+                        #print(j.Txpower)
+                        if j.name not in seen_names:
+                            Interfaces_dictionary[j.name] = {}
+                            seen_names.add(j.name)
+                            ip = str(j.IP).strip("[]")
+                            ip = ip.strip("'")
+                            txpower = str(j.Txpower).strip("[]")
+                            txpower = txpower.strip("'")
+                            txpower = float(txpower)
+                            Interfaces_dictionary[j.name]['IP'] = ip
+                            Interfaces_dictionary[j.name]['txpower'] = txpower
 
             ### COMEÇA A POPULAR O BANCO DE DADOS COM OS DADOS IMPORTADOS ###
             #for i in range(len(list(ref_onto.classes()))):
@@ -334,10 +355,8 @@ class UploadScenarioView(TemplateView):
             testplan = TestPlan.objects.create(name=filename,description="imported owl",author="",scenario=scenario)
 
             ###CRIA NETWORK###
-            try:
-                network = Network.objects.first()
-            except:
-                network = Network.objects.create(noise_th=-91,fading_cof=0,adhoc=True)
+
+            network = Network.objects.create(noise_th=-91,fading_cof=0,adhoc=True)
 
             ###CRIA CONFIGURATION###
             # Escape the XML string properly
@@ -366,15 +385,27 @@ class UploadScenarioView(TemplateView):
                             for prop, prop_value in value.items():
                                 if prop == 'hasInterface':
                                     interface_ = prop_value
-                                    if interface_ == interface:
+                                    if interface in interface_:
                                         node_name = node
+                                        mac_address = CommDevices_dictionary[node_name]['MAC']
                                         stop = True
                                         break
                                 if stop == True:
                                     break
 
                         mp=MilitaryPerson.objects.get(Identifier=identifier,scenario=scenario)
-                        Node.objects.create(name=node_name, mac="",militaryperson=mp,type="station",network=network)
+                        Node.objects.create(name=node_name, mac=mac_address,militaryperson=mp,type="station",network=network)
+                        node_ = Node.objects.get(name=node_name,network=network)
+                        Station.objects.create(node=node_,check_position=2,x_min=0,x_max=0,y_min=0,y_max=0)
+
+                        ###CRIA INTERFACES###
+                        node_interface0 = CommDevices_dictionary[node_name]['hasInterface'][0]
+                        node_interface1 = CommDevices_dictionary[node_name]['hasInterface'][1]
+                        ip_interf0 = Interfaces_dictionary[node_interface0]['IP']
+                        ip_interf1 = Interfaces_dictionary[node_interface1]['IP']
+                        txpower_intf0 = Interfaces_dictionary[node_interface0]['txpower']
+                        txpower_intf1 = Interfaces_dictionary[node_interface1]['txpower']
+                        Interface.objects.create(name=interface, ip_intf0=ip_interf0, ip_intf1=ip_interf1, txpower_intf0=txpower_intf0, txpower_intf1=txpower_intf1, node=node_)
 
         context = {
             "types": types,

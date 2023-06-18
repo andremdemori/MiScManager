@@ -19,7 +19,8 @@ class ConfigurationView():
 
         #get scenario id of the test plan
         current_url = request.build_absolute_uri()
-        test_plan_id = current_url[-1]
+        split_url = current_url.split('/')
+        test_plan_id = split_url[-1]
         test_plan_id = int(test_plan_id)
 
         #filter elements of the military scenario
@@ -290,6 +291,62 @@ class AboutView(View):
             return response
         return render(request, 'about.html')
 
+
+class EditView(View):
+    def edit_version(request, version_id):
+
+        version = Version.objects.get(id=version_id)
+        configuration = version.configuration
+        network = configuration.network
+
+        nodes = Node.objects.filter(network=network)
+        stations = Station.objects.filter(node__in=nodes)
+
+        mobilitymodel = MobilityModel.objects.first()
+
+        if request.method == 'POST':
+            x = 1
+            ###EDIT MOBILITY PARAMS OF THE STATIONS###
+            for s in stations:
+                node_name = s.node.name
+                position_node = request.POST.get(f'{node_name}_position_node')  # Get the list of node_name_position_node values
+                check_position = request.POST.get(f'{node_name}_check_position')  # Get the list of node_name_check_position values
+                x_max = request.POST.get(f'{node_name}_x_max', '')  # Get the value of node_name_x_max
+                x_min = request.POST.get(f'{node_name}_x_min', '')  # Get the value of node_name_x_min
+                y_max = request.POST.get(f'{node_name}_y_max', '')  # Get the value of node_name_y_max
+                y_min = request.POST.get(f'{node_name}_y_min', '')  # Get the value of node_name_y_min
+
+                if check_position == '2':
+                    try:
+                        s.check_position = check_position
+                        s.x_max = float(x_max)
+                        s.x_min = float(x_min)
+                        s.y_max = float(y_max)
+                        s.y_min = float(y_min)
+                        s.save()
+                    except ValueError:
+                        pass
+                elif check_position == '1':
+                    try:
+                        s.check_position = check_position
+                        s.position_node = position_node
+                        s.save()
+                    except ValueError:
+                        pass
+                elif check_position == '3':
+                    try:
+                        s.check_position = check_position
+                        s.save()
+                    except ValueError:
+                        pass
+
+        context = {
+            "nodes": nodes,
+            "stations": stations,
+            "mobility_model":mobilitymodel
+        }
+
+        return render(request, 'edit_version.html', context)
 
 
 class TestPlanView(View):
