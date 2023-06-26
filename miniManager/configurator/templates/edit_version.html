@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'links.css' %}" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="{% static 'edit.css' %}" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 
 {% block content %}
 
-<div class="card link-form">
+<div class="card edit-form">
   <h5 class="card-header">Edit mobility params to stations</h5>
   <div class="card-body">
     <div id="new-link">
@@ -25,7 +25,7 @@
                     <input type="text" name="{{s.node.name}}_position_node" class="form-control" id="station_position_node" placeholder="347.414,572.84,0">
                 </div>
 
-               <div class="col">
+                <div class="col">
                     <label id="check_position" for="check_position">Position mode</label><br>
 
                     <select name="{{s.node.name}}_check_position" id="station_check_position">
@@ -35,7 +35,6 @@
                       <option value="3">3 - random move in defined mobility model</option>
                     </select>
                   </div>
-                </div>
 
                 <div id="quadrant_wrapper" style="display: none;">
 
@@ -59,8 +58,8 @@
                 </div>
             {% endfor %}
 
-        </div>
-          <br>
+            </div></div>
+          <br><br>
           <button type="submit" class="btn btn-secondary">Editar</button>
       </form>
       </div>
