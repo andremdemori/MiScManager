@@ -302,6 +302,8 @@ class EditView(View):
         nodes = Node.objects.filter(network=network)
         stations = Station.objects.filter(node__in=nodes)
 
+        measurements = Measurement.objects.filter(config=configuration)
+
         mobilitymodel = MobilityModel.objects.first()
 
         if request.method == 'POST':
@@ -343,7 +345,8 @@ class EditView(View):
         context = {
             "nodes": nodes,
             "stations": stations,
-            "mobility_model":mobilitymodel
+            "mobility_model":mobilitymodel,
+            "measurements": measurements
         }
 
         return render(request, 'edit_version.html', context)

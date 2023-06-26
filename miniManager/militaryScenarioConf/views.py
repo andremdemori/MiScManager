@@ -366,6 +366,21 @@ class UploadScenarioView(TemplateView):
             mobilitymodel=MobilityModel.objects.first()
             configuration = Configuration.objects.create(medicao_schema=xml_string,propagationmodel=propagationmodel,mobilitymodel=mobilitymodel,network=network)
 
+            ###CRIA MEASUREMENTS COM VALOR 0 PARA O USUÁRIO EDITAR DEPOIS###
+            rssi = Measure.objects.get(name='rssi')
+            channel = Measure.objects.get(name='channel')
+            band = Measure.objects.get(name='band')
+            txpower = Measure.objects.get(name='txpower')
+            ip = Measure.objects.get(name='ip')
+            position = Measure.objects.get(name='position')
+            associatedTo = Measure.objects.get(name='associatedTo')
+            Measurement.objects.create(period=1,measure=rssi,config=configuration)
+            Measurement.objects.create(period=1, measure=channel, config=configuration)
+            Measurement.objects.create(period=1, measure=band, config=configuration)
+            Measurement.objects.create(period=1, measure=txpower, config=configuration)
+            Measurement.objects.create(period=1, measure=ip, config=configuration)
+            Measurement.objects.create(period=1, measure=position, config=configuration)
+            Measurement.objects.create(period=1, measure=associatedTo, config=configuration)
 
             ####CRIA VERSION###
             Version.objects.create(name=filename+"_version",test_plan=testplan,configuration=configuration)
@@ -393,7 +408,7 @@ class UploadScenarioView(TemplateView):
                                 if stop == True:
                                     break
 
-                        mp=MilitaryPerson.objects.get(Identifier=identifier,scenario=scenario)
+                        mp = MilitaryPerson.objects.get(Identifier=identifier,scenario=scenario)
                         Node.objects.create(name=node_name, mac=mac_address,militaryperson=mp,type="station",network=network)
                         node_ = Node.objects.get(name=node_name,network=network)
                         Station.objects.create(node=node_,check_position=2,x_min=0,x_max=0,y_min=0,y_max=0)
