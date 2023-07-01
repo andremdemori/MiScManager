@@ -31,9 +31,9 @@
       </div>
 
       <div id="station"  class="hidde-element form-group" style="display: none;">
-        <input type="hidden" id="station_specific_attribute" name="station_specific_attribute" value="position_node,check_position,x_max,x_min,y_max,y_min,range,antenna_gain">
-        <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_organization,military_person">
-        <input type="hidden" id="station_interface_attribute" name="station_interface_attribute" value="ip_intf0,ip_intf1,txpower_intf0,txpower_intf1">
+        <input type="hidden" id="station_specific_attribute" name="station_specific_attribute" value="position_node,check_position,x_max,x_min,y_max,y_min">
+        <input type="hidden" id="station_node_attribute" name="station_node_attribute" value="name,mac,military_person">
+        <input type="hidden" id="station_interface_attribute" name="station_interface_attribute" value="ip_intf0,ip_intf1,txpower_intf0,txpower_intf1,range_intf0,range_intf1,antenna_gain_intf0,antenna_gain_intf1">
         <div class="form-group row">
 
           <div class="col">
@@ -73,6 +73,26 @@
             <input type="number" name="station_txpower_intf1" class="form-control" id="station_txpower_intf1" placeholder="15">
           </div>
 
+          <div class="col">
+            <label id="range_intf0" for="range_intf0">range intf 0</label>
+            <input type="number" step="any" name="station_range_intf0" id="station_range_intf0" class="form-control">
+        </div>
+
+        <div class="col">
+            <label id="range_intf1" for="range_intf1">range intf 1</label>
+            <input type="number" step="any" name="station_range_intf1" id="station_range_intf1" class="form-control">
+        </div>
+
+        <div class="col">
+            <label id="antenna_gain_intf0" for="antenna_gain_intf0">antenna_gain intf 0</label>
+            <input type="number" step="any" name="station_antenna_gain_intf0" id="station_antenna_gain_intf0" class="form-control">
+        </div>
+
+        <div class="col">
+            <label id="antenna_gain_intf1" for="antenna_gain_intf1">antenna_gain intf 1</label>
+            <input type="number" step="any" name="station_antenna_gain_intf1" id="station_antenna_gain_intf1" class="form-control">
+        </div>
+
           <div class="col" id="position_node_wrapper" style="display: none;">
             <label id="position_node" for="position_node">position</label> <button type="button" data-balloon-length="large" class="button button1" aria-label="Only applies to Tracked Mobility Model." data-balloon-pos="up">i</button>
             <input type="text" name="station_position_node" class="form-control" id="station_position_node" placeholder="347.414,572.84,0">
@@ -108,15 +128,6 @@
           </div>
         </div>
 
-        <div class="col">
-            <label id="range" for="range">range</label>
-            <input type="number" step="any" name="station_range" id="station_range" class="form-control">
-        </div>
-
-        <div class="col">
-            <label id="antenna_gain" for="antenna_gain">antenna_gain</label>
-            <input type="number" step="any" name="station_antenna_gain" id="station_antenna_gain" class="form-control">
-        </div>
         </div>
 
         </div>

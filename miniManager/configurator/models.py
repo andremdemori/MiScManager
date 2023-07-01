@@ -132,8 +132,6 @@ class Station(models.Model):
     x_max = models.FloatField(max_length=30, blank=True, null=True)
     y_min = models.FloatField(max_length=30, blank=True, null=True)
     y_max = models.FloatField(max_length=30, blank=True, null=True)
-    range = models.FloatField(max_length=30, blank=True, null=True)
-    antenna_gain = models.FloatField(max_length=30, blank=True, null=True)
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
 
     class Meta:
@@ -142,7 +140,7 @@ class Station(models.Model):
     def serialize(self):
         return {"check_position": self.check_position,
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
-                "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
+                "y_max": self.y_max}
 
 
 class Host(models.Model):
@@ -176,8 +174,6 @@ class AccessPoint(models.Model):
     x_max = models.FloatField(max_length=30, blank=True, null=True)
     y_min = models.FloatField(max_length=30, blank=True, null=True)
     y_max = models.FloatField(max_length=30, blank=True, null=True)
-    range = models.FloatField(max_length=30, blank=True, null=True)
-    antenna_gain = models.FloatField(max_length=30, blank=True, null=True)
     node = models.OneToOneField(Node, on_delete=models.CASCADE, unique=True)
 
     class Meta:
@@ -187,7 +183,7 @@ class AccessPoint(models.Model):
         return {"ssid": [self.ssid, "mesh"], "mode": self.mode, "channel": self.channel, "wlans": self.wlans,
                 "check_position": self.check_position,
                 "position": self.position_node, "x_min": self.x_min, "x_max": self.x_max, "y_min": self.y_min,
-                "y_max": self.y_max, "range": self.range, "antenna_gain": self.antenna_gain}
+                "y_max": self.y_max}
 
 
 class InterfacePowerType(models.Model):
@@ -205,6 +201,10 @@ class Interface(models.Model):
     name = models.CharField(max_length=30)
     ip_intf0 = models.CharField(max_length=30)
     ip_intf1 = models.CharField(max_length=30)
+    range_intf0 = models.FloatField(max_length=30, blank=True, null=True)
+    range_intf1 = models.FloatField(max_length=30, blank=True, null=True)
+    antenna_gain_intf0 = models.FloatField(max_length=30, blank=True, null=True)
+    antenna_gain_intf1 = models.FloatField(max_length=30, blank=True, null=True)
     txpower_intf0 = models.IntegerField(default=15)
     txpower_intf1 = models.IntegerField(default=15)
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
@@ -214,7 +214,7 @@ class Interface(models.Model):
 
     def serialize(self):
         args = {"ip_intf0": self.ip_intf0, "ip_intf1": self.ip_intf1,
-                "txpower_intf0": self.txpower_intf0, "txpower_intf1": self.txpower_intf1}
+                "txpower_intf0": self.txpower_intf0, "txpower_intf1": self.txpower_intf1, "range_interf0": self.range_intf0, "range_interf1": self.range_intf1, "antenna_gain_interf0": self.antenna_gain_intf0, "antenna_gain_interf1": self.antenna_gain_intf1}
         return {"id": self.id, "name": self.name, "args": args}
 
 

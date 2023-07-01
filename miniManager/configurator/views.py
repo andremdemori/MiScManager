@@ -17,21 +17,25 @@ class ConfigurationView():
         measures = Measure.objects.all()
         pmeasures = PerformanceMeasure.objects.all()
 
-        #get scenario id of the test plan
-        current_url = request.build_absolute_uri()
-        split_url = current_url.split('/')
-        test_plan_id = split_url[-1]
-        test_plan_id = int(test_plan_id)
+        if request.method != 'POST':
+            #get scenario id of the test plan
+            current_url = request.build_absolute_uri()
+            split_url = current_url.split('/')
+            test_plan_id = split_url[-1]
+            test_plan_id = int(test_plan_id)
 
-        #filter elements of the military scenario
-        test_plan = TestPlan.objects.get(id=test_plan_id)
-        test_plan_scenario = test_plan.scenario
-        oms = MilitaryOrganization.objects.filter(scenario=test_plan_scenario)
-        mpersons = MilitaryPerson.objects.filter(scenario=test_plan_scenario)
+            #filter elements of the military scenario
+            test_plan = TestPlan.objects.get(id=test_plan_id)
+            test_plan_scenario = test_plan.scenario
+            oms = MilitaryOrganization.objects.filter(scenario=test_plan_scenario)
+            mpersons = MilitaryPerson.objects.filter(scenario=test_plan_scenario)
 
-        #para passar os dados para o template tem que definir aqui, em configuration.html e em version.html
+            return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures, "oms": oms,
+                    "mpersons": mpersons}
 
-        return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures, "oms": oms, "mpersons": mpersons}
+            #para passar os dados para o template tem que definir aqui, em configuration.html e em version.html
+        else:
+            return {"pmodels": pmodels, "mmodels": mmodels, "measures": measures, "pmeasures": pmeasures}
 
     def __saveMeasurements(self, request, configuration):
         paramlist = request.POST.getlist('radiofrequency')
@@ -54,7 +58,6 @@ class ConfigurationView():
             measure = PerformanceMeasure.objects.get(name=name) #ping
             measurement = PerformanceMeasurement(period=period, source=source, destination=destination, random_choice=random_choice, measure=measure, config=configuration)
             measurement.save()
-            
 
         xmlSchemaGenerator = XMLSchemaGenerator()
         return xmlSchemaGenerator.generate(paramlist)

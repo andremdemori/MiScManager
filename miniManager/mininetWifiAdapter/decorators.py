@@ -40,18 +40,18 @@ class MininetNetwork(MininetDecoratorComponent):
         for node in self.__nodes:
             if node["type"] == "station":
                 if node["args"]["check_position"] == "3":  # random move
-                    self.__network.addStation(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) # **node["interface"]["args"]
+                    self.__network.addStation(node["name"], wlans=2) # **node["interface"]["args"]
                 elif node["args"]["check_position"] == "2":
-                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["carrier"]["v_min"], max_v=node["carrier"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addStation(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["args"]["y_max"], min_v=node["carrier"]["v_min"], max_v=node["carrier"]["v_max"])
                 elif node["args"]["check_position"] == "1":
-                    self.__network.addStation(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addStation(node["name"], wlans=2, position=node["args"]["position"])
             if node["type"] == "accesspoint":
                 if node["args"]["check_position"] == "3":  # random move
-                    self.__network.addAccessPoint(node["name"], wlans=2, range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"]) #**node["args"]
+                    self.__network.addAccessPoint(node["name"], wlans=2) #**node["args"]
                 elif node["args"]["check_position"] == "2":
-                    self.__network.addAccessPoint(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["y_max"], min_v=node["resource"]["v_min"], max_v=node["resource"]["v_max"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addAccessPoint(node["name"], wlans=2, min_x=node["args"]["x_min"], max_x=node["args"]["x_max"], min_y=node["args"]["y_min"], max_y=node["y_max"], min_v=node["resource"]["v_min"], max_v=node["resource"]["v_max"])
                 elif node["args"]["check_position"] == "1":
-                    self.__network.addAccessPoint(node["name"], wlans=2, position=node["args"]["position"], range=node["args"]["range"], antennaGain=node["args"]["antenna_gain"])
+                    self.__network.addAccessPoint(node["name"], wlans=2, position=node["args"]["position"])
             if node["type"] == "host":
                 self.__network.addHost(node["name"], **node["args"], wlans=2)
             if node["type"] == "switch":
@@ -68,6 +68,13 @@ class MininetNetwork(MininetDecoratorComponent):
                 if node["name"] == station_name:
                     station.setIP(str(node["interface"]["args"]["ip_intf1"]), intf=station.wintfs[1].name) #'10.0.0.2/16'
                     station.setIP(str(node["interface"]["args"]["ip_intf0"]), intf=station.wintfs[0].name) #'10.2.2.2/15'
+
+                    ###configure range and antennaGain
+                    station.setRange(float(node["interface"]["args"]["range_interf1"]),intf=station.wintfs[1].name)
+                    station.setRange(float(node["interface"]["args"]["range_interf0"]),intf=station.wintfs[0].name)
+
+                    station.setAntennaGain(float(node["interface"]["args"]["antenna_gain_interf1"]), intf=station.wintfs[1].name)
+                    station.setAntennaGain(float(node["interface"]["args"]["antenna_gain_interf0"]), intf=station.wintfs[0].name)
 
 
 class MininetBaseDecorator(MininetDecoratorComponent):

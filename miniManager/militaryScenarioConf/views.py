@@ -271,13 +271,26 @@ class UploadScenarioView(TemplateView):
                         if j.name not in seen_names:
                             Interfaces_dictionary[j.name] = {}
                             seen_names.add(j.name)
+
                             ip = str(j.IP).strip("[]")
                             ip = ip.strip("'")
+
                             txpower = str(j.Txpower).strip("[]")
                             txpower = txpower.strip("'")
                             txpower = float(txpower)
+
+                            Coverage = str(j.Coverage).strip("[]")
+                            Coverage = Coverage.strip("'")
+                            Coverage = float(Coverage)
+
+                            AntennaGain = str(j.AntennaGain).strip("[]")
+                            AntennaGain = AntennaGain.strip("'")
+                            AntennaGain = float(AntennaGain)
+
                             Interfaces_dictionary[j.name]['IP'] = ip
                             Interfaces_dictionary[j.name]['txpower'] = txpower
+                            Interfaces_dictionary[j.name]['Coverage'] = Coverage
+                            Interfaces_dictionary[j.name]['AntennaGain'] = AntennaGain
 
             ### COMEÇA A POPULAR O BANCO DE DADOS COM OS DADOS IMPORTADOS ###
             #for i in range(len(list(ref_onto.classes()))):
@@ -413,14 +426,29 @@ class UploadScenarioView(TemplateView):
                         node_ = Node.objects.get(name=node_name,network=network)
                         Station.objects.create(node=node_,check_position=2,x_min=0,x_max=0,y_min=0,y_max=0)
 
+                        ###CRIA PerformanceMeasurement ###
+                        measure = PerformanceMeasure.objects.get(name='ping')
+                        PerformanceMeasurement.objects.create(period=1,measure=measure,config=configuration,source='None',destination='None',random_choice=1)
+
                         ###CRIA INTERFACES###
                         node_interface0 = CommDevices_dictionary[node_name]['hasInterface'][0]
                         node_interface1 = CommDevices_dictionary[node_name]['hasInterface'][1]
+
                         ip_interf0 = Interfaces_dictionary[node_interface0]['IP']
                         ip_interf1 = Interfaces_dictionary[node_interface1]['IP']
+
                         txpower_intf0 = Interfaces_dictionary[node_interface0]['txpower']
                         txpower_intf1 = Interfaces_dictionary[node_interface1]['txpower']
-                        Interface.objects.create(name=interface, ip_intf0=ip_interf0, ip_intf1=ip_interf1, txpower_intf0=txpower_intf0, txpower_intf1=txpower_intf1, node=node_)
+
+                        range_intf0 = Interfaces_dictionary[node_interface0]['Coverage']
+                        range_intf1 = Interfaces_dictionary[node_interface1]['Coverage']
+
+                        antenna_gain_intf0 = Interfaces_dictionary[node_interface0]['AntennaGain']
+                        antenna_gain_intf1 = Interfaces_dictionary[node_interface1]['AntennaGain']
+
+                        Interface.objects.create(name=interface, ip_intf0=ip_interf0, ip_intf1=ip_interf1, txpower_intf0=txpower_intf0, txpower_intf1=txpower_intf1,
+                                                 range_intf0=range_intf0, range_intf1=range_intf1, antenna_gain_intf0=antenna_gain_intf0,
+                                                 antenna_gain_intf1=antenna_gain_intf1, node=node_)
 
         context = {
             "types": types,

@@ -1483,6 +1483,16 @@
         <Literal>00:00:00:00:00:01</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#AntennaGain"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#IP"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <Literal>192.168.0.1</Literal>
@@ -1490,17 +1500,37 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#Txpower"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <Literal>192.168.0.1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#AntennaGain"/>
+        <NamedIndividual IRI="#sta0-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta0-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#IP"/>
@@ -1511,6 +1541,16 @@
         <DataProperty IRI="#Txpower"/>
         <NamedIndividual IRI="#sta0-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta0-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta0-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
@@ -1533,6 +1573,16 @@
         <Literal>00:00:00:00:00:02</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#AntennaGain"/>
+        <NamedIndividual IRI="#sta1-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta1-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#IP"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
         <Literal>192.168.0.2</Literal>
@@ -1540,17 +1590,37 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#Txpower"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta1-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta1-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
         <Literal>192.168.0.2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#AntennaGain"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#IP"/>
@@ -1560,12 +1630,22 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#Txpower"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
@@ -1583,6 +1663,16 @@
         <Literal>00:00:00:00:00:03</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#AntennaGain"/>
+        <NamedIndividual IRI="#sta2-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta2-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#IP"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
         <Literal>192.168.0.3</Literal>
@@ -1590,17 +1680,37 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#Txpower"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta2-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta2-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
         <Literal>192.168.0.3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#AntennaGain"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#IP"/>
@@ -1610,12 +1720,22 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#Txpower"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
