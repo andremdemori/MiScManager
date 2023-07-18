@@ -50,6 +50,8 @@ admin.site.register(InterfacePowerType)
 
 admin.site.register(Link)
 
+admin.site.register(MayTalkTo)
+
 #admin.site.register(MilitaryOrganization)
 
 #admin.site.register(MilitaryOrganizationPowerType)

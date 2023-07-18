@@ -134,7 +134,10 @@ class UploadScenarioView(TemplateView):
         guaranis_dictionary = {}
         CommDevices_dictionary = {}
         Interfaces_dictionary = {}
+        mayTalkTo_dictionary = {}
         guarani_om = ''
+        militaryAsPassenger = []
+        militaryAsDismounted = []
 
         testplan=''
         network=''
@@ -165,7 +168,7 @@ class UploadScenarioView(TemplateView):
 
             # read the ontology from the file
             class_names = ['MilitaryScenario', 'WirelessNetwork', 'CommDevice', 'CommDeviceOperator', 'Guarani', 'Interface', 'InterfacePowerType',
-                           'MilitaryAsCarrier', 'MilitaryAsPassenger', 'MilitaryOrganization',
+                           'MilitaryAsCarrier', 'MilitaryPersonAsPassenger', 'MilitaryPersonAsDismounted', 'MilitaryOrganization',
                            'MilitaryOrganizationPowerType']
 
             for i in range(len(list(ref_onto.classes()))):
@@ -238,6 +241,18 @@ class UploadScenarioView(TemplateView):
                                 if p.name == 'isLocatedIn' or p.name == 'militaryPersonHasMilitaryOrganization' or p.name == 'operates' or p.name == 'carries':
                                     MP_dictionary[j.name][p.name] = p_value
 
+                if classe_ == 'MilitaryPersonAsPassenger':
+                    for j in ind.instances():
+                        if j.name not in seen_names:
+                            print(f"\n{j.name}")
+                            militaryAsPassenger.append(j.name)
+
+                if classe_ == 'MilitaryPersonAsDismounted':
+                    for j in ind.instances():
+                        if j.name not in seen_names:
+                            print(f"\n{j.name}")
+                            militaryAsDismounted.append(j.name)
+
                 if classe_ == 'Guarani':
                     for j in ind.instances():
                         if j.name not in seen_names:
@@ -292,9 +307,34 @@ class UploadScenarioView(TemplateView):
                             Interfaces_dictionary[j.name]['Coverage'] = Coverage
                             Interfaces_dictionary[j.name]['AntennaGain'] = AntennaGain
 
+
+                #MAYTALKTO
+                if classe_ == 'Interface':
+                    prop = ref_onto['mayTalkTo']
+                    # Create an empty dictionary
+                    # Iterate over each individual in the ontology
+                    for individual in ref_onto.individuals():
+                        # Get the property value for each individual
+                        prop_values = getattr(individual, prop.python_name)
+                        if prop_values:
+                            # Convert each individual value to a string, split at the point, and retrieve the second part
+                            prop_values_str = [str(value).split('.')[-1] for value in prop_values]
+                            # Store the property values in a set
+                            prop_values_set = set(prop_values_str)
+                            # Add the individual and its property values to the dictionary
+                            mayTalkTo_dictionary[individual.name] = prop_values_set
+
+                    # Print the resulting dictionary
+                    print(mayTalkTo_dictionary)
+
+
             ### COMEÇA A POPULAR O BANCO DE DADOS COM OS DADOS IMPORTADOS ###
             #for i in range(len(list(ref_onto.classes()))):
             #    classe = list(ref_onto.classes())[i]
+
+            ###CRIA NETWORK###
+
+            network = Network.objects.create(noise_th=-91, fading_cof=0, adhoc=True)
 
             if 'MilitaryScenario' in [classe.name for classe in ref_onto.classes()]:
                 #militaryscenario = str(j.name)
@@ -353,23 +393,43 @@ class UploadScenarioView(TemplateView):
                         if prop == 'militaryPersonHasMilitaryOrganization':
                             mo_om = prop_value
                             mo_om = MilitaryOrganization.objects.get(name=mo_om,scenario=scenario)
-                        if prop == 'isLocatedIn':
+                        if prop == 'isLocatedIn' and identifier in militaryAsPassenger:
                             vehicle = prop_value
                             carrier = Guarani.objects.get(name=vehicle, scenario=scenario)
-                        if prop == 'carries':
+                        elif identifier in militaryAsDismounted:
                             by_foot = True
                             carrier = Carrier.objects.get(Id=1) # by foot
 
                     MilitaryPerson.objects.create(Identifier=identifier,Military_Organization=mo_om,CommDevice_Carrier=carrier,scenario=scenario)
 
+            if 'Interface' in [classe.name for classe in ref_onto.classes()]:
+                for key, value in mayTalkTo_dictionary.items():
+                    print(f"Key: {key}")
+                    for v in value:
+                        print(f"Value: {v}")
+                        # Perform your desired action using the key and value
+
+                        # Check if a record already exists with key in talker_1 and v in talker_2
+                        existing_record_1 = MayTalkTo.objects.filter(talker_1=key, talker_2=v).exists()
+
+                        # Check if a record already exists with v in talker_1 and key in talker_2
+                        existing_record_2 = MayTalkTo.objects.filter(talker_1=v, talker_2=key).exists()
+
+                        if existing_record_1 or existing_record_2:
+                            print("Record already exists, skipping creation.")
+                        else:
+                            try:
+                                m_id = MayTalkTo.objects.latest('Id').Id + 1
+                            except:
+                                m_id = 0
+                            MayTalkTo.objects.create(Identifier=m_id, talker_1=key, talker_2=v, scenario=scenario,
+                                                     network=network)
+
             ### COMEÇA A CRIAR OS ELEMENTOS ESPECÍFICOS DO MINIMANAGER E DA REDE ###
 
             ###CRA PLANO DE TESTE###
-            testplan = TestPlan.objects.create(name=filename,description="imported owl",author="",scenario=scenario)
-
-            ###CRIA NETWORK###
-
-            network = Network.objects.create(noise_th=-91,fading_cof=0,adhoc=True)
+            testplan = TestPlan.objects.create(name=filename, description="imported owl", author="",
+                                               scenario=scenario)
 
             ###CRIA CONFIGURATION###
             # Escape the XML string properly
@@ -428,7 +488,7 @@ class UploadScenarioView(TemplateView):
 
                         ###CRIA PerformanceMeasurement ###
                         measure = PerformanceMeasure.objects.get(name='ping')
-                        PerformanceMeasurement.objects.create(period=1,measure=measure,config=configuration,source='None',destination='None',random_choice=1)
+                        PerformanceMeasurement.objects.create(period=1,measure=measure,config=configuration,source='None',destination='None',random_choice=5)
 
                         ###CRIA INTERFACES###
                         node_interface0 = CommDevices_dictionary[node_name]['hasInterface'][0]

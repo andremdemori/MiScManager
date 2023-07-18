@@ -113,12 +113,13 @@ class RadioFrequencyMeasurer(IMeasurer):
         return getattr(node.wintfs[0],measureName)
 
 class PerformanceMeasurer(IMeasurer):
-    def __init__(self, start, net, measurements, nodes_om, random_choice):
+    def __init__(self, start, net, measurements, nodes_om, random_choice, mayTalkTo):
         self.__start = start
         self.__net = net
         self.__measurements = measurements
         self.__nodes_om = nodes_om
         self.__random_choice = random_choice
+        self.__mayTalkTo = mayTalkTo
 
     def run(self):
         threads = []
@@ -253,7 +254,7 @@ class PerformanceMeasurer(IMeasurer):
                 else:
                     value = value + self.__pingsubordinate(next_hop, destination)
 
-        elif random_option == 1:
+        elif random_option == 1: #All nodes with message forwarding
 
             d = random.choice(stations)
             destination_Name = d["name"]
@@ -397,7 +398,16 @@ class PerformanceMeasurer(IMeasurer):
             source = self.__net.get(sourceName)
             destination = self.__net.get(destinationName)
 
+            source_Name = source.name
+            destination_Name = destination.name
+            destination_om_name = ''
+            source_om_name = ''
+
             value = self.__ping(source, destination)
+
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
 
         elif random_option == 4:
             s = random.choice(stations)
@@ -412,7 +422,55 @@ class PerformanceMeasurer(IMeasurer):
                     destination_Name = d["name"]
             destination = self.__net.get(destination_Name)
 
+            destination_om_name = ''
+            source_om_name = ''
+
             value = self.__ping(source, destination)
+
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
+
+        elif random_option == 5: # mayTalkTo
+
+            may_talk_to = self.__mayTalkTo
+
+            # Choose a random element from "mayTalkTo"
+            random_element = random.choice(may_talk_to)
+
+            # Get "talker_1" and "talker_2" values from the chosen element
+            talker_1 = random_element["talker_1"]
+            talker_2 = random_element["talker_2"]
+
+            # Randomly assign source and destination
+            source = random.choice([talker_1, talker_2])
+            destination = talker_2 if source == talker_1 else talker_1
+
+            source_Name = source
+            destination_Name = destination
+
+            source = source.split('-')
+            source = source[0]
+            destination = destination.split('-')
+            destination = destination[0]  # ex: sta0
+
+            id_intf_source = source_Name.split('wlan')
+            id_intf_source = id_intf_source[1]
+
+            id_intf_dest = destination_Name.split('wlan')
+            id_intf_dest = id_intf_dest[1]
+
+            source = self.__net.get(source)
+            destination = self.__net.get(destination)
+
+            source_om_name = ''
+            destination_om_name = ''
+
+            value = self.__pingMayTalkTo(source, destination,int(id_intf_source),int(id_intf_dest))
+
+            saida = str(value)
+            if '0 recebidos' in saida:
+                value = value + list('Falha no encaminhamento')
 
         #if name == "ping":
             #value = self.__ping(source, destination)
@@ -439,6 +497,11 @@ class PerformanceMeasurer(IMeasurer):
 
     def __ping(self, source, destination):
         pingResult = source.cmd('ping', '-c 10 -q', '-I ' + source.wintfs[0].ip, destination.wintfs[0].ip)
+        splittedResult = pingResult.split('\r\n')
+        return [splittedResult[3], splittedResult[4]]
+
+    def __pingMayTalkTo(self, source, destination, id_intf_source, id_intf_dest):
+        pingResult = source.cmd('ping', '-c 10 -q', '-I ' + source.wintfs[id_intf_source].ip, destination.wintfs[id_intf_dest].ip)
         splittedResult = pingResult.split('\r\n')
         return [splittedResult[3], splittedResult[4]]
 

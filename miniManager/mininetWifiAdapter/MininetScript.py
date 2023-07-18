@@ -47,12 +47,13 @@ class MininetScript():
 
     def __analyse(self):
         nodes_om = self.__configuration["nodes"]
+        mayTalkTo = self.__configuration["mayTalkTo"]
         isAdhoc = self.__configuration["network"]["adhoc"]
         random_choice = self.__configuration["performanceMeasurements"]
         nodes = { "station": self.__net.stations, "accessPoint": self.__net.aps }
         positionMeasurer = meas.PositionMeasurer(self.__start, nodes)
         radioFrequencyMeasurer = meas.RadioFrequencyMeasurer(self.__start, self.__net.stations, self.__radioFrequencyMeasurements, isAdhoc)
-        performanceMeasurer = meas.PerformanceMeasurer(self.__start, self.__net, self.__performanceMeasurements, nodes_om, random_choice)
+        performanceMeasurer = meas.PerformanceMeasurer(self.__start, self.__net, self.__performanceMeasurements, nodes_om, random_choice, mayTalkTo)
 
         measurers = [positionMeasurer, radioFrequencyMeasurer, performanceMeasurer]
 

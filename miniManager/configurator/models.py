@@ -218,6 +218,22 @@ class Interface(models.Model):
         return {"id": self.id, "name": self.name, "args": args}
 
 
+class MayTalkTo(models.Model):
+    Identifier = models.CharField(max_length=30)  # 01,02,03...
+    talker_1 = models.CharField(max_length=30)
+    talker_2 = models.CharField(max_length=30)
+    scenario = models.ForeignKey(MilitaryScenario, on_delete=models.CASCADE, blank=True, null=True)
+    network = models.ForeignKey(Network, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        db_table = "MayTalkTo"
+        verbose_name = 'MayTalkTo'
+        verbose_name_plural = 'MayTalkTo'
+
+    def serialize(self):
+        return {"talker_1": self.talker_1,
+                "talker_2": self.talker_2}
+
 class Link(models.Model):
     int1 = models.ForeignKey(Interface, related_name='int1', on_delete=models.CASCADE, null=True)
     int2 = models.ForeignKey(Interface, related_name='int2', on_delete=models.CASCADE, null=True)
@@ -277,6 +293,16 @@ class Configuration(models.Model):
 
         return result
 
+    def getMayTalkTo(self):
+        result = []
+        mayTalkTo = MayTalkTo.objects.filter(network_id=self.network.id)
+
+        for m in mayTalkTo:
+            mObj = m.serialize()
+            result.append(mObj)
+
+        return result
+
     def getLinks(self, nodes):
         links = []
         for node in nodes:
@@ -324,6 +350,7 @@ class Configuration(models.Model):
 
     def getConfigurationObj(self):
         nodes = self.getNodes()
+        maytalkTo = self.getMayTalkTo()
         return {
             "network": self.network.seialize(),
             "radioFrequencyMeasurements": self.getMeasurements(),
@@ -331,6 +358,7 @@ class Configuration(models.Model):
             "propagationModel": self.getPropagationModel(),
             "mobilityModel": self.getMobilityModel(),
             "nodes": nodes,
+            "mayTalkTo": maytalkTo,
             "links": self.getLinks(nodes)
         }
 
