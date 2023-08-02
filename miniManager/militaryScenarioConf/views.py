@@ -258,6 +258,22 @@ class UploadScenarioView(TemplateView):
                         if j.name not in seen_names:
                             guaranis_dictionary[j.name] = {}
                             seen_names.add(j.name)
+
+                            minSpeed = str(j.minSpeed).strip("[]")
+                            minSpeed = minSpeed.strip("'")
+                            minSpeed = float(minSpeed)
+
+                            maxSpeedLand = str(j.maxSpeedLand).strip("[]")
+                            maxSpeedLand = maxSpeedLand.strip("'")
+                            maxSpeedLand = float(maxSpeedLand)
+
+                            visibilityRange = str(j.visibilityRange).strip("[]")
+                            visibilityRange = visibilityRange.strip("'")
+                            visibilityRange = float(visibilityRange)
+
+                            guaranis_dictionary[j.name]['minSpeed'] = minSpeed
+                            guaranis_dictionary[j.name]['maxSpeedLand'] = maxSpeedLand
+                            guaranis_dictionary[j.name]['visibilityRange'] = visibilityRange
                             for p in j.get_properties():
                                 p_value = str(p._get_value_for_individual(j)).split(".")[-1]
                                 if p.name == 'belongsTo':
@@ -272,6 +288,7 @@ class UploadScenarioView(TemplateView):
                         if j.name not in seen_names:
                             CommDevices_dictionary[j.name] = {}
                             seen_names.add(j.name)
+
                             p_value0 = str(j.hasInterface[0]).split(".")[-1]
                             p_value1 = str(j.hasInterface[1]).split(".")[-1]
                             mac = str(j.mac).strip("[]")
@@ -281,8 +298,8 @@ class UploadScenarioView(TemplateView):
 
                 if classe_ == 'UeUp' or classe_ == 'UeDown':
                     for j in ind.instances():
-                        print(j.ip)
-                        print(j.txPower)
+                        #print(j.ip)
+                        #print(j.txPower)
                         if j.name not in seen_names:
                             Interfaces_dictionary[j.name] = {}
                             seen_names.add(j.name)
@@ -376,11 +393,17 @@ class UploadScenarioView(TemplateView):
                         if prop == 'belongsTo':
                             guarani_om = prop_value
                             guarani_om = MilitaryOrganization.objects.get(name=guarani_om,scenario=scenario)
+                        if prop == 'maxSpeedLand':
+                            maxSpeedLand = prop_value
+                        if prop == 'minSpeed':
+                            minSpeed = prop_value
+                        if prop == 'visibilityRange':
+                            visibilityRange = prop_value
                     try:
                         g_id = Guarani.objects.latest('Id').Id + 1
                     except:
                         g_id = 0
-                    Guarani.objects.create(Id=g_id,name=guarani_name,scenario=scenario,VisibilityRange=1000,v_min=95,v_max=3.5,category='Armored', Military_Organization=guarani_om)
+                    Guarani.objects.create(Id=g_id,name=guarani_name,scenario=scenario,VisibilityRange=visibilityRange,v_min=minSpeed,v_max=maxSpeedLand,category='Armored', Military_Organization=guarani_om)
 
             if 'MilitaryPerson' in [classe.name for classe in ref_onto.classes()]:
                 identifier = ''
