@@ -261,15 +261,24 @@ class UploadScenarioView(TemplateView):
 
                             minSpeed = str(j.minSpeed).strip("[]")
                             minSpeed = minSpeed.strip("'")
-                            minSpeed = float(minSpeed)
+                            if minSpeed == '':
+                                minSpeed = 3.5
+                            else:
+                                minSpeed = float(minSpeed)
 
                             maxSpeedLand = str(j.maxSpeedLand).strip("[]")
                             maxSpeedLand = maxSpeedLand.strip("'")
-                            maxSpeedLand = float(maxSpeedLand)
+                            if maxSpeedLand == '':
+                                maxSpeedLand = 90
+                            else:
+                                maxSpeedLand = float(maxSpeedLand)
 
                             visibilityRange = str(j.visibilityRange).strip("[]")
                             visibilityRange = visibilityRange.strip("'")
-                            visibilityRange = float(visibilityRange)
+                            if visibilityRange == '':
+                                visibilityRange = 1000
+                            else:
+                                visibilityRange = float(visibilityRange)
 
                             guaranis_dictionary[j.name]['minSpeed'] = minSpeed
                             guaranis_dictionary[j.name]['maxSpeedLand'] = maxSpeedLand
@@ -309,15 +318,24 @@ class UploadScenarioView(TemplateView):
 
                             txpower = str(j.txPower).strip("[]")
                             txpower = txpower.strip("'")
-                            txpower = float(txpower)
+                            if txpower == '':
+                                txpower = 16
+                            else:
+                                txpower = float(txpower)
 
                             Coverage = str(j.coverage).strip("[]")
                             Coverage = Coverage.strip("'")
-                            Coverage = float(Coverage)
+                            if Coverage == '':
+                                Coverage = 100
+                            else:
+                                Coverage = float(Coverage)
 
                             AntennaGain = str(j.antennaGain).strip("[]")
                             AntennaGain = AntennaGain.strip("'")
-                            AntennaGain = float(AntennaGain)
+                            if AntennaGain == '':
+                                AntennaGain = 10
+                            else:
+                                AntennaGain = float(AntennaGain)
 
                             Interfaces_dictionary[j.name]['IP'] = ip
                             Interfaces_dictionary[j.name]['txpower'] = txpower
