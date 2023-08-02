@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.semanticweb.org/demori/ontologies/new_ontogy_version_05_07"
+     xml:base="http://www.semanticweb.org/demori/ontologies/ontology_02-08"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.semanticweb.org/demori/ontologies/new_ontogy_version_05_07">
+     ontologyIRI="http://www.semanticweb.org/demori/ontologies/ontology_02-08">
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -24,6 +24,9 @@
         <NamedIndividual IRI="#MilitaryEmployment"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#antennaGain"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#UeDown"/>
     </Declaration>
     <Declaration>
@@ -33,10 +36,13 @@
         <NamedIndividual IRI="#Regiment"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasMOPowerType"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#VisibilityRange"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#P.25v1"/>
@@ -75,6 +81,9 @@
         <Class IRI="#MilitaryPerson"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#maxSpeedLand"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="http://purl.org/nemo/gufo#mediates"/>
     </Declaration>
     <Declaration>
@@ -91,6 +100,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="http://purl.org/nemo/gufo#Mixin"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#frequency"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Operator"/>
@@ -126,7 +138,7 @@
         <NamedIndividual IRI="#sta2-wlan0"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Coverage"/>
+        <NamedIndividual IRI="#sta3"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#carries"/>
@@ -174,6 +186,12 @@
         <NamedIndividual IRI="#Armored"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#txPowerRange"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#minSpeed"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#mayTalkTo"/>
     </Declaration>
     <Declaration>
@@ -186,16 +204,10 @@
         <Class IRI="#AccessPoint"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#FrequencyRange"/>
-    </Declaration>
-    <Declaration>
         <AnnotationProperty IRI="http://purl.org/nemo/gufo#categorizes"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#TxPowerRange"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#SDR"/>
@@ -205,12 +217,6 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Frequency_"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#MinSpeed"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#AntennaGain"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Person"/>
@@ -237,7 +243,13 @@
         <ObjectProperty IRI="#operates"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#frequencyRange"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#MilitaryPersonAsDismounted"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#coverage"/>
     </Declaration>
     <Declaration>
         <Class IRI="#CommDeviceCarrier"/>
@@ -249,7 +261,7 @@
         <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Frequency"/>
+        <DataProperty IRI="#amphibiousSpeed"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#WirelessNetwork"/>
@@ -258,10 +270,13 @@
         <NamedIndividual IRI="#3Platoon"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#MaxSpeedLand"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#sta1-wlan1"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#visibilityRange"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
@@ -297,6 +312,9 @@
         <NamedIndividual IRI="#sta1-wlan0"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#3"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#CruisingSpeed_"/>
     </Declaration>
     <Declaration>
@@ -309,7 +327,7 @@
         <Class IRI="#Vehicle"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="#txPower"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#militaryPersonHasMilitaryOrganization"/>
@@ -321,16 +339,10 @@
         <NamedIndividual IRI="#MinSpeed_"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Txpower"/>
-    </Declaration>
-    <Declaration>
         <NamedIndividual IRI="#MilitaryPersonAsDismounted"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#AmphibiousSpeed"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#CommDeviceCarrier"/>
@@ -358,6 +370,9 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#OperationalElement"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#mac"/>
     </Declaration>
     <Declaration>
         <Class IRI="#MilitaryScenario"/>
@@ -904,10 +919,6 @@
         <NamedIndividual IRI="#sta0"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Interface"/>
-        <NamedIndividual IRI="#sta0"/>
-    </ClassAssertion>
-    <ClassAssertion>
         <Class IRI="#OperationalElement"/>
         <NamedIndividual IRI="#sta0"/>
     </ClassAssertion>
@@ -949,10 +960,6 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#CommDevice"/>
-        <NamedIndividual IRI="#sta1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Interface"/>
         <NamedIndividual IRI="#sta1"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -1000,10 +1007,6 @@
         <NamedIndividual IRI="#sta2"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Interface"/>
-        <NamedIndividual IRI="#sta2"/>
-    </ClassAssertion>
-    <ClassAssertion>
         <Class IRI="#OperationalElement"/>
         <NamedIndividual IRI="#sta2"/>
     </ClassAssertion>
@@ -1042,6 +1045,50 @@
     <ClassAssertion>
         <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#CommDevice"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OperationalElement"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Interface"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Ue"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#UeDown"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Interface"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Ue"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#UeUp"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#CommDeviceCarrier"/>
@@ -1140,6 +1187,58 @@
         <NamedIndividual IRI="#2Company"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#InstitutionalElement"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryOrganization"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Subordinate"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#CommDeviceCarrier"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryPerson"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryPersonAsDismounted"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OperationalElement"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Operator"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Person"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
+        <NamedIndividual IRI="#3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#InstitutionalElement"/>
         <NamedIndividual IRI="#3Platoon"/>
     </ClassAssertion>
@@ -1172,12 +1271,45 @@
         <NamedIndividual IRI="#802.11b"/>
     </ClassAssertion>
     <DifferentIndividuals>
+        <NamedIndividual IRI="#Battalion"/>
+        <NamedIndividual IRI="#BattleTeam"/>
+        <NamedIndividual IRI="#Brigade"/>
+        <NamedIndividual IRI="#Company"/>
+        <NamedIndividual IRI="#Platoon"/>
+        <NamedIndividual IRI="#Regiment"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
         <NamedIndividual IRI="#sta0"/>
         <NamedIndividual IRI="#sta1"/>
         <NamedIndividual IRI="#sta2"/>
+        <NamedIndividual IRI="#sta3"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+        <NamedIndividual IRI="#sta0-wlan1"/>
+        <NamedIndividual IRI="#sta1-wlan0"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+        <NamedIndividual IRI="#sta2-wlan0"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#0"/>
+        <NamedIndividual IRI="#1"/>
+        <NamedIndividual IRI="#2"/>
+        <NamedIndividual IRI="#3"/>
     </DifferentIndividuals>
     <DifferentIndividuals>
         <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#2Platoon"/>
         <NamedIndividual IRI="#3Platoon"/>
     </DifferentIndividuals>
     <ObjectPropertyAssertion>
@@ -1208,27 +1340,17 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
         <NamedIndividual IRI="#guarani0"/>
-        <NamedIndividual IRI="#3Platoon"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#networkHasInterface"/>
-        <NamedIndividual IRI="#net1"/>
-        <NamedIndividual IRI="#sta0-wlan0"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#networkHasInterface"/>
-        <NamedIndividual IRI="#net1"/>
-        <NamedIndividual IRI="#sta1-wlan0"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#networkHasInterface"/>
-        <NamedIndividual IRI="#net1"/>
-        <NamedIndividual IRI="#sta2-wlan0"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
         <NamedIndividual IRI="#scenario1"/>
         <NamedIndividual IRI="#2Company"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
+        <NamedIndividual IRI="#scenario1"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
@@ -1263,6 +1385,11 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
         <NamedIndividual IRI="#scenario1"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
+        <NamedIndividual IRI="#scenario1"/>
         <NamedIndividual IRI="#0"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -1276,6 +1403,11 @@
         <NamedIndividual IRI="#2"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
+        <NamedIndividual IRI="#scenario1"/>
+        <NamedIndividual IRI="#3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasInterface"/>
         <NamedIndividual IRI="#sta0"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
@@ -1299,6 +1431,11 @@
         <ObjectProperty IRI="#mayTalkTo"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#mayTalkTo"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasInterfPowerType"/>
@@ -1336,6 +1473,11 @@
         <NamedIndividual IRI="#sta2-wlan1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#mayTalkTo"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasInterface"/>
         <NamedIndividual IRI="#sta2"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
@@ -1364,6 +1506,46 @@
         <ObjectProperty IRI="#mayTalkTo"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#mayTalkTo"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasInterface"/>
+        <NamedIndividual IRI="#sta3"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasInterface"/>
+        <NamedIndividual IRI="#sta3"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasInterfPowerType"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <NamedIndividual IRI="#SDR"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasInterfPowerType"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <NamedIndividual IRI="#SDR"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#mayTalkTo"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <NamedIndividual IRI="#sta0-wlan0"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#mayTalkTo"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <NamedIndividual IRI="#sta1-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#mayTalkTo"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <NamedIndividual IRI="#sta2-wlan1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#carries"/>
@@ -1393,7 +1575,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
         <NamedIndividual IRI="#1"/>
-        <NamedIndividual IRI="#3Platoon"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#operates"/>
@@ -1413,7 +1595,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
         <NamedIndividual IRI="#2"/>
-        <NamedIndividual IRI="#3Platoon"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#operates"/>
@@ -1424,6 +1606,11 @@
         <ObjectProperty IRI="#operates"/>
         <NamedIndividual IRI="#2"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
+        <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasDirectRelationshipWith"/>
@@ -1438,7 +1625,57 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#isCommanderOf"/>
         <NamedIndividual IRI="#2Company"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isCommanderOf"/>
+        <NamedIndividual IRI="#2Company"/>
         <NamedIndividual IRI="#3Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
+        <NamedIndividual IRI="#2Platoon"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
+        <NamedIndividual IRI="#2Platoon"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasMOPowerType"/>
+        <NamedIndividual IRI="#2Platoon"/>
+        <NamedIndividual IRI="#Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
+        <NamedIndividual IRI="#2Platoon"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSubordinateTo"/>
+        <NamedIndividual IRI="#2Platoon"/>
+        <NamedIndividual IRI="#2Company"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#carries"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#sta3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#3Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#operates"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#operates"/>
+        <NamedIndividual IRI="#3"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasDirectRelationshipWith"/>
@@ -1446,9 +1683,19 @@
         <NamedIndividual IRI="#2Company"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDirectRelationshipWith"/>
+        <NamedIndividual IRI="#3Platoon"/>
+        <NamedIndividual IRI="#2Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasMOPowerType"/>
         <NamedIndividual IRI="#3Platoon"/>
         <NamedIndividual IRI="#Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
+        <NamedIndividual IRI="#3Platoon"/>
+        <NamedIndividual IRI="#2Platoon"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#isSubordinateTo"/>
@@ -1456,14 +1703,29 @@
         <NamedIndividual IRI="#2Company"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Frequency"/>
+        <DataProperty IRI="#frequency"/>
+        <NamedIndividual IRI="#SDR"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">56</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#frequency"/>
         <NamedIndividual IRI="#SDR"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">56.0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#SDR"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">16.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#txPower"/>
+        <NamedIndividual IRI="#SDR"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#SDR"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">56</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
@@ -1476,7 +1738,52 @@
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">56.0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#SDR"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#amphibiousSpeed"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxSpeedLand"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">95</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minSpeed"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3.5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#visibilityRange"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3.5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#guarani0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">95</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mac"/>
         <NamedIndividual IRI="#sta0"/>
         <Literal>00:00:00:00:00:01</Literal>
     </DataPropertyAssertion>
@@ -1486,22 +1793,22 @@
         <Literal>00:00:00:00:00:01</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <Literal>192.168.0.1</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#sta0-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
@@ -1526,22 +1833,22 @@
         <Literal>192.168.0.1</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <NamedIndividual IRI="#sta0-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <NamedIndividual IRI="#sta0-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <NamedIndividual IRI="#sta0-wlan1"/>
         <Literal>192.168.0.4</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#sta0-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
@@ -1566,7 +1873,7 @@
         <Literal>192.168.0.4</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="#mac"/>
         <NamedIndividual IRI="#sta1"/>
         <Literal>00:00:00:00:00:02</Literal>
     </DataPropertyAssertion>
@@ -1576,22 +1883,22 @@
         <Literal>00:00:00:00:00:02</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
         <Literal>192.168.0.2</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#sta1-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
@@ -1616,22 +1923,22 @@
         <Literal>192.168.0.2</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
         <Literal>192.168.0.5</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#sta1-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
@@ -1656,7 +1963,7 @@
         <Literal>192.168.0.5</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="#mac"/>
         <NamedIndividual IRI="#sta2"/>
         <Literal>00:00:00:00:00:03</Literal>
     </DataPropertyAssertion>
@@ -1666,22 +1973,22 @@
         <Literal>00:00:00:00:00:03</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
         <Literal>192.168.0.3</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#sta2-wlan0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
@@ -1706,22 +2013,22 @@
         <Literal>192.168.0.3</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
         <Literal>192.168.0.6</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
     </DataPropertyAssertion>
@@ -1744,6 +2051,176 @@
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#sta2-wlan1"/>
         <Literal>192.168.0.6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#antennaGain"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#coverage"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ip"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal>192.168.0.7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#txPower"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan0"/>
+        <Literal>192.168.0.7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#antennaGain"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#coverage"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ip"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal>192.168.0.8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#txPower"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">320</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#sta3-wlan1"/>
+        <Literal>192.168.0.8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxSpeedLand"/>
+        <NamedIndividual IRI="#0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minSpeed"/>
+        <NamedIndividual IRI="#0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#visibilityRange"/>
+        <NamedIndividual IRI="#0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxSpeedLand"/>
+        <NamedIndividual IRI="#2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minSpeed"/>
+        <NamedIndividual IRI="#2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#visibilityRange"/>
+        <NamedIndividual IRI="#2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxSpeedLand"/>
+        <NamedIndividual IRI="#3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minSpeed"/>
+        <NamedIndividual IRI="#3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#visibilityRange"/>
+        <NamedIndividual IRI="#3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">300</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
     </DataPropertyAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#ProtocolOf"/>
@@ -1773,10 +2250,6 @@
         <ObjectProperty IRI="#mayTalkTo"/>
         <ObjectProperty IRI="#mayTalkTo"/>
     </InverseObjectProperties>
-    <InverseObjectProperties>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </InverseObjectProperties>
     <SymmetricObjectProperty>
         <ObjectProperty IRI="#hasDirectRelationshipWith"/>
     </SymmetricObjectProperty>
@@ -1789,6 +2262,9 @@
     <TransitiveObjectProperty>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </ReflexiveObjectProperty>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
         <Class IRI="#MilitaryOrganizationPowerType"/>
@@ -1930,297 +2406,149 @@
         <Class IRI="#CommDeviceCarrier"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
-        <DataProperty IRI="#AmphibiousSpeed"/>
+        <DataProperty IRI="#amphibiousSpeed"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#Frequency"/>
+        <DataProperty IRI="#frequency"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#FrequencyRange"/>
+        <DataProperty IRI="#frequencyRange"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="#mac"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#MaxSpeedLand"/>
+        <DataProperty IRI="#maxSpeedLand"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#MinSpeed"/>
+        <DataProperty IRI="#minSpeed"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#TxPowerRange"/>
+        <DataProperty IRI="#txPower"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPowerRange"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#VisibilityRange"/>
+        <DataProperty IRI="#visibilityRange"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <DataPropertyDomain>
-        <DataProperty IRI="#AmphibiousSpeed"/>
+        <DataProperty IRI="#amphibiousSpeed"/>
         <Class IRI="#Guarani"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <Class IRI="#Interface"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <Class IRI="#Interface"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#Frequency"/>
+        <DataProperty IRI="#frequency"/>
         <Class IRI="#Interface"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#FrequencyRange"/>
+        <DataProperty IRI="#frequencyRange"/>
         <Class IRI="#InterfacePowerType"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <Class IRI="#Interface"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="#mac"/>
         <Class IRI="#CommDevice"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#MaxSpeedLand"/>
+        <DataProperty IRI="#maxSpeedLand"/>
         <Class IRI="#CommDeviceCarrier"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#MinSpeed"/>
+        <DataProperty IRI="#minSpeed"/>
         <Class IRI="#CommDeviceCarrier"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#TxPowerRange"/>
-        <Class IRI="#InterfacePowerType"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#txPower"/>
         <Class IRI="#Interface"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#VisibilityRange"/>
+        <DataProperty IRI="#txPowerRange"/>
+        <Class IRI="#InterfacePowerType"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#visibilityRange"/>
         <Class IRI="#CommDeviceCarrier"/>
     </DataPropertyDomain>
     <DataPropertyRange>
-        <DataProperty IRI="#AmphibiousSpeed"/>
+        <DataProperty IRI="#amphibiousSpeed"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#AntennaGain"/>
+        <DataProperty IRI="#antennaGain"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#Coverage"/>
+        <DataProperty IRI="#coverage"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#Frequency"/>
+        <DataProperty IRI="#frequency"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#FrequencyRange"/>
+        <DataProperty IRI="#frequencyRange"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#IP"/>
+        <DataProperty IRI="#ip"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#MAC"/>
+        <DataProperty IRI="#mac"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#MaxSpeedLand"/>
+        <DataProperty IRI="#maxSpeedLand"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#MinSpeed"/>
+        <DataProperty IRI="#minSpeed"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#TxPowerRange"/>
+        <DataProperty IRI="#txPower"/>
+        <Datatype abbreviatedIRI="rdfs:Literal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#txPowerRange"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#Txpower"/>
+        <DataProperty IRI="#visibilityRange"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#VisibilityRange"/>
-        <Datatype abbreviatedIRI="rdfs:Literal"/>
-    </DataPropertyRange>
-    <DLSafeRule>
-        <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
-            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
-        </Annotation>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal></Literal>
-        </Annotation>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-            <Literal>CommDevice Data Properties</Literal>
-        </Annotation>
-        <Body>
-            <ClassAtom>
-                <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
-            </ClassAtom>
-        </Body>
-        <Head>
-            <DataPropertyAtom>
-                <DataProperty IRI="#AntennaGain"/>
-                <Variable IRI="#c1"/>
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
-            </DataPropertyAtom>
-            <DataPropertyAtom>
-                <DataProperty IRI="#Coverage"/>
-                <Variable IRI="#c1"/>
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">200</Literal>
-            </DataPropertyAtom>
-        </Head>
-    </DLSafeRule>
-    <DLSafeRule>
-        <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
-            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
-        </Annotation>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal></Literal>
-        </Annotation>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-            <Literal>communication rule 4</Literal>
-        </Annotation>
-        <Body>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#mayTalkTo"/>
-                <Variable IRI="#i1"/>
-                <Variable IRI="#i2"/>
-            </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m2"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryPerson"/>
-                <Variable IRI="#m1"/>
-            </ClassAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#i1"/>
-            </ObjectPropertyAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#operates"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#i2"/>
-            </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
-            </ClassAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#o1"/>
-            </ObjectPropertyAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
-                <Variable IRI="#m2"/>
-                <Variable IRI="#o2"/>
-            </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt1"/>
-            </ClassAtom>
-            <DifferentIndividualsAtom>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
-            </DifferentIndividualsAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o2"/>
-                <Variable IRI="#ompt1"/>
-            </ObjectPropertyAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hasMOPowerType"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#ompt1"/>
-            </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#CommDevice"/>
-                <Variable IRI="#c2"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#Interface"/>
-                <Variable IRI="#i1"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#Interface"/>
-                <Variable IRI="#i2"/>
-            </ClassAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hasInterface"/>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#i1"/>
-            </ObjectPropertyAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hasInterface"/>
-                <Variable IRI="#c2"/>
-                <Variable IRI="#i2"/>
-            </ObjectPropertyAtom>
-        </Body>
-        <Head>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
-                <Variable IRI="#o1"/>
-                <Variable IRI="#o2"/>
-            </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
-                <Variable IRI="#o1"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
-                <Variable IRI="#o2"/>
-            </ClassAtom>
-        </Head>
-    </DLSafeRule>
     <DLSafeRule>
         <Annotation>
             <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
@@ -2322,7 +2650,7 @@
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>communication rule 1</Literal>
+            <Literal>mayTalkTo inference</Literal>
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -2430,11 +2758,11 @@
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>communication rule (commdevices same OM)</Literal>
+            <Literal>communication rule to create communication inside the same MO</Literal>
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-            <Literal>communication rule (commdevices same OM)</Literal>
+            <Literal>communication rule (same MO)</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
@@ -2445,6 +2773,40 @@
                 <Class IRI="#MilitaryPerson"/>
                 <Variable IRI="#m1"/>
             </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#CommDevice"/>
+                <Variable IRI="#c2"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#CommDevice"/>
+                <Variable IRI="#c1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryOrganization"/>
+                <Variable IRI="#o1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryOrganization"/>
+                <Variable IRI="#o2"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#UeUp"/>
+                <Variable IRI="#i1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#UeUp"/>
+                <Variable IRI="#i2"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasInterface"/>
+                <Variable IRI="#c1"/>
+                <Variable IRI="#i1"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasInterface"/>
+                <Variable IRI="#c2"/>
+                <Variable IRI="#i2"/>
+            </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#operates"/>
                 <Variable IRI="#m1"/>
@@ -2459,6 +2821,101 @@
                 <Variable IRI="#o1"/>
                 <Variable IRI="#o2"/>
             </SameIndividualAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
+                <Variable IRI="#m1"/>
+                <Variable IRI="#o1"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#militaryPersonHasMilitaryOrganization"/>
+                <Variable IRI="#m2"/>
+                <Variable IRI="#o2"/>
+            </ObjectPropertyAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryOrganizationPowerType"/>
+                <Variable IRI="#ompt1"/>
+            </ClassAtom>
+            <DifferentIndividualsAtom>
+                <Variable IRI="#c1"/>
+                <Variable IRI="#c2"/>
+            </DifferentIndividualsAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasMOPowerType"/>
+                <Variable IRI="#o2"/>
+                <Variable IRI="#ompt1"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasMOPowerType"/>
+                <Variable IRI="#o1"/>
+                <Variable IRI="#ompt1"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#mayTalkTo"/>
+                <Variable IRI="#i1"/>
+                <Variable IRI="#i2"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>defines two organizations as equivalent during communication</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>HierarchicallyEquivalentDuringCommunication rule</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#MilitaryPerson"/>
+                <Variable IRI="#m2"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryPerson"/>
+                <Variable IRI="#m1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#UeUp"/>
+                <Variable IRI="#i1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#UeUp"/>
+                <Variable IRI="#i2"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#operates"/>
+                <Variable IRI="#m1"/>
+                <Variable IRI="#i1"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#operates"/>
+                <Variable IRI="#m2"/>
+                <Variable IRI="#i2"/>
+            </ObjectPropertyAtom>
+            <ClassAtom>
+                <Class IRI="#CommDevice"/>
+                <Variable IRI="#c2"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#CommDevice"/>
+                <Variable IRI="#c1"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasInterface"/>
+                <Variable IRI="#c1"/>
+                <Variable IRI="#i1"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasInterface"/>
+                <Variable IRI="#c2"/>
+                <Variable IRI="#i2"/>
+            </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryOrganization"/>
                 <Variable IRI="#o1"/>
@@ -2482,27 +2939,9 @@
                 <Variable IRI="#ompt1"/>
             </ClassAtom>
             <DifferentIndividualsAtom>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#c2"/>
+                <Variable IRI="#o1"/>
+                <Variable IRI="#o2"/>
             </DifferentIndividualsAtom>
-            <ClassAtom>
-                <Class IRI="#UeUp"/>
-                <Variable IRI="#i1"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#UeUp"/>
-                <Variable IRI="#i2"/>
-            </ClassAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hasInterface"/>
-                <Variable IRI="#c1"/>
-                <Variable IRI="#i1"/>
-            </ObjectPropertyAtom>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#hasInterface"/>
-                <Variable IRI="#c2"/>
-                <Variable IRI="#i2"/>
-            </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasMOPowerType"/>
                 <Variable IRI="#o2"/>
@@ -2513,16 +2952,21 @@
                 <Variable IRI="#o1"/>
                 <Variable IRI="#ompt1"/>
             </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#CommDevice"/>
-                <Variable IRI="#c2"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#CommDevice"/>
-                <Variable IRI="#c1"/>
-            </ClassAtom>
         </Body>
         <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hierarchicallyEquivalentDuringCommunicationWith"/>
+                <Variable IRI="#o1"/>
+                <Variable IRI="#o2"/>
+            </ObjectPropertyAtom>
+            <ClassAtom>
+                <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
+                <Variable IRI="#o1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#HierarchicallyEquivalentDuringCommunication"/>
+                <Variable IRI="#o2"/>
+            </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#mayTalkTo"/>
                 <Variable IRI="#i1"/>
@@ -2567,7 +3011,7 @@
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>set the Guarari&apos;s data properties</Literal>
+            <Literal>set guarani data properties</Literal>
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -2581,24 +3025,24 @@
         </Body>
         <Head>
             <DataPropertyAtom>
-                <DataProperty IRI="#AmphibiousSpeed"/>
-                <Variable IRI="#g"/>
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">9</Literal>
-            </DataPropertyAtom>
-            <DataPropertyAtom>
-                <DataProperty IRI="#MaxSpeedLand"/>
-                <Variable IRI="#g"/>
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">95</Literal>
-            </DataPropertyAtom>
-            <DataPropertyAtom>
-                <DataProperty IRI="#MinSpeed"/>
+                <DataProperty IRI="#minSpeed"/>
                 <Variable IRI="#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3.5</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
-                <DataProperty IRI="#VisibilityRange"/>
+                <DataProperty IRI="#visibilityRange"/>
                 <Variable IRI="#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1000</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#amphibiousSpeed"/>
+                <Variable IRI="#g"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">9</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#maxSpeedLand"/>
+                <Variable IRI="#g"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">95</Literal>
             </DataPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -2654,14 +3098,14 @@
         </Body>
         <Head>
             <DataPropertyAtom>
-                <DataProperty IRI="#Frequency"/>
-                <NamedIndividual IRI="#SDR"/>
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">56</Literal>
-            </DataPropertyAtom>
-            <DataPropertyAtom>
-                <DataProperty IRI="#Txpower"/>
+                <DataProperty IRI="#txPower"/>
                 <NamedIndividual IRI="#SDR"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#frequency"/>
+                <NamedIndividual IRI="#SDR"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">56</Literal>
             </DataPropertyAtom>
         </Head>
     </DLSafeRule>
@@ -2672,18 +3116,13 @@
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal></Literal>
+            <Literal>MilitaryPerson and Platform must belong to the same MO</Literal>
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-            <Literal>Military and Platform same MO</Literal>
+            <Literal>MilitaryPerson and Platform same MO</Literal>
         </Annotation>
         <Body>
-            <ObjectPropertyAtom>
-                <ObjectProperty IRI="#isLocatedIn"/>
-                <Variable IRI="#m1"/>
-                <Variable IRI="#mp"/>
-            </ObjectPropertyAtom>
             <ClassAtom>
                 <Class IRI="#MilitaryPlatform"/>
                 <Variable IRI="#mp"/>
@@ -2692,15 +3131,20 @@
                 <Class IRI="#MilitaryPerson"/>
                 <Variable IRI="#m1"/>
             </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryOrganization"/>
+                <Variable IRI="#mo"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#isLocatedIn"/>
+                <Variable IRI="#m1"/>
+                <Variable IRI="#mp"/>
+            </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#belongsTo"/>
                 <Variable IRI="#mp"/>
                 <Variable IRI="#mo"/>
             </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#mo"/>
-            </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
@@ -2717,26 +3161,34 @@
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>Rule Definition to Restrict Subordination Definitions in the Military Hierarchy</Literal>
+            <Literal>Rule definition to restrict subordination relations in the military hierarchy</Literal>
         </Annotation>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-            <Literal>Hierarchically restriction for OM supertype</Literal>
+            <Literal>Hierarchically restriction for MO powertypes</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
+                <Class IRI="#MilitaryOrganization"/>
+                <Variable IRI="#o1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryOrganization"/>
+                <Variable IRI="#o2"/>
+            </ClassAtom>
+            <ClassAtom>
                 <Class IRI="#MilitaryOrganizationPowerType"/>
                 <Variable IRI="#ompt1"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="#MilitaryOrganizationPowerType"/>
+                <Variable IRI="#ompt2"/>
             </ClassAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#isSubordinateTo"/>
                 <Variable IRI="#o2"/>
                 <Variable IRI="#o1"/>
             </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganizationPowerType"/>
-                <Variable IRI="#ompt2"/>
-            </ClassAtom>
             <DifferentIndividualsAtom>
                 <Variable IRI="#o1"/>
                 <Variable IRI="#o2"/>
@@ -2751,14 +3203,6 @@
                 <Variable IRI="#o2"/>
                 <Variable IRI="#ompt2"/>
             </ObjectPropertyAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o1"/>
-            </ClassAtom>
-            <ClassAtom>
-                <Class IRI="#MilitaryOrganization"/>
-                <Variable IRI="#o2"/>
-            </ClassAtom>
         </Body>
         <Head>
             <ObjectPropertyAtom>
@@ -2789,17 +3233,17 @@
         </Body>
         <Head>
             <DataPropertyAtom>
-                <DataProperty IRI="#MaxSpeedLand"/>
+                <DataProperty IRI="#maxSpeedLand"/>
                 <Variable IRI="#m1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">4</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
-                <DataProperty IRI="#MinSpeed"/>
+                <DataProperty IRI="#minSpeed"/>
                 <Variable IRI="#m1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
-                <DataProperty IRI="#VisibilityRange"/>
+                <DataProperty IRI="#visibilityRange"/>
                 <Variable IRI="#m1"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">300</Literal>
             </DataPropertyAtom>
@@ -2971,7 +3415,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#MilitaryPerson</IRI>
-        <Literal xml:lang="en">Military</Literal>
+        <Literal xml:lang="en">MilitaryPerson</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>

@@ -268,37 +268,37 @@ class UploadScenarioView(TemplateView):
                     for j in ind.instances():
                         #print(j.hasInterface[0])
                         #print(j.hasInterface[1])
-                        print(j.MAC)
+                        #print(j.mac)
                         if j.name not in seen_names:
                             CommDevices_dictionary[j.name] = {}
                             seen_names.add(j.name)
                             p_value0 = str(j.hasInterface[0]).split(".")[-1]
                             p_value1 = str(j.hasInterface[1]).split(".")[-1]
-                            mac = str(j.MAC).strip("[]")
+                            mac = str(j.mac).strip("[]")
                             mac = mac.strip("'")
                             CommDevices_dictionary[j.name]['hasInterface'] = [p_value0, p_value1]
                             CommDevices_dictionary[j.name]['MAC'] = mac
 
                 if classe_ == 'UeUp' or classe_ == 'UeDown':
                     for j in ind.instances():
-                        #print(j.IP)
-                        #print(j.Txpower)
+                        print(j.ip)
+                        print(j.txPower)
                         if j.name not in seen_names:
                             Interfaces_dictionary[j.name] = {}
                             seen_names.add(j.name)
 
-                            ip = str(j.IP).strip("[]")
+                            ip = str(j.ip).strip("[]")
                             ip = ip.strip("'")
 
-                            txpower = str(j.Txpower).strip("[]")
+                            txpower = str(j.txPower).strip("[]")
                             txpower = txpower.strip("'")
                             txpower = float(txpower)
 
-                            Coverage = str(j.Coverage).strip("[]")
+                            Coverage = str(j.coverage).strip("[]")
                             Coverage = Coverage.strip("'")
                             Coverage = float(Coverage)
 
-                            AntennaGain = str(j.AntennaGain).strip("[]")
+                            AntennaGain = str(j.antennaGain).strip("[]")
                             AntennaGain = AntennaGain.strip("'")
                             AntennaGain = float(AntennaGain)
 
