@@ -74,8 +74,10 @@ class ConfigurationView():
     
     def __saveNode(self, request, network, nodeID):
         type = request.POST.get(nodeID + "-" + "type")
-        mperson_id = request.POST.get(nodeID + "-" + "military_person")
-        mp = MilitaryPerson.objects.get(id=int(mperson_id))
+        if type == 'station':
+            mperson_id = request.POST.get(nodeID + "-" + "military_person")
+            mp = MilitaryPerson.objects.get(id=int(mperson_id))
+
 
         nodeTypeToSaverMap = {
             "station": Station,
@@ -92,8 +94,8 @@ class ConfigurationView():
         nodeAttributeString = request.POST.get(type+"_node_attribute")
         nodeAttributes = self.__parseAttributes(nodeAttributeString)
 
-        nodeAttributes.remove('military_person')
-        #nodeAttributes.remove('military_organization')
+        if type == 'station':
+            nodeAttributes.remove('military_person')
 
         interfaceAttributeString = request.POST.get(type+"_interface_attribute")
         interfaceAttributes = self.__parseAttributes(interfaceAttributeString)
@@ -101,7 +103,10 @@ class ConfigurationView():
         nodeParams = {}
         for attr in nodeAttributes:
             nodeParams[attr] = request.POST.get(nodeID + "-" + attr)
-        node = Node(network=network, type=type, militaryperson=mp, **nodeParams)
+        if type == 'station':
+            node = Node(network=network, type=type, militaryperson=mp, **nodeParams)
+        else:
+            node = Node(network=network, type=type, militaryperson=None, **nodeParams)
         node.save()
 
         specParams = {}

@@ -96,7 +96,7 @@ class MobilityParam(models.Model):
 class Node(models.Model):
     name = models.CharField(max_length=30)
     mac = models.CharField(max_length=30)
-    militaryperson = models.ForeignKey(MilitaryPerson, on_delete=models.CASCADE)
+    militaryperson = models.ForeignKey(MilitaryPerson, on_delete=models.CASCADE, blank=True, null=True)
     type = models.CharField(max_length=30, blank=True, null=True)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
 
@@ -119,11 +119,19 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
-        subkind = self.militaryperson.Military_Organization.type.name if self.militaryperson.Military_Organization.type else ""
-        return {"name": self.name, "mac": self.mac, "type": self.type, "args": specializationArgs,
-                "interface": interface, "military_organization": self.militaryperson.Military_Organization.Id,
-                "om_name": self.militaryperson.Military_Organization.name, "subkind": subkind,
-                "commander": self.militaryperson.Military_Organization.commander,"carrier": self.militaryperson.CommDevice_Carrier}
+        subkind = self.militaryperson.Military_Organization.type.name if self.militaryperson else ""
+        return {
+            "name": self.name,
+            "mac": self.mac,
+            "type": self.type,
+            "args": specializationArgs,
+            "interface": interface,
+            "military_organization": self.militaryperson.Military_Organization.Id if self.militaryperson else None,
+            "om_name": self.militaryperson.Military_Organization.name if self.militaryperson else None,
+            "subkind": subkind,
+            "commander": self.militaryperson.Military_Organization.commander if self.militaryperson else None,
+            "carrier": self.militaryperson.CommDevice_Carrier if self.militaryperson else None
+        }
 
 class Station(models.Model):
     check_position = models.CharField(max_length=1, blank=True, null=True)

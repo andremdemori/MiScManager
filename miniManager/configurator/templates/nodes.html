@@ -133,22 +133,13 @@
         </div>
 
       <div id="accesspoint"  class="hidde-element form-group" style="display: none;">
-        <input type="hidden" id="accesspoint_specific_attribute" name="accesspoint_specific_attribute" value="ssid,mode,channel,wlans">
-        <input type="hidden" id="accesspoint_node_attribute" name="accesspoint_node_attribute" value="name,military_organization,position_node">
+        <input type="hidden" id="accesspoint_specific_attribute" name="accesspoint_specific_attribute" value="ssid,mode,channel,wlans,position_node">
+        <input type="hidden" id="accesspoint_node_attribute" name="accesspoint_node_attribute" value="name,mac">
         <input type="hidden" id="accesspoint_interface_attribute" name="accesspoint_interface_attribute" value="">
         <div class="form-group row">
           <div class="col">
             <label id="name" for="nameaccess">name</label>
             <input type="text" name="accesspoint_name" class="form-control" id="accesspoint_name" placeholder="ap1">
-          </div>
-
-          <div class="col">
-            <label id="military_organization" for="military_organizationaccess">CommDevice Operator's Military organization</label>
-            <select name="accesspoint_military_organization" id="accesspoint_military_organization">
-              {% for om in oms %}
-                <option value="{{om.Id}}">{{om.name}}</option>
-              {% endfor %}
-            </select>
           </div>
 
           <div class="col">
@@ -169,6 +160,11 @@
           <div class="col">
             <label id="name" for="wlans">wlans</label>
             <input type="text" name="accesspoint_wlans" class="form-control" id="accesspoint_wlans" placeholder="2">
+          </div>
+
+          <div class="col">
+            <label id="mac" for="mac">mac addr</label>
+            <input type="text" name="accesspoint_mac" class="form-control" id="accesspoint_mac" placeholder="00:00:00:00:00:02">
           </div>
         </div>
 
