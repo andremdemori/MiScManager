@@ -300,6 +300,11 @@ class AboutView(View):
         return render(request, 'about.html')
 
 
+class SupportView(View):
+    def support(request):
+        return render(request, 'support.html')
+
+
 class EditView(View):
     def edit_version(request, version_id):
 
