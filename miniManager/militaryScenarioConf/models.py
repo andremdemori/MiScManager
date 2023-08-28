@@ -49,6 +49,19 @@ class MilitaryOrganization(models.Model):
             return self.Id
 
 
+class VehiclePowerType(models.Model):
+    Id = models.AutoField(primary_key=True, unique=True)
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        db_table = "VehiclePowerType"
+        verbose_name = 'VehiclePowerType'
+        verbose_name_plural = 'VehiclePowerTypes'
+
+        def __str__(self):
+            return self.Id
+
+
 class Carrier(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
     VisibilityRange = models.FloatField(max_length=30, blank=True, null=True)
@@ -64,8 +77,9 @@ class Platform(Carrier):
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default=ARMORED_CATEGORY)
     Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
 
-class Guarani(Platform):
+class Vehicle(Platform):
     name = models.CharField(max_length=30)
+    VehiclePowerType = models.ForeignKey(VehiclePowerType, on_delete=models.CASCADE)
 
 
 #CRIAR OPERATIONAL ELEMENT E INSTITUTIONAL ELEMENT?

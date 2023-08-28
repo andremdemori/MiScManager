@@ -131,7 +131,7 @@ class UploadScenarioView(TemplateView):
         MO_dictionary = {}
         commander_name = ''
         MP_dictionary = {}
-        guaranis_dictionary = {}
+        vehicle_dictionary = {}
         CommDevices_dictionary = {}
         Interfaces_dictionary = {}
         mayTalkTo_dictionary = {}
@@ -167,7 +167,7 @@ class UploadScenarioView(TemplateView):
             ref_onto = get_ontology(file_path).load()
 
             # read the ontology from the file
-            class_names = ['MilitaryScenario', 'WirelessNetwork', 'CommDevice', 'CommDeviceOperator', 'Guarani', 'Interface', 'InterfacePowerType',
+            class_names = ['MilitaryScenario', 'WirelessNetwork', 'CommDevice', 'CommDeviceOperator', 'Vehicle', 'Guarani', 'Interface', 'InterfacePowerType',
                            'MilitaryAsCarrier', 'MilitaryPersonAsPassenger', 'MilitaryPersonAsDismounted', 'MilitaryOrganization',
                            'MilitaryOrganizationPowerType']
 
@@ -253,10 +253,10 @@ class UploadScenarioView(TemplateView):
                             print(f"\n{j.name}")
                             militaryAsDismounted.append(j.name)
 
-                if classe_ == 'Guarani':
+                if classe_ == 'Vehicle':
                     for j in ind.instances():
                         if j.name not in seen_names:
-                            guaranis_dictionary[j.name] = {}
+                            vehicle_dictionary[j.name] = {}
                             seen_names.add(j.name)
 
                             minSpeed = str(j.minSpeed).strip("[]")
@@ -280,13 +280,27 @@ class UploadScenarioView(TemplateView):
                             else:
                                 visibilityRange = float(visibilityRange)
 
-                            guaranis_dictionary[j.name]['minSpeed'] = minSpeed
-                            guaranis_dictionary[j.name]['maxSpeedLand'] = maxSpeedLand
-                            guaranis_dictionary[j.name]['visibilityRange'] = visibilityRange
+                            vehicle_dictionary[j.name]['minSpeed'] = minSpeed
+                            vehicle_dictionary[j.name]['maxSpeedLand'] = maxSpeedLand
+                            vehicle_dictionary[j.name]['visibilityRange'] = visibilityRange
+
+                            #GET VEHICLE POWERTYPE
+                            #instance_type = j.is_a
+                            vehicle_powertypes = VehiclePowerType.objects.all()
+                            for i in vehicle_powertypes:
+                                try:
+                                    type = ref_onto.search(iri="*"+i.name)[0]
+                                    if type in j.is_a:
+                                        vehicle_dictionary[j.name]['powertype'] = i.name
+                                except:
+                                    None
+
+
+                            #elif j.is_a[Guarani]:
                             for p in j.get_properties():
                                 p_value = str(p._get_value_for_individual(j)).split(".")[-1]
                                 if p.name == 'belongsTo':
-                                    guaranis_dictionary[j.name][p.name] = p_value
+                                    vehicle_dictionary[j.name][p.name] = p_value
 
 
                 if classe_ == 'CommDevice':
@@ -402,8 +416,8 @@ class UploadScenarioView(TemplateView):
                         om_id = MilitaryOrganization.objects.latest('Id').Id + 1
                         MilitaryOrganization.objects.create(Id=om_id,type=om_type,name=om_name,commander=commander,scenario=scenario)
 
-            if 'Guarani' in [classe.name for classe in ref_onto.classes()]:
-                for key, value in guaranis_dictionary.items():
+            if 'Vehicle' in [classe.name for classe in ref_onto.classes()]:
+                for key, value in vehicle_dictionary.items():
                     #print(f"\nKey: {key}")
                     guarani_name = key
                     guarani_om == ''
@@ -417,11 +431,14 @@ class UploadScenarioView(TemplateView):
                             minSpeed = prop_value
                         if prop == 'visibilityRange':
                             visibilityRange = prop_value
+                        if prop == 'powertype':
+                            powertype = prop_value
                     try:
-                        g_id = Guarani.objects.latest('Id').Id + 1
+                        g_id = Vehicle.objects.latest('Id').Id + 1
                     except:
                         g_id = 0
-                    Guarani.objects.create(Id=g_id,name=guarani_name,scenario=scenario,VisibilityRange=visibilityRange,v_min=minSpeed,v_max=maxSpeedLand,category='Armored', Military_Organization=guarani_om)
+                    vpt = VehiclePowerType.objects.get(name=powertype) # Guarani
+                    Vehicle.objects.create(Id=g_id,name=guarani_name,VehiclePowerType=vpt,scenario=scenario,VisibilityRange=visibilityRange,v_min=minSpeed,v_max=maxSpeedLand,category='Armored', Military_Organization=guarani_om)
 
             if 'MilitaryPerson' in [classe.name for classe in ref_onto.classes()]:
                 identifier = ''
@@ -436,10 +453,10 @@ class UploadScenarioView(TemplateView):
                             mo_om = MilitaryOrganization.objects.get(name=mo_om,scenario=scenario)
                         if prop == 'isLocatedIn' and identifier in militaryAsPassenger:
                             vehicle = prop_value
-                            carrier = Guarani.objects.get(name=vehicle, scenario=scenario)
+                            carrier = Vehicle.objects.get(name=vehicle, scenario=scenario)
                         elif identifier in militaryAsDismounted:
                             by_foot = True
-                            carrier = Carrier.objects.get(Id=1) # by foot
+                            carrier = Carrier.objects.get(Id=0) # by foot
 
                     MilitaryPerson.objects.create(Identifier=identifier,Military_Organization=mo_om,CommDevice_Carrier=carrier,scenario=scenario)
 
