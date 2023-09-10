@@ -167,12 +167,14 @@ class UploadScenarioView(TemplateView):
             ref_onto = get_ontology(file_path).load()
 
             # read the ontology from the file
-            class_names = ['MilitaryScenario', 'WirelessNetwork', 'CommDevice', 'CommDeviceOperator', 'Vehicle', 'Guarani', 'Interface', 'InterfacePowerType',
+            class_names = ['MilitaryScenario', 'WirelessNetwork', 'CommDevice', 'CommDeviceOperator', 'Vehicle', 'Interface', 'InterfacePowerType',
                            'MilitaryAsCarrier', 'MilitaryPersonAsPassenger', 'MilitaryPersonAsDismounted', 'MilitaryOrganization',
                            'MilitaryOrganizationPowerType']
 
             for i in range(len(list(ref_onto.classes()))):
                 classe = list(ref_onto.classes())[i]
+
+
                 if classe.name in class_names:
                     instances_output += f"\n\t<br><b>{classe.name}</b>:"
 
@@ -201,9 +203,12 @@ class UploadScenarioView(TemplateView):
                         if j.name not in seen_names:
                             MO_dictionary[j.name] = {}
                             seen_names.add(j.name)
-                            for p in j.get_properties():
-                                p_value = str(p._get_value_for_individual(j)).split(".")[-1]
-                                MO_dictionary[j.name][p.name] = p_value
+                            try:
+                                for p in j.get_properties():
+                                    p_value = str(p._get_value_for_individual(j)).split(".")[-1]
+                                    MO_dictionary[j.name][p.name] = p_value
+                            except:
+                                None
 
                     # Find the element without 'isSubordinateTo'
                     element_without_subordinate = None
@@ -230,6 +235,9 @@ class UploadScenarioView(TemplateView):
                             seen_names.add(j.name)
                             for p in j.get_properties():
                                 print(p.name, " ", str(p._get_value_for_individual(j)).split(".")[-1])
+
+                #platoon_class = ref_onto.Platoon
+
 
                 if classe_ == 'MilitaryPerson':
                     for j in ind.instances():
@@ -258,6 +266,14 @@ class UploadScenarioView(TemplateView):
                         if j.name not in seen_names:
                             vehicle_dictionary[j.name] = {}
                             seen_names.add(j.name)
+
+                            try:
+                                for p in j.get_properties():
+                                    p_value = str(p._get_value_for_individual(j)).split(".")[-1]
+                                    if p.name == 'belongsTo':
+                                        vehicle_dictionary[j.name][p.name] = p_value
+                            except:
+                                None
 
                             minSpeed = str(j.minSpeed).strip("[]")
                             minSpeed = minSpeed.strip("'")
@@ -294,13 +310,6 @@ class UploadScenarioView(TemplateView):
                                         vehicle_dictionary[j.name]['powertype'] = i.name
                                 except:
                                     None
-
-
-                            #elif j.is_a[Guarani]:
-                            for p in j.get_properties():
-                                p_value = str(p._get_value_for_individual(j)).split(".")[-1]
-                                if p.name == 'belongsTo':
-                                    vehicle_dictionary[j.name][p.name] = p_value
 
 
                 if classe_ == 'CommDevice':

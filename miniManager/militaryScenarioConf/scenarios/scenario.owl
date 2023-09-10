@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.semanticweb.org/demori/ontologies/ontology_28_08"
+     xml:base="http://www.semanticweb.org/demori/ontologies/ontology_29_08"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.semanticweb.org/demori/ontologies/ontology_28_08">
+     ontologyIRI="http://www.semanticweb.org/demori/ontologies/ontology_29_08">
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -37,9 +37,6 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Guarani"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Regiment"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#sta3-wlan1"/>
@@ -91,9 +88,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#belongsTo"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BattleTeam"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#modeValue"/>
@@ -225,6 +219,9 @@
         <Class IRI="#AccessPoint"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#minAmount"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="http://purl.org/nemo/gufo#inheresIn"/>
     </Declaration>
     <Declaration>
@@ -282,6 +279,9 @@
         <DataProperty IRI="#coverage"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#maxStrength"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#CommDeviceCarrier"/>
     </Declaration>
     <Declaration>
@@ -295,9 +295,6 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#WirelessNetwork"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#maximumAmount"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#3Platoon"/>
@@ -408,7 +405,7 @@
         <Class IRI="#Operator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Regiment"/>
+        <DataProperty IRI="#minStrength"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#OperationalElement"/>
@@ -464,6 +461,9 @@
     <Declaration>
         <Class IRI="#MilitaryOrganizationPowerType"/>
     </Declaration>
+    <Declaration>
+        <DataProperty IRI="#maxAmount"/>
+    </Declaration>
     <SubClassOf>
         <Class IRI="#AccessPoint"/>
         <Class IRI="#Interface"/>
@@ -474,10 +474,6 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Battalion"/>
-        <Class IRI="#MilitaryOrganization"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#BattleTeam"/>
         <Class IRI="#MilitaryOrganization"/>
     </SubClassOf>
     <SubClassOf>
@@ -634,10 +630,6 @@
         <Class IRI="http://purl.org/nemo/gufo#IntrinsicMode"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Regiment"/>
-        <Class IRI="#MilitaryOrganization"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#Subordinate"/>
         <Class IRI="#MilitaryOrganization"/>
     </SubClassOf>
@@ -728,11 +720,31 @@
         <NamedIndividual IRI="#Car"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#CommDeviceCarrier"/>
+        <NamedIndividual IRI="#Cascavel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryPlatform"/>
+        <NamedIndividual IRI="#Cascavel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OperationalElement"/>
+        <NamedIndividual IRI="#Cascavel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#Cascavel"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#VehiclePowerType"/>
         <NamedIndividual IRI="#Cascavel"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://purl.org/nemo/gufo#EndurantType"/>
+        <NamedIndividual IRI="#Cascavel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
         <NamedIndividual IRI="#Cascavel"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -768,11 +780,31 @@
         <NamedIndividual IRI="#Frequency_"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#CommDeviceCarrier"/>
+        <NamedIndividual IRI="#Guarani"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryPlatform"/>
+        <NamedIndividual IRI="#Guarani"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OperationalElement"/>
+        <NamedIndividual IRI="#Guarani"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#Guarani"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#VehiclePowerType"/>
         <NamedIndividual IRI="#Guarani"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://purl.org/nemo/gufo#EndurantType"/>
+        <NamedIndividual IRI="#Guarani"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
         <NamedIndividual IRI="#Guarani"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -852,18 +884,6 @@
         <NamedIndividual IRI="#Range_"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#MilitaryOrganizationPowerType"/>
-        <NamedIndividual IRI="#Regiment"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://purl.org/nemo/gufo#EndurantType"/>
-        <NamedIndividual IRI="#Regiment"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://purl.org/nemo/gufo#SubKind"/>
-        <NamedIndividual IRI="#Regiment"/>
-    </ClassAssertion>
-    <ClassAssertion>
         <Class IRI="http://purl.org/nemo/gufo#Role"/>
         <NamedIndividual IRI="#Subordinate"/>
     </ClassAssertion>
@@ -884,11 +904,31 @@
         <NamedIndividual IRI="#UeUp"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#CommDeviceCarrier"/>
+        <NamedIndividual IRI="#Urutu"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MilitaryPlatform"/>
+        <NamedIndividual IRI="#Urutu"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OperationalElement"/>
+        <NamedIndividual IRI="#Urutu"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Vehicle"/>
+        <NamedIndividual IRI="#Urutu"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#VehiclePowerType"/>
         <NamedIndividual IRI="#Urutu"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://purl.org/nemo/gufo#EndurantType"/>
+        <NamedIndividual IRI="#Urutu"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://purl.org/nemo/gufo#FunctionalComplex"/>
         <NamedIndividual IRI="#Urutu"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -1332,13 +1372,6 @@
         <NamedIndividual IRI="#802.11g"/>
     </ClassAssertion>
     <DifferentIndividuals>
-        <NamedIndividual IRI="#Battalion"/>
-        <NamedIndividual IRI="#Brigade"/>
-        <NamedIndividual IRI="#Company"/>
-        <NamedIndividual IRI="#Platoon"/>
-        <NamedIndividual IRI="#Regiment"/>
-    </DifferentIndividuals>
-    <DifferentIndividuals>
         <NamedIndividual IRI="#sta0"/>
         <NamedIndividual IRI="#sta1"/>
         <NamedIndividual IRI="#sta2"/>
@@ -1380,11 +1413,6 @@
         <NamedIndividual IRI="#Company"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#MOTypeIsSubordinateTo"/>
-        <NamedIndividual IRI="#Regiment"/>
-        <NamedIndividual IRI="#Brigade"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#belongsTo"/>
         <NamedIndividual IRI="#guarani0"/>
         <NamedIndividual IRI="#2Platoon"/>
@@ -1403,6 +1431,21 @@
         <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
         <NamedIndividual IRI="#scenario1"/>
         <NamedIndividual IRI="#3Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
+        <NamedIndividual IRI="#scenario1"/>
+        <NamedIndividual IRI="#Cascavel"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
+        <NamedIndividual IRI="#scenario1"/>
+        <NamedIndividual IRI="#Guarani"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
+        <NamedIndividual IRI="#scenario1"/>
+        <NamedIndividual IRI="#Urutu"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasOperationalElement"/>
@@ -1710,6 +1753,146 @@
         <NamedIndividual IRI="#2Company"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#maxStrength"/>
+        <NamedIndividual IRI="#Battalion"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">800</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minStrength"/>
+        <NamedIndividual IRI="#Battalion"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">500</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Battalion"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">500</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Battalion"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">800</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxStrength"/>
+        <NamedIndividual IRI="#Brigade"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minStrength"/>
+        <NamedIndividual IRI="#Brigade"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Brigade"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Brigade"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxAmount"/>
+        <NamedIndividual IRI="#Cascavel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minAmount"/>
+        <NamedIndividual IRI="#Cascavel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Cascavel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Cascavel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxStrength"/>
+        <NamedIndividual IRI="#Company"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">250</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minStrength"/>
+        <NamedIndividual IRI="#Company"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">60</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Company"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">250</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Company"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">60</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxAmount"/>
+        <NamedIndividual IRI="#Guarani"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">11</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minAmount"/>
+        <NamedIndividual IRI="#Guarani"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Guarani"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">11</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Guarani"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxStrength"/>
+        <NamedIndividual IRI="#Platoon"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">50</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minStrength"/>
+        <NamedIndividual IRI="#Platoon"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">20</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Platoon"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">50</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Platoon"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">20</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#maxAmount"/>
+        <NamedIndividual IRI="#Urutu"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">13</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#minAmount"/>
+        <NamedIndividual IRI="#Urutu"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Urutu"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">13</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+        <NamedIndividual IRI="#Urutu"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#channelValue"/>
         <NamedIndividual IRI="#ap1"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">4</Literal>
@@ -1750,11 +1933,6 @@
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">95</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#maximumAmount"/>
-        <NamedIndividual IRI="#guarani0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">11</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
         <DataProperty IRI="#minSpeed"/>
         <NamedIndividual IRI="#guarani0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3.5</Literal>
@@ -1768,11 +1946,6 @@
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
         <NamedIndividual IRI="#guarani0"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1000</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
-        <NamedIndividual IRI="#guarani0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">11</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
@@ -2447,15 +2620,27 @@
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
+        <DataProperty IRI="#maxAmount"/>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
         <DataProperty IRI="#maxSpeedLand"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#maximumAmount"/>
+        <DataProperty IRI="#maxStrength"/>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#minAmount"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
         <DataProperty IRI="#minSpeed"/>
+        <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#minStrength"/>
         <DataProperty IRI="http://purl.org/nemo/gufo#hasQualityValue"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
@@ -2507,16 +2692,24 @@
         <Class IRI="#CommDevice"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#maxAmount"/>
+        <Class IRI="#Vehicle"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#maxSpeedLand"/>
         <Class IRI="#CommDeviceCarrier"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#maximumAmount"/>
-        <Class IRI="#Vehicle"/>
+        <DataProperty IRI="#maxStrength"/>
+        <Class IRI="#MilitaryOrganizationPowerType"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#minSpeed"/>
         <Class IRI="#CommDeviceCarrier"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#minStrength"/>
+        <Class IRI="#MilitaryOrganizationPowerType"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#modeValue"/>
@@ -2567,16 +2760,24 @@
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
+        <DataProperty IRI="#maxAmount"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
         <DataProperty IRI="#maxSpeedLand"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#maximumAmount"/>
+        <DataProperty IRI="#maxStrength"/>
         <Datatype abbreviatedIRI="xsd:int"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#minSpeed"/>
         <Datatype abbreviatedIRI="rdfs:Literal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#minStrength"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#modeValue"/>
@@ -3060,11 +3261,6 @@
                 <DataProperty IRI="#maxSpeedLand"/>
                 <Variable IRI="#g"/>
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">95</Literal>
-            </DataPropertyAtom>
-            <DataPropertyAtom>
-                <DataProperty IRI="#maximumAmount"/>
-                <Variable IRI="#g"/>
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">11</Literal>
             </DataPropertyAtom>
         </Head>
     </DLSafeRule>

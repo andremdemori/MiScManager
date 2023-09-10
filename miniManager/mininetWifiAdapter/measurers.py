@@ -400,8 +400,21 @@ class PerformanceMeasurer(IMeasurer):
 
             source_Name = source.name
             destination_Name = destination.name
-            destination_om_name = ''
-            source_om_name = ''
+            #destination_om_name = ''
+            matching_station = None
+            for station in stations:
+                if station["name"] == source_Name:
+                    matching_station = station
+                    break
+            source_om_name = station["om_name"]
+
+            #source_om_name = ''
+            matching_station = None
+            for station in stations:
+                if station["name"] == destination_Name:
+                    matching_station = station
+                    break
+            destination_om_name = station["om_name"]
 
             value = self.__ping(source, destination)
 
@@ -422,8 +435,21 @@ class PerformanceMeasurer(IMeasurer):
                     destination_Name = d["name"]
             destination = self.__net.get(destination_Name)
 
-            destination_om_name = ''
-            source_om_name = ''
+            #destination_om_name = ''
+            matching_station = None
+            for station in stations:
+                if station["name"] == destination_Name:
+                    matching_station = station
+                    break
+            destination_om_name = station["om_name"]
+
+            #source_om_name = ''
+            matching_station = None
+            for station in stations:
+                if station["name"] == source_Name:
+                    matching_station = station
+                    break
+            source_om_name = station["om_name"]
 
             value = self.__ping(source, destination)
 
@@ -463,8 +489,14 @@ class PerformanceMeasurer(IMeasurer):
             source = self.__net.get(source)
             destination = self.__net.get(destination)
 
-            source_om_name = ''
-            destination_om_name = ''
+            #source_om_name = ''
+
+            matching_station = None
+            for station in stations:
+                if station["name"] == destination_Name:
+                    matching_station = station
+                    break
+            destination_om_name = station["om_name"]
 
             value = self.__pingMayTalkTo(source, destination,int(id_intf_source),int(id_intf_dest))
 
