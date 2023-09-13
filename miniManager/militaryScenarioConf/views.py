@@ -69,7 +69,7 @@ class HomeScenarioView(TemplateView):
             except:
                 scenario_id = 1
 
-            MilitaryScenario.objects.create(Id=scenario_id, name=scenario_name, description=scenario_description)
+            MilitaryScenario.objects.create(Id=scenario_id, name=scenario_name+str(scenario_id), description=scenario_description)
             scenario = MilitaryScenario.objects.get(Id=scenario_id)
 
             ###CRIA MILITARY ORGANIZATIONS, MILITARY PERSONS E CARRIES
@@ -88,7 +88,9 @@ class HomeScenarioView(TemplateView):
                     else:
                         commander = MilitaryOrganization.objects.get(name=commander,scenario=scenario)
 
-                    MilitaryOrganization.objects.create(type=type,name=name,commander=commander,scenario=scenario)
+                    moId = MilitaryOrganization.objects.latest('Id').Id
+                    moId = moId + 1
+                    MilitaryOrganization.objects.create(Id=moId,type=type,name=name,commander=commander,scenario=scenario)
 
 
             ###CRIA MILITARY PERSONS
@@ -101,11 +103,12 @@ class HomeScenarioView(TemplateView):
                     mo = MilitaryOrganization.objects.get(name=mo,scenario=scenario)
                     carrier = person["carrier"]
                     if carrier == 'Guarani':
-                        last_guarani = Guarani.objects.latest('Id')
+                        vpt = VehiclePowerType.objects.get(name='Guarani')
+                        last_guarani = Vehicle.objects.latest('Id')
                         Id = last_guarani.Id + 1
                         new_guarani_name = 'guarani'+scenario_name
-                        Guarani.objects.create(Id=Id,VisibilityRange=1000,v_min=3.5,v_max=95,scenario=scenario,
-                                               category='Armored',Military_Organization=mo,name=new_guarani_name)
+                        Vehicle.objects.create(Id=Id,VisibilityRange=1000,v_min=3.5,v_max=95,scenario=scenario,
+                                               category='Armored',Military_Organization=mo,name=new_guarani_name, VehiclePowerType=vpt)
                         carrier = Carrier.objects.latest('Id')
                     elif carrier == 'By Foot':
                         carrier = Carrier.objects.get(Id=1) # BY FOOT

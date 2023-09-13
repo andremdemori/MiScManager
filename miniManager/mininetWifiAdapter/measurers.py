@@ -109,6 +109,20 @@ class RadioFrequencyMeasurer(IMeasurer):
                 if node.wintfs[0].associatedTo:
                     return node.wintfs[0].associatedTo.node.wintfs[0].name
                 return "None"
+        if measureName == "name":
+            return node.name
+        if measureName == "ip_if0":
+            ip_interf0 = str(node.wintfs[0].ip)
+            return ip_interf0
+        if measureName == "ip_if1":
+            ip_interf1 = str(node.wintfs[1].ip)
+            return ip_interf1
+        if measureName == "txpower_if0":
+            txpower_interf0 = str(node.wintfs[0].txpower)
+            return txpower_interf0
+        if measureName == "txpower_if1":
+            txpower_interf1 = str(node.wintfs[1].txpower)
+            return txpower_interf1
 
         return getattr(node.wintfs[0],measureName)
 
@@ -512,7 +526,7 @@ class PerformanceMeasurer(IMeasurer):
 
         #print(source.cmd('xterm'))
 
-        return {"name": name + "-" + "\nprec: " + prec + "\nsec_level: " + sec_level,
+        return {"name": name,
                 "source": source_Name +"-"+ source_om_name,
                 "destination": destination_Name + "-" + destination_om_name,
                 "value": value}
@@ -533,7 +547,7 @@ class PerformanceMeasurer(IMeasurer):
         return [splittedResult[3], splittedResult[4]]
 
     def __pingMayTalkTo(self, source, destination, id_intf_source, id_intf_dest):
-        pingResult = source.cmd('ping', '-c 10 -q', '-I ' + source.wintfs[id_intf_source].ip, destination.wintfs[id_intf_dest].ip)
+        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[id_intf_source].ip, destination.wintfs[id_intf_dest].ip)
         splittedResult = pingResult.split('\r\n')
         return [splittedResult[3], splittedResult[4]]
 

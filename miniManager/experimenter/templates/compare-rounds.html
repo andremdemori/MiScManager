@@ -11,10 +11,10 @@
     <div class="alert alert-primary" role="alert">{{ errorMessage }}</div>
   {% else %}
     <div class="diff-content">
-      <div class="table-content">
+      <div class="styled-table">
         {% include "result-table.html" with name="radioFrequency" titles=radioFrequencyTitles rows=radioFrequency isDiff=True only %}
       </div>
-      <div class="table-content">
+      <div class="styled-table">
         {% include "result-table.html" with name="performance" titles=performanceTitles rows=performance isDiff=True only %}
       </div>
     </div>
