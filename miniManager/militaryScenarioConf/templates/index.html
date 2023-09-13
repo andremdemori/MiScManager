@@ -70,11 +70,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <form class="test-plan-form" method="POST" onsubmit="return validateForm();">
       {% csrf_token %}
   <div class="col">
-    <label for="scenario_name" class="form-label">Name of Scenario</label>
-    <input type="text" class="form-control" id="scenario_name" name="scenario_name" placeholder="Scenario x" required>
+    <label for="scenario_name" class="form-label">Nome do cenário</label>
+    <input type="text" class="form-control" id="scenario_name" name="scenario_name" placeholder="Cenário" required>
     <br><br>
-    <label for="scenario_description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="scenario_description" name="scenario_description" placeholder="Description of scenario x" required>
+    <label for="scenario_description" class="form-label">Descrição</label>
+    <input type="text" class="form-control" id="scenario_description" name="scenario_description" placeholder="Descrição do cenário" required>
   </div>
 
 <br>
@@ -82,7 +82,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <div class="col">
 
 <!-- Trigger/Open The Modal -->
-<button type="button" class="btn btn-secondary" id="myBtn">Add Military Organization</button>
+<button type="button" class="btn btn-secondary" id="myBtn">Adicionar OM</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -90,20 +90,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <label for="fname">MO name</label>
+    <label for="fname">Nome da OM</label>
     <input type="text" id="mo_name" name="mo_name"><br><br>
 
-    <label for="commander">MO commander</label>
+    <label for="commander">OM Comandante</label>
     <select id="commander" name="commander"></select><br><br>
 
-    <label for="type">Type</label>
+    <label for="type">Tipo</label>
     <select id="type" name="type">
       {%for t in types%}
         <option>{{t.name}}</option>
       {%endfor%}
     </select><br><br>
 
-    <button type="button" class="btn btn-secondary" id="createmo">Create MO</button>
+    <button type="button" class="btn btn-secondary" id="createmo">Criar OM</button>
   </div>
 
 </div>
@@ -111,7 +111,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <div id="output"></div>
 <br><br>
 <hr>
-<button type="button" class="btn btn-secondary" id="myBtn2">Add Military Person</button>
+<button type="button" class="btn btn-secondary" id="myBtn2">Adicionar Militar</button>
 
 <!-- The Modal -->
 <div id="myModal2" class="modal">
@@ -119,10 +119,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close2">&times;</span>
-    <label for="identifier">Identifier</label>
+    <label for="identifier">Id</label>
     <input type="text" id="identifier" name="identifier"><br><br>
 
-    <label for="person_mo">Military Organization</label>
+    <label for="person_mo">Organização Militar</label>
     <select id="person_mo" name="person_mo"></select><br><br>
 
     <label for="carrier">Carrier</label>
@@ -131,7 +131,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
       <option>By Foot</option>
     </select><br><br>
 
-    <button type="button" class="btn btn-secondary" id="createmp">Create Military Person</button>
+    <button type="button" class="btn btn-secondary" id="createmp">Criar Militar</button>
   </div>
 
 </div>
@@ -144,7 +144,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <input type="hidden" id="military_org_data" name="military_org_data" value="">
 <input type="hidden" id="military_person_data" name="military_person_data" value="">
 
-<button type="submit" class="btn btn-secondary" id="save">Save Scenario</button>
+<button type="submit" class="btn btn-secondary" id="save">Salvar Cenário</button>
 
 </div>
 </form>
