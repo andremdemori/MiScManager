@@ -78,12 +78,7 @@
         },
         plugins: {
           tooltip: {
-            callbacks: {
-              label: function(context) {
-                const label = context.dataset.label || '';
-                return label;
-              }
-            }
+            enabled: false,
           },
           legend: {
             display: false
@@ -93,7 +88,7 @@
             anchor: 'start',
             align: 'start',
             formatter: function(value, context) {
-              return context.dataset.label;
+              return context.dataset.label.replace(/-wlan\d+$/, '');
             }
           },
         },

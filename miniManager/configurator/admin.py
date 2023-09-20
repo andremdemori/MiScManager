@@ -34,7 +34,7 @@ admin.site.register(Node)
 
 admin.site.register(Mobility)
 
-admin.site.register(Position)
+#admin.site.register(Position)
 
 admin.site.register(Station)
 
@@ -45,8 +45,6 @@ admin.site.register(Switch)
 admin.site.register(AccessPoint)
 
 admin.site.register(Interface)
-
-admin.site.register(InterfacePowerType)
 
 admin.site.register(Link)
 

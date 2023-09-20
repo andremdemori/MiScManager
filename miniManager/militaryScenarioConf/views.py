@@ -108,7 +108,7 @@ class HomeScenarioView(TemplateView):
                         Id = last_guarani.Id + 1
                         new_guarani_name = 'guarani'+scenario_name
                         Vehicle.objects.create(Id=Id,VisibilityRange=1000,v_min=3.5,v_max=95,scenario=scenario,
-                                               category='Armored',Military_Organization=mo,name=new_guarani_name, VehiclePowerType=vpt)
+                                               vehicle_specialization='Armored',Military_Organization=mo,name=new_guarani_name, VehiclePowerType=vpt)
                         carrier = Carrier.objects.latest('Id')
                     elif carrier == 'By Foot':
                         carrier = Carrier.objects.get(Id=1) # BY FOOT
@@ -344,6 +344,8 @@ class UploadScenarioView(TemplateView):
 
                             txpower = str(j.txPower).strip("[]")
                             txpower = txpower.strip("'")
+                            txpower = txpower.split(',')
+                            txpower = txpower[0]
                             if txpower == '':
                                 txpower = 16
                             else:
@@ -351,6 +353,8 @@ class UploadScenarioView(TemplateView):
 
                             Coverage = str(j.coverage).strip("[]")
                             Coverage = Coverage.strip("'")
+                            Coverage = Coverage.split(',')
+                            Coverage = Coverage[0]
                             if Coverage == '':
                                 Coverage = 100
                             else:
@@ -358,6 +362,8 @@ class UploadScenarioView(TemplateView):
 
                             AntennaGain = str(j.antennaGain).strip("[]")
                             AntennaGain = AntennaGain.strip("'")
+                            AntennaGain = AntennaGain.split(',')
+                            AntennaGain = AntennaGain[0]
                             if AntennaGain == '':
                                 AntennaGain = 10
                             else:
@@ -403,6 +409,7 @@ class UploadScenarioView(TemplateView):
                 ###CRIA CENÁRIO ###
 
                 scenario_id = MilitaryScenario.objects.latest('Id').Id + 1
+                scenario_name = scenario_name+"_"+str(scenario_id)
                 MilitaryScenario.objects.create(Id=scenario_id, name=scenario_name, description='')
                 scenario = MilitaryScenario.objects.get(name=scenario_name) # nomes de cenários precisam ser únicos
 
@@ -450,7 +457,7 @@ class UploadScenarioView(TemplateView):
                     except:
                         g_id = 0
                     vpt = VehiclePowerType.objects.get(name=powertype) # Guarani
-                    Vehicle.objects.create(Id=g_id,name=guarani_name,VehiclePowerType=vpt,scenario=scenario,VisibilityRange=visibilityRange,v_min=minSpeed,v_max=maxSpeedLand,category='Armored', Military_Organization=guarani_om)
+                    Vehicle.objects.create(Id=g_id,name=guarani_name,VehiclePowerType=vpt,scenario=scenario,VisibilityRange=visibilityRange,v_min=minSpeed,v_max=maxSpeedLand,vehicle_specialization='Armored', Military_Organization=guarani_om)
 
             if 'MilitaryPerson' in [classe.name for classe in ref_onto.classes()]:
                 identifier = ''
@@ -513,8 +520,8 @@ class UploadScenarioView(TemplateView):
             rssi = Measure.objects.get(name='rssi')
             txpower_if0 = Measure.objects.get(name='txpower_if0')
             txpower_if1 = Measure.objects.get(name='txpower_if1')
-            ip_if0 = Measure.objects.get(name='txpower')
-            ip_if1 = Measure.objects.get(name='ip')
+            ip_if0 = Measure.objects.get(name='ip_if0')
+            ip_if1 = Measure.objects.get(name='ip_if1')
             position = Measure.objects.get(name='position')
             associatedTo = Measure.objects.get(name='associatedTo')
             Measurement.objects.create(period=1,measure=rssi,config=configuration)

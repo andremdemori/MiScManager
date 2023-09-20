@@ -547,7 +547,7 @@ class PerformanceMeasurer(IMeasurer):
         return [splittedResult[3], splittedResult[4]]
 
     def __pingMayTalkTo(self, source, destination, id_intf_source, id_intf_dest):
-        pingResult = source.cmd('ping', '-c 1 -q', '-I ' + source.wintfs[id_intf_source].ip, destination.wintfs[id_intf_dest].ip)
+        pingResult = source.cmd('ping', '-c 10 -q', '-I ' + source.wintfs[id_intf_source].ip, destination.wintfs[id_intf_dest].ip)
         splittedResult = pingResult.split('\r\n')
         return [splittedResult[3], splittedResult[4]]
 

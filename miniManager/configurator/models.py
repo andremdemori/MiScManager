@@ -194,17 +194,6 @@ class AccessPoint(models.Model):
                 "y_max": self.y_max}
 
 
-class InterfacePowerType(models.Model):
-    name = models.CharField(max_length=30)
-    txpower = models.IntegerField(default=15)
-    frequency = models.IntegerField(default=15)
-
-    class Meta:
-        db_table = "InterfacePowerType"
-
-    def serialize(self):
-        return {}
-
 class Interface(models.Model):
     name = models.CharField(max_length=30)
     ip_intf0 = models.CharField(max_length=30)
@@ -271,14 +260,14 @@ class Mobility(models.Model):
         db_table = "Mobility"
 
 
-class Position(models.Model):
-    x = models.FloatField()
-    y = models.FloatField()
-    z = models.FloatField()
-    node = models.ForeignKey(Node, on_delete=models.CASCADE)
+#class Position(models.Model):
+#    x = models.FloatField()
+#    y = models.FloatField()
+#    z = models.FloatField()
+#    node = models.ForeignKey(Node, on_delete=models.CASCADE)
 
-    class Meta:
-        db_table = "Position"
+#    class Meta:
+#        db_table = "Position"
 
 
 class Configuration(models.Model):

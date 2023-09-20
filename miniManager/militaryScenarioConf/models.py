@@ -70,15 +70,15 @@ class Carrier(models.Model):
     scenario = models.ForeignKey("MilitaryScenario", on_delete=models.CASCADE, blank=True, null=True)
 
 class Platform(Carrier):
+    Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
+
+class Vehicle(Platform):
     ARMORED_CATEGORY = 'armored'
     CATEGORY_CHOICES = (
         (ARMORED_CATEGORY, 'Armored'),
     )
-    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default=ARMORED_CATEGORY)
-    Military_Organization = models.ForeignKey(MilitaryOrganization, on_delete=models.CASCADE)
-
-class Vehicle(Platform):
     name = models.CharField(max_length=30)
+    vehicle_specialization = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default=ARMORED_CATEGORY)
     VehiclePowerType = models.ForeignKey(VehiclePowerType, on_delete=models.CASCADE)
 
 
