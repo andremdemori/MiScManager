@@ -420,7 +420,7 @@ class PerformanceMeasurer(IMeasurer):
                 if station["name"] == source_Name:
                     matching_station = station
                     break
-            source_om_name = station["om_name"]
+            source_om_name = matching_station["om_name"]
 
             #source_om_name = ''
             matching_station = None
@@ -428,7 +428,7 @@ class PerformanceMeasurer(IMeasurer):
                 if station["name"] == destination_Name:
                     matching_station = station
                     break
-            destination_om_name = station["om_name"]
+            destination_om_name = matching_station["om_name"]
 
             value = self.__ping(source, destination)
 
@@ -455,7 +455,7 @@ class PerformanceMeasurer(IMeasurer):
                 if station["name"] == destination_Name:
                     matching_station = station
                     break
-            destination_om_name = station["om_name"]
+            destination_om_name = matching_station["om_name"]
 
             #source_om_name = ''
             matching_station = None
@@ -463,7 +463,7 @@ class PerformanceMeasurer(IMeasurer):
                 if station["name"] == source_Name:
                     matching_station = station
                     break
-            source_om_name = station["om_name"]
+            source_om_name = matching_station["om_name"]
 
             value = self.__ping(source, destination)
 
@@ -491,8 +491,10 @@ class PerformanceMeasurer(IMeasurer):
 
             source = source.split('-')
             source = source[0]
+            source_n = source
             destination = destination.split('-')
             destination = destination[0]  # ex: sta0
+            destination_n = destination
 
             id_intf_source = source_Name.split('wlan')
             id_intf_source = id_intf_source[1]
@@ -507,16 +509,23 @@ class PerformanceMeasurer(IMeasurer):
 
             matching_station = None
             for station in stations:
-                if station["name"] == destination_Name:
+                if station["name"] == destination_n:
                     matching_station = station
                     break
-            destination_om_name = station["om_name"]
+            destination_om_name = matching_station["om_name"] #get destination om name
+
+            matching_station = None
+            for station in stations:
+                if station["name"] == source_n:
+                    matching_station = station
+                    break
+            source_om_name = matching_station["om_name"] #get source om name
 
             value = self.__pingMayTalkTo(source, destination,int(id_intf_source),int(id_intf_dest))
 
             saida = str(value)
-            if '0 recebidos' in saida:
-                value = value + list('Falha no encaminhamento')
+            if '100% perda' in saida:
+                value = value + list('Falha total')
 
         #if name == "ping":
             #value = self.__ping(source, destination)

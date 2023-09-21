@@ -515,10 +515,10 @@ class UploadScenarioView(TemplateView):
                         # Perform your desired action using the key and value
 
                         # Check if a record already exists with key in talker_1 and v in talker_2
-                        existing_record_1 = MayTalkTo.objects.filter(talker_1=key, talker_2=v).exists()
+                        existing_record_1 = MayTalkTo.objects.filter(talker_1=key, talker_2=v, scenario=scenario).exists()
 
                         # Check if a record already exists with v in talker_1 and key in talker_2
-                        existing_record_2 = MayTalkTo.objects.filter(talker_1=v, talker_2=key).exists()
+                        existing_record_2 = MayTalkTo.objects.filter(talker_1=v, talker_2=key, scenario=scenario).exists()
 
                         if existing_record_1 or existing_record_2:
                             print("Record already exists, skipping creation.")
