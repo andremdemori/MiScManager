@@ -1917,6 +1917,16 @@
         <NamedIndividual IRI="#sta1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsTo"/>
+        <NamedIndividual IRI="#guarani1"/>
+        <NamedIndividual IRI="#5Platoon"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#carries"/>
+        <NamedIndividual IRI="#guarani1"/>
+        <NamedIndividual IRI="#sta5"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#militaryScenarioHasInstitutionalElement"/>
         <NamedIndividual IRI="#scenario1"/>
         <NamedIndividual IRI="#12Battalion"/>
