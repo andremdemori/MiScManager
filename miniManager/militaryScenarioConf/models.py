@@ -35,7 +35,7 @@ class MilitaryOrganizationPowerType(models.Model):
 # MILITARYORGANIZATION
 class MilitaryOrganization(models.Model):
     Id = models.AutoField(primary_key=True, unique=True)
-    type = models.ForeignKey("MilitaryOrganizationPowerType", on_delete=models.CASCADE, blank=True, null=True)
+    MOPowerType = models.ForeignKey(MilitaryOrganizationPowerType, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=30)
     commander = models.ForeignKey("MilitaryOrganization", on_delete=models.CASCADE, blank=True, null=True)
     scenario = models.ForeignKey(MilitaryScenario, on_delete=models.CASCADE, blank=True, null=True)
@@ -43,7 +43,7 @@ class MilitaryOrganization(models.Model):
     class Meta:
         db_table = "MilitaryOrganization"
         verbose_name = 'MilitaryOrganization'
-        verbose_name_plural = 'MilitaryOrganization'
+        verbose_name_plural = 'MilitaryOrganizations'
 
         def __str__(self):
             return self.Id

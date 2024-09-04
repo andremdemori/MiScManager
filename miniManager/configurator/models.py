@@ -119,7 +119,7 @@ class Node(models.Model):
     def serialize(self):
         specializationArgs = self.getTypeWithAttributes()
         interface = self.getInterface()
-        subkind = self.militaryperson.Military_Organization.type.name if self.militaryperson else ""
+        subkind = self.militaryperson.Military_Organization.MOPowerType.name if self.militaryperson else ""
         return {
             "name": self.name,
             "mac": self.mac,

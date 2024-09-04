@@ -90,7 +90,7 @@ class HomeScenarioView(TemplateView):
 
                     moId = MilitaryOrganization.objects.latest('Id').Id
                     moId = moId + 1
-                    MilitaryOrganization.objects.create(Id=moId,type=type,name=name,commander=commander,scenario=scenario)
+                    MilitaryOrganization.objects.create(Id=moId,MOPowerType=type,name=name,commander=commander,scenario=scenario)
 
 
             ###CRIA MILITARY PERSONS
@@ -449,7 +449,7 @@ class UploadScenarioView(TemplateView):
                     else:
                         commander = MilitaryOrganization.objects.get(name=commander_name,scenario=scenario)
                         om_id = MilitaryOrganization.objects.latest('Id').Id + 1
-                        MilitaryOrganization.objects.create(Id=om_id,type=om_type,name=om_name,commander=commander,scenario=scenario)
+                        MilitaryOrganization.objects.create(Id=om_id,MOPowerType=om_type,name=om_name,commander=commander,scenario=scenario)
 
             if 'Vehicle' in [classe.name for classe in ref_onto.classes()]:
                 for key, value in vehicle_dictionary.items():
@@ -567,6 +567,11 @@ class UploadScenarioView(TemplateView):
             stop = False
             node = ''
             node_name = ''
+
+            ###CRIA PerformanceMeasurement ###
+            measure = PerformanceMeasure.objects.get(name='ping')
+            PerformanceMeasurement.objects.create(period=1, measure=measure, config=configuration, source='None',destination='None', random_choice=5)
+
             for key, value in MP_dictionary.items():
                 identifier = key
                 for prop, prop_value in value.items():
@@ -591,9 +596,6 @@ class UploadScenarioView(TemplateView):
                         node_ = Node.objects.get(name=node_name,network=network)
                         Station.objects.create(node=node_,check_position=2,x_min=0,x_max=0,y_min=0,y_max=0)
 
-                        ###CRIA PerformanceMeasurement ###
-                        measure = PerformanceMeasure.objects.get(name='ping')
-                        PerformanceMeasurement.objects.create(period=1,measure=measure,config=configuration,source='None',destination='None',random_choice=5)
 
                         ###CRIA INTERFACES###
                         node_interface0 = CommDevices_dictionary[node_name]['hasInterface'][0]
